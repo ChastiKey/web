@@ -63,13 +63,14 @@ import { auth } from '@/api/auth'
 import { setSessionHeaders } from '../utils/session'
 
 @Component({})
-export default class Login extends Vue {
+export default class LoginView extends Vue {
   private helpState = false
   private sessionInput = ''
   private errorToast = false
   private isLoading = false
 
   private mounted() {
+    console.log('testing!!', this.$route.name)
     if (this.$route.params.session !== undefined) {
       // Populate session from URI
       this.sessionInput = this.$route.params.session

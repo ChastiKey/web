@@ -28,6 +28,39 @@
           <v-icon>mdi-apps</v-icon>
         </v-btn>
       </router-link>
+      <v-dialog
+        v-model="logoutConfirmationModal"
+        max-width="305"
+        v-if="appSession.isAuthenticated && appSession.isLoaded"
+      >
+        <template v-slot:activator="{ on }">
+          <v-btn class="mx-4" v-on="on" icon>
+            <v-icon size="24px">mdi-logout-variant </v-icon>
+          </v-btn>
+        </template>
+        <v-card>
+          <v-card-title class="headline">Logout Confirmation?</v-card-title>
+          <v-card-text>
+            <v-row style="text-align: center;">
+              <v-col cols="6">
+                <v-btn class="white--text" block color="error" @click="logout">
+                  Yes
+                </v-btn>
+              </v-col>
+              <v-col cols="6">
+                <v-btn
+                  class="white--text"
+                  color="success"
+                  block
+                  @click="logoutConfirmationModal = false"
+                >
+                  No
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
       <!-- <v-btn icon>
         <v-icon>mdi-bell</v-icon>
       </v-btn> -->
@@ -132,11 +165,11 @@ export default class App extends Vue {
   @Prop({ default: () => $DefaultSession })
   private appSession!: typeof $DefaultSession
   private discordSelectionModal = false
+  private logoutConfirmationModal = false
 
   private async mounted() {
     const cachedSession = getSessionHeaders()
     // If session creds are cached
-    console.log('isCachedSession', cachedSession.isCached)
     if (cachedSession.isCached) {
       console.log('doing auth stuffs...')
       const res = await auth()
@@ -161,6 +194,13 @@ export default class App extends Vue {
     this.appSession.cached = cachedSession
     this.appSession.isAuthenticated = true
     this.appSession.isLoaded = true
+  }
+
+  private logout() {
+    this.logoutConfirmationModal = false
+    this.appSession.isAuthenticated = false
+    this.appSession.cached = new KieraCachedSession({})
+    this.$router.push({ name: 'logout', path: '/logout' })
   }
 }
 </script>

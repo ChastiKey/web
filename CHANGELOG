@@ -2,6 +2,7 @@
 - Fixed: Invalid sessions sometimes resulted in a blank page
 - Fixed: Login redirects
 - Fixed: Header not showing when logged out
+- Added: Logout page & methods/confirmations
 
 0.1.1
 - Typo & Case fixes

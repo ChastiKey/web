@@ -1,9 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
+// Views
 import HomeView from '../views/Home.vue'
 import LockeeView from '../views/Lockee.vue'
 import KeyholderView from '../views/Keyholder.vue'
-import Login from '../views/Login.vue'
+import LoginView from '../views/Login.vue'
+import LogoutView from '../views/Logout.vue'
+
+// Utils
 import { getSessionHeaders } from '@/utils/session'
 
 Vue.use(VueRouter)
@@ -36,7 +41,7 @@ const routes = [
   {
     path: '/login/:session?',
     name: 'login',
-    component: Login,
+    component: LoginView,
     meta: {
       guest: true
     }
@@ -44,7 +49,7 @@ const routes = [
   {
     path: '/logout',
     name: 'logout',
-    component: Login,
+    component: LogoutView,
     meta: {
       guest: true
     }
