@@ -1,6 +1,16 @@
 <template>
   <v-row>
     <v-col cols="12">
+      <v-toolbar dense>
+        <v-toolbar-title>As Keyholder</v-toolbar-title>
+
+        <v-spacer></v-spacer>
+
+        <v-btn icon :loading="isLoading" @click="refreshLocksFromKiera">
+          <v-icon>mdi-refresh</v-icon>
+        </v-btn>
+      </v-toolbar>
+
       <v-container style="height: 400px;" v-if="isLoading">
         <v-row class="fill-height" align-content="center" justify="center">
           <v-col class="subtitle-1 text-center" cols="12">
@@ -68,6 +78,10 @@ export default class KeyholderView extends Vue {
   private isLoading = false
 
   private async mounted() {
+    this.refreshLocksFromKiera()
+  }
+
+  private async refreshLocksFromKiera() {
     this.isLoading = true
     const res = await fetchRunningLocks()
 
@@ -77,7 +91,6 @@ export default class KeyholderView extends Vue {
       )
 
     this.isLoading = false
-    console.log(this.data.locks)
   }
 }
 </script>
