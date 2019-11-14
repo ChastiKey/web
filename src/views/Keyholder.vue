@@ -20,6 +20,22 @@
       <v-expansion-panels v-if="!isLoading">
         <KHListLock v-for="lock in data.locks" :key="lock.name" :lock="lock" />
       </v-expansion-panels>
+
+      <v-row
+        align="center"
+        justify="center"
+        style="height: 300px;"
+        v-if="!isLoading && data.locks.length === 0"
+      >
+        <span class="headline"><u>0</u> Active locks/lockees to show!</span>
+      </v-row>
+      <v-row
+        align="center"
+        justify="center"
+        v-if="!isLoading && data.locks.length === 0"
+      >
+        <router-link to="/">Return to home</router-link>
+      </v-row>
     </v-col>
   </v-row>
 </template>

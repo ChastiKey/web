@@ -3,6 +3,7 @@
 - Fixed: Login redirects
 - Fixed: Header not showing when logged out
 - Added: Logout page & methods/confirmations
+- Added: Message for Keyholder page when no active locks/lockees
 
 0.1.1
 - Typo & Case fixes
