@@ -1,7 +1,7 @@
 <template>
-  <v-app>
+  <v-app v-if="appSession.isLoaded">
+    <!-- Header -->
     <v-app-bar
-      v-if="appSession.isLoaded"
       :clipped-left="$vuetify.breakpoint.lgAndUp"
       app
       color="blue darken-2"
@@ -10,14 +10,6 @@
       <span style="font-size: 20px;"
         >Kiera <span style="color: black;">+</span> ChastiKey</span
       >
-      <v-spacer />
-      <!-- <v-text-field
-        flat
-        solo-inverted
-        hide-details
-        prepend-inner-icon="mdi-magnify"
-        label="Search"
-      /> -->
       <v-spacer />
       <router-link
         v-if="appSession.isAuthenticated && appSession.isLoaded"
@@ -65,6 +57,8 @@
         <v-icon>mdi-bell</v-icon>
       </v-btn> -->
     </v-app-bar>
+
+    <!-- Main Content -->
     <v-content>
       <v-container
         :class="$route.name === 'login' ? 'fill-height' : ''"
@@ -74,6 +68,7 @@
       </v-container>
     </v-content>
 
+    <!-- Footer -->
     <v-card height="400px">
       <v-footer padless>
         <v-card flat tile width="100%" class="text-center">

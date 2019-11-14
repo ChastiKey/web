@@ -2,6 +2,7 @@
 - Fixed: Invalid sessions sometimes resulted in a blank page
 - Fixed: Login redirects
 - Fixed: Header not showing when logged out
+- Fixed: Page Elements now all load at the same time properly when done loading
 - Added: Logout page & methods/confirmations
 - Added: Message for Keyholder page when no active locks/lockees
 
