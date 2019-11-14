@@ -2,16 +2,16 @@ export class KeyholderLock {
   public avgLockedTime!: number
   public count!: number
   public name!: string
-  public running!: Array<KeyholderLockFull>
+  public running!: Array<RunningLockCached>
   public uniqueCount!: number
 
   constructor(init: Partial<KeyholderLock>) {
     Object.assign(this, init || {})
-    this.running.map(l => new KeyholderLockFull(l))
+    this.running.map(l => new RunningLockCached(l))
   }
 }
 
-export class KeyholderLockFull {
+export class RunningLockCached {
   // Kiera props
   public readonly _id!: string
   // ChastiKey Props
@@ -50,7 +50,7 @@ export class KeyholderLockFull {
   public noOfTurns!: number
   public lockFrozenByCard!: number
   public lockFrozenByKeyholder!: number
-  public discardPile!: string
+  public discardPile!: string | Array<string>
   public lockedBy!: string
   public displayInStats!: number
   public sharedLockName!: string
@@ -62,7 +62,13 @@ export class KeyholderLockFull {
   public resetCards!: number
   public yellowCards!: number
 
-  constructor(init: Partial<KeyholderLockFull>) {
+  constructor(init: Partial<RunningLockCached>) {
     Object.assign(this, init || {})
+    // Parse Discard Pile
+    if (this.discardPile) {
+      this.discardPile = String(this.discardPile)
+        .split(',')
+        .filter(c => !!c)
+    }
   }
 }

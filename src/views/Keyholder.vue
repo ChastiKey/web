@@ -1,6 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12">
+      <!-- Toolbar -->
       <v-toolbar dense>
         <v-toolbar-title>As Keyholder</v-toolbar-title>
 
@@ -11,6 +12,7 @@
         </v-btn>
       </v-toolbar>
 
+      <!-- Loading Panel -->
       <v-container style="height: 400px;" v-if="isLoading">
         <v-row class="fill-height" align-content="center" justify="center">
           <v-col class="subtitle-1 text-center" cols="12">
@@ -27,10 +29,12 @@
         </v-row>
       </v-container>
 
+      <!-- Locks List -->
       <v-expansion-panels v-if="!isLoading">
         <KHListLock v-for="lock in data.locks" :key="lock.name" :lock="lock" />
       </v-expansion-panels>
 
+      <!-- No Locks to display message -->
       <v-row
         align="center"
         justify="center"
@@ -74,7 +78,6 @@ import { KeyholderLock } from '@/objects/lock'
 export default class KeyholderView extends Vue {
   @Prop({ default: () => $KeyholderView })
   private data!: typeof $KeyholderView
-
   private isLoading = false
 
   private async mounted() {

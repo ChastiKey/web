@@ -6,6 +6,7 @@
 - Added: Logout page & methods/confirmations
 - Added: Message for Keyholder page when no active locks/lockees
 - Added: Toolbar (for future stuffs) and a refresh button to reload locks from Kiera
+- Added: Lockee View with first basic lock layout
 
 0.1.1
 - Typo & Case fixes

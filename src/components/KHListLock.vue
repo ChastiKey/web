@@ -92,7 +92,7 @@
             />
             <v-img
               v-if="item.lockFrozenByCard"
-              src="@/assets/chastikey/FreezeCard.png"
+              src="@/assets/chastikey/Freeze.png"
               width="28px"
               class="lockProps"
             />
@@ -112,7 +112,7 @@ import { Component, Prop } from 'vue-property-decorator'
 import { auth } from '@/api/auth'
 
 // Objects
-import { KeyholderLockFull } from '@/objects/lock'
+import { RunningLockCached } from '@/objects/lock'
 import { VStepperHeader } from 'vuetify/lib'
 
 // Utils
@@ -120,9 +120,8 @@ import { calculateHumanTimeDDHHMM } from '@/utils/time'
 
 @Component({})
 export default class KHListLock extends Vue {
-  @Prop({ default: new KeyholderLockFull({}) })
-  private lock!: typeof KeyholderLockFull
-
+  @Prop({ default: new RunningLockCached({}) })
+  private lock!: typeof RunningLockCached
   private calcHRT = calculateHumanTimeDDHHMM
 
   private tableHeadersVariable = [
