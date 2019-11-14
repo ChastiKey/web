@@ -1,10 +1,10 @@
 <template>
   <v-app>
     <v-app-bar
-      v-if="appSession.isAuthenticated && appSession.isLoaded"
+      v-if="appSession.isLoaded"
       :clipped-left="$vuetify.breakpoint.lgAndUp"
       app
-      color="blue darken-3"
+      color="blue darken-2"
       dark
     >
       <span style="font-size: 20px;"
@@ -19,7 +19,11 @@
         label="Search"
       /> -->
       <v-spacer />
-      <router-link to="/" style="text-decoration: none;">
+      <router-link
+        v-if="appSession.isAuthenticated && appSession.isLoaded"
+        to="/"
+        style="text-decoration: none;"
+      >
         <v-btn icon>
           <v-icon>mdi-apps</v-icon>
         </v-btn>
@@ -117,7 +121,11 @@ import { $DefaultSession } from '@/defaults/session'
 import { KieraCachedSession } from './objects/session'
 
 // Utils
-import { getSessionHeaders, setSessionHeaders } from './utils/session'
+import {
+  getSessionHeaders,
+  setSessionHeaders,
+  delSession
+} from './utils/session'
 
 @Component({})
 export default class App extends Vue {
@@ -132,10 +140,20 @@ export default class App extends Vue {
     if (cachedSession.isCached) {
       console.log('doing auth stuffs...')
       const res = await auth()
+      console.log('res', res)
       // On: Successful Auth
       if (res) this.onAuthenticated(cachedSession)
-      else this.appSession.isLoaded = true
-    } else this.appSession.isLoaded = true
+      else {
+        // Destroy stored session as its clearly invalid
+        delSession()
+
+        // Redirect to Login page (if this isn't where the user is)
+        if (this.$route.name !== 'login')
+          this.$router.push({ name: 'login', path: '/login' })
+      }
+    }
+
+    this.appSession.isLoaded = true
   }
 
   private onAuthenticated(cachedSession: KieraCachedSession) {

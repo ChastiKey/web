@@ -1,5 +1,10 @@
 import { KieraCachedSession } from '@/objects/session'
 
+/**
+ * Fetch Session from LocalStorage cache
+ * @export
+ * @returns
+ */
 export function getSessionHeaders() {
   const fromStorage = localStorage.getItem('kiera-session')
 
@@ -11,6 +16,12 @@ export function getSessionHeaders() {
   return new KieraCachedSession(JSON.parse(fromStorage))
 }
 
+/**
+ * Set Session in LocalStorage cache
+ * @export
+ * @param {string} username
+ * @param {string} session
+ */
 export function setSessionHeaders(username: string, session: string) {
   localStorage.setItem(
     'kiera-session',
@@ -19,4 +30,8 @@ export function setSessionHeaders(username: string, session: string) {
       session
     })
   )
+}
+
+export function delSession() {
+  localStorage.removeItem('kiera-session')
 }
