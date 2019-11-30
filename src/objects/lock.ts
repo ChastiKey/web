@@ -11,6 +11,12 @@ export class KeyholderLock {
   }
 }
 
+export class PastLock {
+  constructor(init: Partial<PastLock>) {
+    Object.assign(this, init || {})
+  }
+}
+
 export class RunningLockCached {
   // Kiera props
   public readonly _id!: string
@@ -62,7 +68,7 @@ export class RunningLockCached {
   public resetCards!: number
   public yellowCards!: number
 
-  constructor(init: Partial<RunningLockCached>) {
+  constructor(init?: Partial<RunningLockCached>) {
     Object.assign(this, init || {})
     // Parse Discard Pile
     if (this.discardPile) {

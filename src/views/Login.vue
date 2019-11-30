@@ -4,10 +4,7 @@
       <v-card class="elevation-12" :loading="isLoading">
         <v-toolbar dark flat>
           <v-toolbar-title
-            >Login for
-            <u
-              >Kiera <span style="color: black;">+</span> ChastiKey</u
-            ></v-toolbar-title
+            >Login for <u>Kiera <span style="color: black;">+</span> ChastiKey</u></v-toolbar-title
           >
           <v-spacer />
 
@@ -18,8 +15,7 @@
         <!-- Help -->
         <v-card-text v-if="helpState">
           <span
-            >If you're unsure about this login try typing
-            <code>!ck ext session</code> On a Kiera enabled server.</span
+            >If you're unsure about this login try typing <code>!ck ext session</code> On a Kiera enabled server.</span
           >
         </v-card-text>
         <!-- Login form -->
@@ -36,9 +32,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="primary" @click="authTest" :loading="isLoading"
-            >Login</v-btn
-          >
+          <v-btn color="primary" @click="authTest" :loading="isLoading">Login</v-btn>
         </v-card-actions>
       </v-card>
 

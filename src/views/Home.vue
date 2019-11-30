@@ -1,12 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-row
-        align="center"
-        justify="center"
-        class="grey lighten-5"
-        style="height: 300px;"
-      >
+      <v-row align="center" justify="center" class="grey lighten-5" style="height: 300px;">
         <router-link to="/lockee" style="text-decoration: none;">
           <v-card
             style="padding: 25px 15px; width: 125px; height: 125px; margin: 10px; text-align: center"

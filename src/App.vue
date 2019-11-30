@@ -1,21 +1,10 @@
 <template>
   <v-app v-if="appSession.isLoaded">
     <!-- Header -->
-    <v-app-bar
-      :clipped-left="$vuetify.breakpoint.lgAndUp"
-      app
-      color="blue darken-2"
-      dark
-    >
-      <span style="font-size: 20px;"
-        >Kiera <span style="color: black;">+</span> ChastiKey</span
-      >
+    <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="blue darken-2" dark>
+      <span style="font-size: 20px;">Kiera <span style="color: black;">+</span> ChastiKey</span>
       <v-spacer />
-      <router-link
-        v-if="appSession.isAuthenticated && appSession.isLoaded"
-        to="/"
-        style="text-decoration: none;"
-      >
+      <router-link v-if="appSession.isAuthenticated && appSession.isLoaded" to="/" style="text-decoration: none;">
         <v-btn icon>
           <v-icon>mdi-apps</v-icon>
         </v-btn>
@@ -40,12 +29,7 @@
                 </v-btn>
               </v-col>
               <v-col cols="6">
-                <v-btn
-                  class="white--text"
-                  color="success"
-                  block
-                  @click="logoutConfirmationModal = false"
-                >
+                <v-btn class="white--text" color="success" block @click="logoutConfirmationModal = false">
                   No
                 </v-btn>
               </v-col>
@@ -73,11 +57,7 @@
       <v-footer padless>
         <v-card flat tile width="100%" class="text-center">
           <v-card-text>
-            <a
-              href="https://github.com/rileyio/chastikey-web"
-              target="_blank"
-              style="text-decoration: none;"
-            >
+            <a href="https://github.com/ChastiKey/web" target="_blank" style="text-decoration: none;">
               <v-btn class="mx-4" icon>
                 <v-icon size="24px">mdi-github-circle</v-icon>
               </v-btn>
@@ -94,22 +74,14 @@
                 <v-card-text>
                   <v-row style="text-align: center;">
                     <v-col cols="6">
-                      <a
-                        href="https://discordapp.com/invite/tuyk2k3"
-                        target="_blank"
-                        style="text-decoration: none;"
-                      >
+                      <a href="https://discordapp.com/invite/tuyk2k3" target="_blank" style="text-decoration: none;">
                         <v-btn class="white--text" color="purple">
                           Kiera
                         </v-btn>
                       </a></v-col
                     >
                     <v-col cols="6">
-                      <a
-                        href="https://discordapp.com/invite/7CNpSJe"
-                        target="_blank"
-                        style="text-decoration: none;"
-                      >
+                      <a href="https://discordapp.com/invite/7CNpSJe" target="_blank" style="text-decoration: none;">
                         <v-btn class="white--text" color="teal">
                           ChastiKey
                         </v-btn>
@@ -127,7 +99,12 @@
             (Kiera) <strong>RileyIO</strong> | (ChastiKey)
             <strong>KevinCross</strong>
             <br />
-            {{ new Date().getFullYear() }}
+            <small
+              ><span style="border-radius: 2px; background-color: rgb(240, 240, 240); padding: 2px 5px;"
+                >v{{ appVersion }}</span
+              >
+              - {{ new Date().getFullYear() }}</small
+            >
           </v-card-text>
         </v-card>
       </v-footer>
@@ -138,6 +115,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
+const { version } = require('../package.json')
 
 // API
 import { auth } from '@/api/auth'
@@ -149,16 +127,14 @@ import { $DefaultSession } from '@/defaults/session'
 import { KieraCachedSession } from './objects/session'
 
 // Utils
-import {
-  getSessionHeaders,
-  setSessionHeaders,
-  delSession
-} from './utils/session'
+import { getSessionHeaders, setSessionHeaders, delSession } from './utils/session'
 
 @Component({})
 export default class App extends Vue {
   @Prop({ default: () => $DefaultSession })
   private appSession!: typeof $DefaultSession
+  @Prop({ default: version })
+  private appVersion!: string
   private discordSelectionModal = false
   private logoutConfirmationModal = false
 
@@ -176,8 +152,7 @@ export default class App extends Vue {
         delSession()
 
         // Redirect to Login page (if this isn't where the user is)
-        if (this.$route.name !== 'login')
-          this.$router.push({ name: 'login', path: '/login' })
+        if (this.$route.name !== 'login') this.$router.push({ name: 'login', path: '/login' })
       }
     }
 

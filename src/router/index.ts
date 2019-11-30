@@ -76,10 +76,7 @@ router.beforeEach((to, from, next) => {
     next('/login')
   }
   if (requiresAuth && cachedSession.isCached) {
-    console.log(
-      'router before => Auth required, Session stored, Proceed!',
-      to.path
-    )
+    console.log('router before => Auth required, Session stored, Proceed!', to.path)
     // Auth required + Session is set
     next()
   }

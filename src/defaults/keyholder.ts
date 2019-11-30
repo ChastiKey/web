@@ -1,3 +1,5 @@
+import { RunningLockCached } from '@/objects/lock'
+
 export const $KeyholderView = {
-  locks: []
+  locks: [] as Array<RunningLockCached>
 }

@@ -1,3 +1,11 @@
+0.3.0
+- Fixed: Footer GitHub link
+- Fixed: Fixed locks should not show a discarded pile
+- Added: Table for current & past locks to lockee view
+- Added: Sparkline for longest locks now that data is being pulled
+- Added: Error message for lockee view if they could not be found
+- Updated: Stats blocks layout & style
+
 0.2.0
 - Fixed: Invalid sessions sometimes resulted in a blank page
 - Fixed: Login redirects
