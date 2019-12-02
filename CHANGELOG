@@ -1,3 +1,11 @@
+0.4.0
+- Added: Public Lock Statistics view
+- Added: Public Section to Home view
+- Added: New Keyholder view w/stats
+- Updated: Home view & Public views should no longer require authentication & redirect
+- Updated: Stats blocks look & feel
+- Removed: Keyholder Lock View (Replaced)
+
 0.3.0
 - Fixed: Footer GitHub link
 - Fixed: Fixed locks should not show a discarded pile

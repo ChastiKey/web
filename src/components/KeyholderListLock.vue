@@ -96,7 +96,7 @@ import { VStepperHeader } from 'vuetify/lib'
 import { calculateHumanTimeDDHHMM } from '@/utils/time'
 
 @Component({})
-export default class KHListLock extends Vue {
+export default class KeyholderListLock extends Vue {
   @Prop({ default: new RunningLockCached({}) })
   private lock!: typeof RunningLockCached
   private calcHRT = calculateHumanTimeDDHHMM

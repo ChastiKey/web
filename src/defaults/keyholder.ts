@@ -1,5 +1,8 @@
-import { RunningLockCached } from '@/objects/lock'
+import { KeyholderLock, RunningLockCached } from '@/objects/lock'
+import { ChastiKeyKeyholder } from '@/objects/keyholder'
 
 export const $KeyholderView = {
-  locks: [] as Array<RunningLockCached>
+  keyholder: new ChastiKeyKeyholder({}),
+  locks: [] as Array<KeyholderLock>,
+  runningLocks: [] as Array<RunningLockCached>
 }

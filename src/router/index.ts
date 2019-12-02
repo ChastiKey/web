@@ -7,6 +7,7 @@ import LockeeView from '../views/Lockee.vue'
 import KeyholderView from '../views/Keyholder.vue'
 import LoginView from '../views/Login.vue'
 import LogoutView from '../views/Logout.vue'
+import StatsLocksView from '../views/StatsLocks.vue'
 
 // Utils
 import { getSessionHeaders } from '@/utils/session'
@@ -19,7 +20,7 @@ const routes = [
     name: 'home',
     component: HomeView,
     meta: {
-      requiresAuth: true
+      guest: true
     }
   },
   {
@@ -50,6 +51,14 @@ const routes = [
     path: '/logout',
     name: 'logout',
     component: LogoutView,
+    meta: {
+      guest: true
+    }
+  },
+  {
+    path: '/stats/locks',
+    name: 'stats-locks',
+    component: StatsLocksView,
     meta: {
       guest: true
     }

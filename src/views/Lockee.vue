@@ -17,18 +17,12 @@
         <v-row justify="center">
           <v-col cols="12" sm="12" md="3" lg="3">
             <!-- Stats -->
-            <v-card style="padding-top: 10px;" elevation="1">
+            <v-card>
               <v-overlay :absolute="true" :value="isLoadingKiera"
                 ><v-progress-circular indeterminate size="64" width="2" color="teal"></v-progress-circular
               ></v-overlay>
 
-              <v-sheet
-                class="v-sheet--offset mx-auto title text-center"
-                color="cyan"
-                elevation="6"
-                max-width="calc(100% - 26px)"
-                dark
-              >
+              <v-sheet class="v-sheet--offset title text-center stats-title" color="teal" elevation="6" dark>
                 Last Active in App
               </v-sheet>
 
@@ -47,18 +41,12 @@
             </v-card>
           </v-col>
           <v-col cols="12" sm="12" md="6" lg="6">
-            <v-card style="padding-top: 10px;" elevation="4">
+            <v-card elevation="4">
               <v-overlay :absolute="true" :value="isLoadingKiera"
                 ><v-progress-circular indeterminate size="64" width="2" color="teal"></v-progress-circular
               ></v-overlay>
 
-              <v-sheet
-                class="v-sheet--offset mx-auto title text-center"
-                color="cyan"
-                elevation="10"
-                max-width="calc(100% - 26px)"
-                dark
-              >
+              <v-sheet class="v-sheet--offset title text-center stats-title" color="teal" elevation="6" dark>
                 Longest Lock Completed
               </v-sheet>
 
@@ -89,18 +77,12 @@
             </v-card>
           </v-col>
           <v-col cols="12" sm="12" md="3" lg="3">
-            <v-card style="padding-top: 10px;" elevation="1">
+            <v-card>
               <v-overlay :absolute="true" :value="isLoadingKiera"
                 ><v-progress-circular indeterminate size="64" width="2" color="teal"></v-progress-circular
               ></v-overlay>
 
-              <v-sheet
-                class="v-sheet--offset mx-auto title text-center"
-                color="cyan"
-                elevation="6"
-                max-width="calc(100% - 26px)"
-                dark
-              >
+              <v-sheet class="v-sheet--offset title text-center stats-title" color="teal" elevation="6" dark>
                 Locks Completed
               </v-sheet>
 
@@ -239,7 +221,7 @@ import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
 
 // API
-import { fetchRunningLocks, fetchRunningLocksLive } from '@/api/lockee'
+import { LockeeAPI } from '@/api/lockee'
 
 // Components
 import LockeeViewRunningLock from '@/components/LockeeViewRunningLock.vue'
@@ -286,7 +268,7 @@ export default class LockeeView extends Vue {
 
   private async refreshLocksFromKiera() {
     this.isLoadingKiera = true
-    const res = await fetchRunningLocks()
+    const res = await LockeeAPI.fetchRunningLocks()
 
     console.log('res', res)
     if (res) {
@@ -303,7 +285,7 @@ export default class LockeeView extends Vue {
 
   private async refreshLocksFromCK() {
     this.isLoadingCK = true
-    const pLocks = await fetchRunningLocksLive(this.data.user.username)
+    const pLocks = await LockeeAPI.fetchRunningLocksLive(this.data.user.username)
     // Apply:
     //   - Sort newest unlock first
     this.data.pastLocks = pLocks.sort((a, b) => {
@@ -321,7 +303,11 @@ export default class LockeeView extends Vue {
 }
 </script>
 
-<style>
+<style lang="less" scoped>
+.stats-title {
+  font-weight: 300;
+  border-radius: 4px 4px 0 0;
+}
 .discardCard {
   display: inline-block;
   margin: 2px;

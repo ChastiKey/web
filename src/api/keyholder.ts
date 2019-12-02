@@ -1,12 +1,14 @@
 import Axios from 'axios'
-import { Kiera } from '@/api/endpoints'
+import { API } from '@/api/endpoints'
 import { getSessionHeaders } from '@/utils/session'
 
-export async function fetchRunningLocks() {
-  const resp = await Axios(Kiera.Keyholder, {
-    method: 'GET',
-    headers: getSessionHeaders()
-  })
+export namespace KeyholderAPI {
+  export async function fetchRunningLocks() {
+    const resp = await Axios(API.Kiera.Keyholder, {
+      method: 'GET',
+      headers: getSessionHeaders()
+    })
 
-  return resp.data
+    return resp.data
+  }
 }

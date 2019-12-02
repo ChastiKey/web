@@ -4,7 +4,7 @@
     <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="blue darken-2" dark>
       <span style="font-size: 20px;">Kiera <span style="color: black;">+</span> ChastiKey</span>
       <v-spacer />
-      <router-link v-if="appSession.isAuthenticated && appSession.isLoaded" to="/" style="text-decoration: none;">
+      <router-link v-if="appSession.isLoaded" to="/" style="text-decoration: none;">
         <v-btn icon>
           <v-icon>mdi-apps</v-icon>
         </v-btn>
@@ -45,10 +45,10 @@
     <!-- Main Content -->
     <v-content>
       <v-container
-        :class="$route.name === 'login' ? 'fill-height' : ''"
-        :fluid="$route.name === 'login' ? true : false"
+        :class="$route.name === 'login' || $route.name === 'home' ? 'fill-height' : ''"
+        :fluid="$route.name === 'login' || $route.name === 'home' ? true : false"
       >
-        <router-view @onAuthenticated="onAuthenticated"></router-view>
+        <router-view @onAuthenticated="onAuthenticated" :isAuthenticated="appSession.isAuthenticated"></router-view>
       </v-container>
     </v-content>
 
@@ -152,7 +152,9 @@ export default class App extends Vue {
         delSession()
 
         // Redirect to Login page (if this isn't where the user is)
-        if (this.$route.name !== 'login') this.$router.push({ name: 'login', path: '/login' })
+        if (this.$route.name !== 'login' && this.$route.meta.requiresAuth) {
+          this.$router.push({ name: 'login', path: '/login' })
+        }
       }
     }
 
