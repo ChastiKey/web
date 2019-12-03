@@ -2,23 +2,41 @@
   <v-app v-if="appSession.isLoaded">
     <!-- Header -->
     <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="blue darken-2" dark>
-      <span style="font-size: 20px;">Kiera <span style="color: black;">+</span> ChastiKey</span>
-      <v-spacer />
+      <!-- App Menu: Home -->
       <router-link v-if="appSession.isLoaded" to="/" style="text-decoration: none;">
         <v-btn icon>
           <v-icon>mdi-apps</v-icon>
         </v-btn>
       </router-link>
+      <!-- Logo -->
+      <span style="font-size: 20px;">Kiera <span style="color: black;">+</span> ChastiKey</span>
+      <v-spacer />
+      <!-- Content to the right -->
+      <!-- Account text -->
+      <div class="text-center">
+        <v-menu offset-y>
+          <template v-slot:activator="{ on }">
+            <v-btn text dark v-on="on">
+              <v-icon size="24px">mdi-account-circle-outline</v-icon>
+              <span class="ml-2">{{ appSession.cached.username }}</span>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item @click="logoutConfirmationModal = true">
+              <v-list-item-title>
+                <v-icon size="24px">mdi-logout-variant </v-icon> <span class="ml-2"> Logout </span>
+              </v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </div>
+
+      <!-- Logout dialog -->
       <v-dialog
         v-model="logoutConfirmationModal"
         max-width="305"
         v-if="appSession.isAuthenticated && appSession.isLoaded"
       >
-        <template v-slot:activator="{ on }">
-          <v-btn class="mx-4" v-on="on" icon>
-            <v-icon size="24px">mdi-logout-variant </v-icon>
-          </v-btn>
-        </template>
         <v-card>
           <v-card-title class="headline">Logout Confirmation?</v-card-title>
           <v-card-text>
@@ -37,6 +55,7 @@
           </v-card-text>
         </v-card>
       </v-dialog>
+
       <!-- <v-btn icon>
         <v-icon>mdi-bell</v-icon>
       </v-btn> -->

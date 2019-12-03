@@ -1,6 +1,6 @@
 {
   "name": "chastikey-web",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "author": "Emma <RileyIO>",
   "private": true,
   "scripts": {
@@ -28,8 +28,6 @@
     "@vue/cli-service": "^4.0.0",
     "@vue/eslint-config-prettier": "^5.0.0",
     "@vue/eslint-config-typescript": "^4.0.0",
-    "dotenv": "^8.2.0",
-    "dotenv-webpack": "^1.7.0",
     "eslint": "^5.16.0",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^5.0.0",

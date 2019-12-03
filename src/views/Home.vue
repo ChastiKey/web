@@ -20,6 +20,18 @@
                 <span style="padding: 10px; display: block;">Keyholder</span>
               </v-card>
             </router-link>
+
+            <router-link to="/decision/manager" style="text-decoration: none;">
+              <v-card
+                :class="['nome-nav-button', 'color-dark-lightblue', !isAuthenticated ? 'auth-req' : '']"
+                outlined
+                tile
+              >
+                <v-icon large color="gray darken-2">mdi-format-list-bulleted</v-icon>
+                <br />
+                <span style="padding: 10px; display: block;">Decisions</span>
+              </v-card>
+            </router-link>
           </v-card-text>
         </v-card>
       </v-row>
@@ -119,6 +131,18 @@ export default class HomeView extends Vue {
       -webkit-box-shadow: 0px 0px 15px -5px #009688;
       -moz-box-shadow: 0px 0px 15px -5px #009688;
       box-shadow: 0px 0px 15px -5px #009688;
+    }
+  }
+  &.color-dark-lightblue {
+    border-color: #0288d1 !important;
+    color: #0288d1;
+    .v-icon {
+      color: #0288d1;
+    }
+    &:hover {
+      -webkit-box-shadow: 0px 0px 15px -5px #0288d1;
+      -moz-box-shadow: 0px 0px 15px -5px #0288d1;
+      box-shadow: 0px 0px 15px -5px #0288d1;
     }
   }
 }

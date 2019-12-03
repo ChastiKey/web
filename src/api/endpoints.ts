@@ -1,9 +1,10 @@
 const Dev = {
   Kiera: {
-    Auth: 'https://dev.tdm.io:8234/api/ck/auth',
-    Keyholder: 'https://dev.tdm.io:8234/api/ck/keyholder',
-    Lockee: 'https://dev.tdm.io:8234/api/ck/lockee',
-    StatsLocks: 'https://dev.tdm.io:8234/api/ck/stats/locks'
+    Auth: 'https://dev.tdm.io:8234/api/web/auth',
+    Keyholder: 'https://dev.tdm.io:8234/api/web/keyholder',
+    Lockee: 'https://dev.tdm.io:8234/api/web/lockee',
+    StatsLocks: 'https://dev.tdm.io:8234/api/web/stats/locks',
+    DecisionManager: 'https://dev.tdm.io:8234/api/web/decisions'
   }
 }
 
@@ -35,7 +36,8 @@ const Prod = {
      * Request Type: `GET`
      */
     Lockee: 'https://kierabot.xyz/api/ck/lockee',
-    StatsLocks: 'https://kierabot.xyz/api/ck/stats/locks'
+    StatsLocks: 'https://kierabot.xyz/api/ck/stats/locks',
+    DecisionManager: 'https://kierabot.xyz/api/web/decisions'
   }
 }
 

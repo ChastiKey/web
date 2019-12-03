@@ -8,6 +8,7 @@ import KeyholderView from '../views/Keyholder.vue'
 import LoginView from '../views/Login.vue'
 import LogoutView from '../views/Logout.vue'
 import StatsLocksView from '../views/StatsLocks.vue'
+import DecisionManagerView from '../views/DecisionManager.vue'
 
 // Utils
 import { getSessionHeaders } from '@/utils/session'
@@ -61,6 +62,14 @@ const routes = [
     component: StatsLocksView,
     meta: {
       guest: true
+    }
+  },
+  {
+    path: '/decision/manager',
+    name: 'decision-manager',
+    component: DecisionManagerView,
+    meta: {
+      requiresAuth: true
     }
   }
 ]
