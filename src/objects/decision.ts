@@ -58,9 +58,17 @@ export class DecisionOption {
    * @type {('string' | 'image' | 'url')}
    * @memberof DecisionOption
    */
-  public type: 'string' | 'image' | 'url'
+  public type: 'string' | 'image' | 'url' = 'string'
+
+  // * Used on Kiera + CK web portal only * //
+  public _isChanged = false
+  public _originalText = ''
+  public _originalType = ''
 
   constructor(init?: Partial<DecisionOption>) {
     Object.assign(this, init || {})
+    // Assign _originalText
+    this._originalText = init.text
+    this._originalType = init.type || 'string'
   }
 }

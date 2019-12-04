@@ -1,10 +1,17 @@
 const Dev = {
   Kiera: {
-    Auth: 'https://dev.tdm.io:8234/api/web/auth',
-    Keyholder: 'https://dev.tdm.io:8234/api/web/keyholder',
-    Lockee: 'https://dev.tdm.io:8234/api/web/lockee',
-    StatsLocks: 'https://dev.tdm.io:8234/api/web/stats/locks',
-    DecisionManager: 'https://dev.tdm.io:8234/api/web/decisions'
+    Auth: 'https://dev.tdm.io:8234/api/ck/auth',
+    Keyholder: 'https://dev.tdm.io:8234/api/ck/keyholder',
+    Lockee: 'https://dev.tdm.io:8234/api/ck/lockee',
+    StatsLocks: 'https://dev.tdm.io:8234/api/ck/stats/locks',
+    DecisionManager: 'https://dev.tdm.io:8234/api/decisions',
+    DecisionManagerUpdateName: 'https://dev.tdm.io:8234/api/decision/name',
+    DecisionManagerUpdateEnabled: 'https://dev.tdm.io:8234/api/decision/enabled',
+    DecisionManagerNewOutcome: 'https://dev.tdm.io:8234/api/decision/outcome',
+    DecisionManagerDeleteOutcome: 'https://dev.tdm.io:8234/api/decision/outcome',
+    DecisionManagerUpdateOutcome: 'https://dev.tdm.io:8234/api/decision/outcome',
+    DecisionManagerNew: 'https://dev.tdm.io:8234/api/decision',
+    DecisionManagerDelete: 'https://dev.tdm.io:8234/api/decision'
   }
 }
 
@@ -37,7 +44,14 @@ const Prod = {
      */
     Lockee: 'https://kierabot.xyz/api/ck/lockee',
     StatsLocks: 'https://kierabot.xyz/api/ck/stats/locks',
-    DecisionManager: 'https://kierabot.xyz/api/web/decisions'
+    DecisionManager: 'https://kierabot.xyz/api/decisions',
+    DecisionManagerUpdateName: 'https://kierabot.xyz/api/decision/name',
+    DecisionManagerUpdateEnabled: 'https://kierabot.xyz/api/decision/enabled',
+    DecisionManagerNewOutcome: 'https://kierabot.xyz/api/decision/outcome',
+    DecisionManagerDeleteOutcome: 'https://kierabot.xyz/api/decision/outcome',
+    DecisionManagerUpdateOutcome: 'https://kierabot.xyz/api/decision/outcome',
+    DecisionManagerNew: 'https://kierabot.xyz/api/decision',
+    DecisionManagerDelete: 'https://kierabot.xyz/api/decision'
   }
 }
 
