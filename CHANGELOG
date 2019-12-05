@@ -1,3 +1,7 @@
+0.5.1
+- Fixed: Decision Delete Dialog/Lockup issue
+- Fixed: Reduce on empty array warning
+
 0.5.0
 - Added: Decision Manager
 - Updated: Endpoints

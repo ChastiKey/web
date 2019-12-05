@@ -53,7 +53,11 @@
 
               <v-card-text>
                 <div class="headline text-center">
-                  <span>{{ data.decisions.map(d => d.options.length).reduce((acc, cur) => acc + cur) }}</span>
+                  <span>{{
+                    data.decisions.length > 0
+                      ? data.decisions.map(d => d.options.length).reduce((acc, cur) => acc + cur)
+                      : 0
+                  }}</span>
                 </div>
                 <v-divider class="my-2"></v-divider>
                 <v-icon class="mr-2" small>

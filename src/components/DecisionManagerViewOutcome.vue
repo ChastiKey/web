@@ -1,9 +1,8 @@
 <template>
   <v-row dense no-gutters>
-    <v-col class="pt-2 text-right" cols="12" sm="12" md="12" lg="3">
-      <v-btn text color="error" :disabled="isLoading" small @click="data.decisionDeleteOutcomePrompt = true"
-        >Delete</v-btn
-      >
+    <v-col v-if="!data.deleteConfirm" class="pt-2 text-right" cols="12" sm="12" md="12" lg="3">
+      <!-- When delete is not triggered show the Delete, Save & Type buttons -->
+      <v-btn text color="error" :disabled="isLoading" small @click="data.deleteConfirm = true">Delete</v-btn>
       <v-btn
         text
         color="primary"
@@ -26,28 +25,27 @@
         </v-list>
       </v-menu>
     </v-col>
+    <!-- When delete is triggered show the confirm buttons -->
+    <v-col v-if="data.deleteConfirm" class="pt-2 text-right" cols="12" sm="12" md="12" lg="3">
+      <v-btn color="gray darken-1" small :disabled="isLoading" text @click="data.deleteConfirm = false">
+        Cancel
+      </v-btn>
+
+      <v-btn
+        color="green darken-1"
+        small
+        :disabled="isLoading"
+        :loading="isLoading"
+        text
+        @click="decisionDeleteOutcome"
+      >
+        Confirm delete
+      </v-btn>
+    </v-col>
+    <!-- Text field with Outcome text in it -->
     <v-col class="pl-2" cols="12" sm="12" md="12" lg="8">
       <v-text-field :disabled="isLoading" v-model="option.text" dense> </v-text-field>
     </v-col>
-
-    <!-- ==================== -->
-    <!-- Prompt: Delete Decision Outcome -->
-    <v-dialog v-model="data.decisionDeleteOutcomePrompt" max-width="320" persistent="">
-      <v-card>
-        <v-card-title class="headline">Are you sure?</v-card-title>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-
-          <v-btn color="gray darken-1" :disabled="isLoading" text @click="data.decisionDeleteOutcomePrompt = false">
-            No
-          </v-btn>
-
-          <v-btn color="green darken-1" :disabled="isLoading" :loading="isLoading" text @click="decisionDeleteOutcome">
-            Yes
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </v-row>
 </template>
 
@@ -58,9 +56,6 @@ import { Component, Prop } from 'vue-property-decorator'
 // API
 import { DecisionAPI } from '@/api/decision'
 
-// Defaults
-import { $DecisionManagerViewOutcome } from '@/defaults/decision'
-
 // Objects
 import { Decision, DecisionOption } from '@/objects/decision'
 
@@ -70,9 +65,12 @@ export default class DecisionManagerViewOutcome extends Vue {
   private decision!: Decision
   @Prop({ default: () => new DecisionOption() })
   private option!: DecisionOption
-  @Prop({ default: () => $DecisionManagerViewOutcome })
-  private data!: typeof $DecisionManagerViewOutcome
-
+  @Prop({
+    default: () => {
+      return { deleteConfirm: false }
+    }
+  })
+  private data!: { deleteConfirm: false }
   private isLoading = false
 
   private async decisionDeleteOutcome() {
@@ -81,7 +79,7 @@ export default class DecisionManagerViewOutcome extends Vue {
 
     if (res) {
       this.$emit('refreshFromKiera')
-      this.data.decisionDeleteOutcomePrompt = false
+      this.data.deleteConfirm = false
     }
 
     this.isLoading = false

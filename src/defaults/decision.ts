@@ -27,9 +27,3 @@ export const $DecisionManagerView = {
   decisionNewId: '',
   decisionNewInput: ''
 }
-
-export const $DecisionManagerViewOutcome = {
-  // Delete Outcome
-  decisionDeleteOutcomePrompt: false,
-  decisionDeleteOutcomeId: ''
-}
