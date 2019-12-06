@@ -150,6 +150,7 @@ export default class HomeView extends Vue {
 .auth-req {
   &.color-cyan,
   &.color-indigo,
+  &.color-dark-lightblue,
   &.color-dark-green {
     border-color: rgba(128, 128, 128, 0.65) !important;
     color: rgba(128, 128, 128, 0.65);
@@ -179,6 +180,7 @@ export default class HomeView extends Vue {
 .coming-soon {
   &.color-cyan,
   &.color-indigo,
+  &.color-dark-lightblue,
   &.color-dark-green {
     border-color: rgba(128, 128, 128, 0.65) !important;
     color: rgba(128, 128, 128, 0.65);
