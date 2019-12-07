@@ -9,6 +9,12 @@ yarn run build
 # navigate into the build output directory
 cd dist
 
+# create the CNAME file
+cat > CNAME << EOF
+kiera.chastikey.com
+EOF
+
+
 git init
 git add -A
 git commit -m 'deploy'
