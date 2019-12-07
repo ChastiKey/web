@@ -235,6 +235,7 @@
                 v-model="data.decisionRenameInput"
                 :disabled="data.decisionRenameIsLoading"
                 :placeholder="findDecision(data.decisionRenameId).name"
+                @keyup.enter="decisionUpdateName"
               ></v-text-field>
             </v-card-text>
 
@@ -263,7 +264,11 @@
             <v-card-title class="headline">New Outcome</v-card-title>
 
             <v-card-text>
-              <v-text-field v-model="data.decisionNewOutcomeInput" :disabled="data.decisionNewOutcomeIsLoading">
+              <v-text-field
+                v-model="data.decisionNewOutcomeInput"
+                :disabled="data.decisionNewOutcomeIsLoading"
+                @keyup.enter="decisionNewOutcome"
+              >
                 <template v-slot:prepend>
                   <v-menu transition="slide-y-transition" bottom>
                     <template v-slot:activator="{ on }">
@@ -321,6 +326,7 @@
                 persistent-hint
                 v-model="data.decisionNewInput"
                 :disabled="data.decisionNewIsLoading"
+                @keyup.enter="decisionNew"
               ></v-text-field>
             </v-card-text>
 

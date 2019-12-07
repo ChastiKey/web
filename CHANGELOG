@@ -1,3 +1,10 @@
+0.6.0
+- Fixed: After deleting an outcome the buttons will come back and be enabled momentarily
+- Fixed: [ #1 ] by @magrauer - Fix gray color of Decisions tile when not authenticated. Currently it is always showing dark blue.
+- Added: Enter key support on Decision inputs
+- Updated: Url to access portal will now be: https://kiera.chastikey.com
+- Updated: Account button to no longer always show logout menu - now will display login text and be a link when not authenticated
+
 0.5.1
 - Fixed: Decision outcome delete Dialog/Lockup issue
 - Fixed: Reduce on empty array warning

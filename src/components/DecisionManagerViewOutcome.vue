@@ -44,7 +44,8 @@
     </v-col>
     <!-- Text field with Outcome text in it -->
     <v-col class="pl-2" cols="12" sm="12" md="12" lg="8">
-      <v-text-field :disabled="isLoading" v-model="option.text" dense> </v-text-field>
+      <v-text-field :disabled="isLoading" v-model="option.text" @keyup.enter="decisionUpdateOutcome" dense>
+      </v-text-field>
     </v-col>
   </v-row>
 </template>
@@ -79,10 +80,10 @@ export default class DecisionManagerViewOutcome extends Vue {
 
     if (res) {
       this.$emit('refreshFromKiera')
+    } else {
       this.data.deleteConfirm = false
+      this.isLoading = false
     }
-
-    this.isLoading = false
   }
 
   private async decisionUpdateOutcome() {

@@ -3,7 +3,7 @@
     <!-- Header -->
     <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="blue darken-2" dark>
       <!-- App Menu: Home -->
-      <router-link v-if="appSession.isLoaded" to="/" style="text-decoration: none;">
+      <router-link to="/" style="text-decoration: none;">
         <v-btn icon>
           <v-icon>mdi-apps</v-icon>
         </v-btn>
@@ -16,12 +16,20 @@
       <div class="text-center">
         <v-menu offset-y>
           <template v-slot:activator="{ on }">
-            <v-btn text dark v-on="on">
+            <!-- Show account name + dropdown when authenticated -->
+            <v-btn text dark v-on="on" v-if="appSession.isAuthenticated">
               <v-icon size="24px">mdi-account-circle-outline</v-icon>
-              <span class="ml-2">{{ appSession.cached.username }}</span>
+              <span class="ml-2" v-if="appSession.isAuthenticated">{{ appSession.cached.username }}</span>
             </v-btn>
+            <!-- Show login button when not -->
+            <router-link to="/login" style="text-decoration: none;" v-else>
+              <v-btn text dark v-on="on">
+                <v-icon size="24px">mdi-account-circle-outline</v-icon>
+                <span class="ml-2">Login</span>
+              </v-btn>
+            </router-link>
           </template>
-          <v-list>
+          <v-list v-if="appSession.isAuthenticated">
             <v-list-item @click="logoutConfirmationModal = true">
               <v-list-item-title>
                 <v-icon size="24px">mdi-logout-variant </v-icon> <span class="ml-2"> Logout </span>
