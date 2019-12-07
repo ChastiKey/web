@@ -23,7 +23,7 @@ Cache/Account/Verification provider (Note: The code for Kiera the Bot is not pub
 - If including a new dependency, please discuss first what benefit it will have to the project for admin involvement in decision
 - Accepted pull requests may will not necessarily be deployed quickly (unless a major/critical fix), changes may be included with a later release
 - Include your changes/fixes/additions in the [ChastiKey/chastikey.js](https://github.com/ChastiKey/chastikey.js), examples (please include the PR #):
-  - **For a fix:** `- Fixed: [ #0 ] by @rileyio - Fixed the thing that did the other thing.`
+  - **For a fix:** `- Fixed: [ #0 ] by @rileyio - The thing that did the other thing.`
   - **For an addition:** `- Added: [ #0 ] by @rileyio - Something new, brief what it does.`
   - **For an update:** `- Updated: [ #0 ] by @rileyio - Brief what will happen now when you click the button.`
 

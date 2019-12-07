@@ -15,7 +15,7 @@
         <!-- Help -->
         <v-card-text v-if="helpState">
           <span
-            >If you're unsure about this login try typing <code>!ck ext session</code> On a Kiera enabled server.</span
+            >If you're unsure about this login try typing <code>!ck web</code> On a Kiera enabled server.</span
           >
         </v-card-text>
         <!-- Login form -->

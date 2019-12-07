@@ -4,6 +4,7 @@
 - Added: Enter key support on Decision inputs
 - Updated: Url to access portal will now be: https://kiera.chastikey.com
 - Updated: Account button to no longer always show logout menu - now will display login text and be a link when not authenticated
+- Updated: Login help text displayed for logging in via Kiera command now showing the proper command
 
 0.5.1
 - Fixed: Decision outcome delete Dialog/Lockup issue
