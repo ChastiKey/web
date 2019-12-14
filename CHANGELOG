@@ -1,3 +1,6 @@
+0.7.0
+- Updated: Web app's title from chastikey-web to Kiera + ChastiKey
+
 0.6.0
 - Fixed: After deleting an outcome the buttons will come back and be enabled momentarily
 - Fixed: [ #1 ] by @magrauer - Fix gray color of Decisions tile when not authenticated. Currently it is always showing dark blue.
