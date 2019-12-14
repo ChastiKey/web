@@ -67,7 +67,7 @@
               />
             </v-card>
           </v-col>
-          <v-col cols="4">
+          <v-col cols="12" sm="12" md="4" lg="4">
             <v-card>
               <apexchart
                 type="donut"
