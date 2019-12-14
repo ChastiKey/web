@@ -292,7 +292,10 @@ export default class LockeeView extends Vue {
       return b.timestampLocked - a.timestampLocked
     })
     // Generate sparkline data specific array and ordered ASC
-    this.data.sparklineData = this.data.pastLocks.map(l => l.totalTimeLocked).reverse()
+    this.data.sparklineData = this.data.pastLocks
+      .filter(l => !(l.lockDeleted === 1 && l.status === 'Locked'))
+      .map(l => l.totalTimeLocked)
+      .reverse()
     this.data.sparklineAutoDraw = true
     this.isLoadingCK = false
   }

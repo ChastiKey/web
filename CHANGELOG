@@ -1,5 +1,6 @@
 0.7.0
-- Fixed: Public Lock stats chart sizing for Cards Remaining by Type
+- Fixed: Public Lock stats chart sizing for Cards Remaining by Type\
+- Fixed: Lockee longest lock completed sparkline will now exclude abandoned locks
 - Updated: Web app's title from chastikey-web to Kiera + ChastiKey
 - Updated: Lockee Lock discard pile removing text about not including greens as they now show up in the data
 
