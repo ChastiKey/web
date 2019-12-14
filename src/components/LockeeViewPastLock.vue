@@ -67,7 +67,7 @@
             <template v-slot:activator="{ on }">
               <v-icon style="display: inline-block;" v-on="on" small>mdi-information-outline</v-icon>
             </template>
-            <span>The last ({{ lock.discardPile.length }}) cards discarded (not greens):</span>
+            <span>The last ({{ lock.discardPile.length }}) cards discarded:</span>
           </v-tooltip>
         </span>
 
