@@ -28,8 +28,8 @@
 
               <v-card-text>
                 <div class="headline text-center">
-                  <span v-if="!isLoadingKiera && data.user.timestampLastActive">{{
-                    calcHRT(Date.now() / 1000 - data.user.timestampLastActive)
+                  <span v-if="!isLoadingKiera && data.lockee.timestampLastActive">{{
+                    calcHRT(Date.now() / 1000 - data.lockee.timestampLastActive)
                   }}</span>
                 </div>
                 <v-divider class="my-2"></v-divider>
@@ -116,7 +116,7 @@
           ></v-progress-circular>
         </div>
         <v-row style="margin-top: 25px;">
-          <v-card class="mx-auto" max-width="400px" outlined v-for="(lock, i) in data.locks" :key="i">
+          <v-card class="mx-auto" max-width="400px" outlined v-for="(lock, i) in data.runningLocks" :key="i">
             <v-overlay :absolute="true" :value="isLoadingKiera"></v-overlay>
 
             <LockeeViewRunningLock :lock="lock" />
@@ -129,21 +129,27 @@
       <v-container>
         <div class="title">
           Past Locks
-          <v-progress-circular v-if="isLoadingCK" indeterminate size="16" width="2" color="teal"></v-progress-circular>
+          <v-progress-circular
+            v-if="isLoadingKiera"
+            indeterminate
+            size="16"
+            width="2"
+            color="teal"
+          ></v-progress-circular>
         </div>
         <v-row style="margin-top: 25px;">
           <v-col cols="12">
             <v-card elevation="1">
               <v-card-title>
                 <v-text-field
-                  v-model="pastLocksSearch"
+                  v-model="allLocksSearch"
                   append-icon="mdi-magnify"
                   label="Search"
                   single-line
                   hide-details
                 ></v-text-field>
               </v-card-title>
-              <v-data-table :headers="tableHeaders" :items="data.pastLocks" :search="pastLocksSearch">
+              <v-data-table :headers="tableHeaders" :items="data.allLocks" :search="allLocksSearch">
                 <template v-slot:item.timestampLocked="{ item }">
                   {{ new Date(item.timestampLocked * 1000).toLocaleString() }}
                 </template>
@@ -244,10 +250,9 @@ export default class LockeeView extends Vue {
   @Prop({ default: () => $LockeeView })
   private data!: typeof $LockeeView
   private isLoadingKiera = false
-  private isLoadingCK = true
   private loadingError = false
   private calcHRT = calculateHumanTimeDDHHMM
-  private pastLocksSearch = ''
+  private allLocksSearch = ''
   private tableHeaders = [
     { text: 'Lock ID', value: 'lockID' },
     { text: 'Keyholder', value: 'lockedBy' },
@@ -263,7 +268,6 @@ export default class LockeeView extends Vue {
 
   private async retryRefresh() {
     await this.refreshLocksFromKiera()
-    await this.refreshLocksFromCK()
   }
 
   private async refreshLocksFromKiera() {
@@ -273,31 +277,20 @@ export default class LockeeView extends Vue {
     console.log('res', res)
     if (res) {
       this.loadingError = false
-      this.data.user = res.user
       this.data.lockee = res.lockee
-      this.data.locks = res.locks.map((l: RunningLockCached) => new RunningLockCached(l))
+      this.data.runningLocks = res.runningLocks
+      this.data.allLocks = res.allLocks.reverse()
+      // Generate sparkline data specific array and ordered ASC
+      this.data.sparklineData = this.data.allLocks
+        .filter(l => !((l.deleted === 1 && l.status === 'Locked') || l.status === 'UnlockedFake'))
+        .map(l => l.totalTimeLocked)
+        .reverse()
+      this.data.sparklineAutoDraw = true
     } else {
       this.loadingError = true
     }
 
     this.isLoadingKiera = false
-  }
-
-  private async refreshLocksFromCK() {
-    this.isLoadingCK = true
-    const pLocks = await LockeeAPI.fetchRunningLocksLive(this.data.user.username)
-    // Apply:
-    //   - Sort newest unlock first
-    this.data.pastLocks = pLocks.sort((a, b) => {
-      return b.timestampLocked - a.timestampLocked
-    })
-    // Generate sparkline data specific array and ordered ASC
-    this.data.sparklineData = this.data.pastLocks
-      .filter(l => !(l.lockDeleted === 1 && l.status === 'Locked'))
-      .map(l => l.totalTimeLocked)
-      .reverse()
-    this.data.sparklineAutoDraw = true
-    this.isLoadingCK = false
   }
 
   private cardImgURL(card: string) {

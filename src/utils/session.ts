@@ -22,11 +22,12 @@ export function getSessionHeaders() {
  * @param {string} username
  * @param {string} session
  */
-export function setSessionHeaders(username: string, session: string) {
+export function setSessionHeaders(username: string, userID: string, session: string) {
   localStorage.setItem(
     'kiera-session',
     JSON.stringify({
       username,
+      userID,
       session
     })
   )

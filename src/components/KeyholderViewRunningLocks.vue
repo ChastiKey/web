@@ -55,9 +55,6 @@
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
 
-// API
-import { auth } from '@/api/auth'
-
 // Objects
 import { RunningLockCached } from '@/objects/lock'
 import { VStepperHeader } from 'vuetify/lib'

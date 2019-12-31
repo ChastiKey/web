@@ -14,9 +14,7 @@
         </v-toolbar>
         <!-- Help -->
         <v-card-text v-if="helpState">
-          <span
-            >If you're unsure about this login try typing <code>!ck web</code> On a Kiera enabled server.</span
-          >
+          <span>If you're unsure about this login try typing <code>!ck web</code> On a Kiera enabled server.</span>
         </v-card-text>
         <!-- Login form -->
         <v-card-text>
@@ -26,13 +24,13 @@
               name="token"
               prepend-icon="mdi-textbox-password"
               type="password"
-              v-model="sessionInput"
+              v-model="otlInput"
             />
           </v-form>
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="primary" @click="authTest" :loading="isLoading">Login</v-btn>
+          <v-btn color="primary" @click="login" :loading="isLoading">Login</v-btn>
         </v-card-actions>
       </v-card>
 
@@ -51,36 +49,50 @@ import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
 
 // API
-import { auth } from '@/api/auth'
+import { otl } from '@/api/auth'
 
 // Utils
 import { setSessionHeaders } from '../utils/session'
+import { KieraCachedSession } from '../objects/session'
+import { $DefaultSession } from '../defaults/session'
 
 @Component({})
 export default class LoginView extends Vue {
+  @Prop({ default: () => $DefaultSession })
+  private appSession!: typeof $DefaultSession
+
   private helpState = false
-  private sessionInput = ''
+  private otlInput = ''
   private errorToast = false
   private isLoading = false
 
   private mounted() {
     console.log('testing!!', this.$route.name)
-    if (this.$route.params.session !== undefined) {
-      // Populate session from URI
-      this.sessionInput = this.$route.params.session
+    if (this.$route.params.otl !== undefined) {
+      console.log('otl found in url')
+      // Populate otl from URI
+      this.otlInput = this.$route.params.otl
       // Submit form automatically
-      this.authTest()
+      this.login()
     }
   }
 
-  private async authTest() {
+  private async login() {
     this.isLoading = true
-    const res = await auth(this.sessionInput)
+    const res = await otl(this.otlInput)
 
     // On: Successful Auth
     if (res) {
-      setSessionHeaders(res.username, res.session)
-      this.$emit('onAuthenticated')
+      setSessionHeaders(res.username, res.userID, res.session)
+      this.appSession.cached = {
+        userID: res.userID,
+        username: res.username,
+        session: res.session
+      }
+
+      this.appSession.isAuthenticated = true
+      this.appSession.isLoaded = true
+
       this.$router.push({ name: 'home', path: '/' })
     }
     // On: Failed Auth

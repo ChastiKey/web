@@ -41,7 +41,7 @@ const routes = [
     }
   },
   {
-    path: '/login/:session?',
+    path: '/login/:otl?',
     name: 'login',
     component: LoginView,
     meta: {

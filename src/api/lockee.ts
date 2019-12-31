@@ -1,11 +1,7 @@
 import Axios from 'axios'
-import { ChastiKey } from 'chastikey.js'
-import { ListLocksLock } from 'chastikey.js/app/objects'
 import { API } from '@/api/endpoints'
 import { getSessionHeaders } from '@/utils/session'
-import { LockeeCached } from '@/objects/lockee'
-import { RunningLockCached } from '@/objects/lock'
-import { ChastiKeyUser } from '@/objects/user'
+import { LockeeData, LockeeDataLock } from 'chastikey.js/app/objects'
 
 export namespace LockeeAPI {
   export async function fetchRunningLocks() {
@@ -16,25 +12,12 @@ export namespace LockeeAPI {
       })
 
       return {
-        user: new ChastiKeyUser(resp.data.user),
-        lockee: new LockeeCached(resp.data.lockee),
-        locks: resp.data.locks.map((l: RunningLockCached) => new RunningLockCached(l))
+        lockee: new LockeeData(resp.data.lockee),
+        runningLocks: resp.data.runningLocks.map((l: LockeeDataLock) => new LockeeDataLock(l)),
+        allLocks: resp.data.allLocks.map((l: LockeeDataLock) => new LockeeDataLock(l))
       }
     } catch (error) {
       return null
-    }
-  }
-
-  export async function fetchRunningLocksLive(username: string) {
-    try {
-      const locksDeleted = await new ChastiKey().ListLocks.get({ username, showdeleted: true })
-      const locksNotDeleted = await new ChastiKey().ListLocks.get({ username, showdeleted: false })
-      const merged = [...locksDeleted.locks, ...locksNotDeleted.locks]
-      console.table(merged, ['lockID', 'lockDeleted', 'timestampLocked', 'status'])
-      return merged
-    } catch (error) {
-      console.error('ChastiKey.js error =>', error)
-      return [] as Array<ListLocksLock>
     }
   }
 }

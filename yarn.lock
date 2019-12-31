@@ -2072,10 +2072,9 @@ chardet@^0.7.0:
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
 
-chastikey.js@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/chastikey.js/-/chastikey.js-1.4.0.tgz#402c50ce5c86c5330ea9b39652ab31fbe4c86af7"
-  integrity sha512-KwmupKL+n/nTeLKLgzi7OGTk7dG23rtU95RsyGydk7KuDA3lsQKwKEsH0QAjvlRFMOqM2+qP2z34YTA2qvvFUQ==
+"chastikey.js@https://github.com/ChastiKey/chastikey.js.git#2.0.0-alpha":
+  version "2.0.0"
+  resolved "https://github.com/ChastiKey/chastikey.js.git#605648ecb1f5b39c032402cc03e79a634e5af9fa"
   dependencies:
     axios "^0.19.0"
     typescript "^3.7.2"
