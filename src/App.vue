@@ -17,12 +17,12 @@
         <v-menu offset-y>
           <template v-slot:activator="{ on }">
             <!-- Show account name + dropdown when authenticated -->
-            <v-btn text dark v-on="on" v-if="appSession.isAuthenticated">
+            <v-btn text dark v-on="on" v-show="appSession.isAuthenticated">
               <v-icon size="24px">mdi-account-circle-outline</v-icon>
-              <span class="ml-2" v-if="appSession.isAuthenticated">{{ appSession.cached.username }}</span>
+              <span class="ml-2">{{ appSession.cached.username }}</span>
             </v-btn>
             <!-- Show login button when not -->
-            <router-link to="/login" style="text-decoration: none;" v-else>
+            <router-link to="/login" style="text-decoration: none;" v-show="!appSession.isAuthenticated">
               <v-btn text dark v-on="on">
                 <v-icon size="24px">mdi-account-circle-outline</v-icon>
                 <span class="ml-2">Login</span>
@@ -75,7 +75,7 @@
         :class="$route.name === 'login' || $route.name === 'home' ? 'fill-height' : ''"
         :fluid="$route.name === 'login' || $route.name === 'home' ? true : false"
       >
-        <router-view @onAuthenticated="onAuthenticated" :isAuthenticated="appSession.isAuthenticated"></router-view>
+        <router-view :appSession="appSession" :isAuthenticated="appSession.isAuthenticated"></router-view>
       </v-container>
     </v-content>
 
@@ -145,7 +145,7 @@ import { Component, Prop } from 'vue-property-decorator'
 const { version } = require('../package.json')
 
 // API
-import { auth } from '@/api/auth'
+import { validateAuth } from '@/api/auth'
 
 // Defaults
 import { $DefaultSession } from '@/defaults/session'
@@ -167,10 +167,11 @@ export default class App extends Vue {
 
   private async mounted() {
     const cachedSession = getSessionHeaders()
+    console.log('cachedSession:', cachedSession)
     // If session creds are cached
     if (cachedSession.isCached) {
       console.log('doing auth stuffs...')
-      const res = await auth()
+      const res = await validateAuth()
       console.log('res', res)
       // On: Successful Auth
       if (res) this.onAuthenticated(cachedSession)

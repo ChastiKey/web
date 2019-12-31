@@ -1,6 +1,7 @@
 const Dev = {
   Kiera: {
-    Auth: 'https://dev.tdm.io:8234/api/ck/auth',
+    Auth: 'https://dev.tdm.io:8234/api/otl',
+    VerifySession: 'https://dev.tdm.io:8234/api/session/verify',
     Keyholder: 'https://dev.tdm.io:8234/api/ck/keyholder',
     Lockee: 'https://dev.tdm.io:8234/api/ck/lockee',
     StatsLocks: 'https://dev.tdm.io:8234/api/ck/stats/locks',
@@ -24,7 +25,8 @@ const Prod = {
      *
      * Request Type: `POST`
      */
-    Auth: 'https://kierabot.xyz/api/ck/auth',
+    Auth: 'https://kierabot.xyz/api/otl',
+    VerifySession: 'https://kierabot.xyz/api/session/verify',
 
     /**
      * **Fetches Keyholder View Data**

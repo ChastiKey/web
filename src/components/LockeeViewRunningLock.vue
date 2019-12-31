@@ -13,8 +13,8 @@
 
       <!-- Time Locked -->
       <v-list-item-title class="title" style="line-height: 1.1em; padding: 4px;"
-        ><span style="font-weight: 300; display: block;">Locked</span>
-        {{ calcHRT(lock.secondsLocked) }}
+        ><span style="font-weight: 300; display: block;">{{ lock.status }}</span>
+        {{ calcHRT(lock.totalTimeLocked) }}
         <!-- Frozen -->
         <v-chip
           color="blue darken-1 white--text"

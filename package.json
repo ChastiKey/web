@@ -1,6 +1,6 @@
 {
   "name": "chastikey-web",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "author": "Emma <RileyIO>",
   "private": true,
   "scripts": {
@@ -11,7 +11,7 @@
   "dependencies": {
     "apexcharts": "^3.10.1",
     "axios": "^0.19.0",
-    "chastikey.js": "^1.4.0",
+    "chastikey.js": "https://github.com/ChastiKey/chastikey.js.git#2.0.0-alpha",
     "core-js": "^3.3.2",
     "vue": "^2.6.10",
     "vue-apexcharts": "^1.5.1",

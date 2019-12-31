@@ -1,7 +1,5 @@
-import { KieraCachedSession } from '@/objects/session'
-
 export const $DefaultSession = {
-  cached: new KieraCachedSession({}),
+  cached: { userID: '', username: '', session: '' },
   isAuthenticated: false,
   isLoaded: false
 }

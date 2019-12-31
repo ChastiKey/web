@@ -1,5 +1,6 @@
 export class KieraCachedSession {
   public session!: string
+  public userID!: string
   public username!: string
 
   constructor(init: Partial<KieraCachedSession>) {
