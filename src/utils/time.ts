@@ -13,3 +13,14 @@ export function calculateHumanTimeDDHHMM(seconds: number) {
 
   return `${timeToShowDays} ${timeToShowHours} ${timeToShowMins}`
 }
+
+export function calculateHumanTimeYearsMonthsDays(seconds: number) {
+  const monthsToDate = Math.round((seconds / 2592000) * 100) / 100
+
+  // If its years
+  if (monthsToDate >= 12) return `${Math.round((monthsToDate / 12) * 100) / 100} yr.`
+  // Months
+  if (monthsToDate < 12 && monthsToDate > 1) return `${monthsToDate} mo.`
+  // Days
+  if (monthsToDate < 1) return `${seconds / 60 / 60 / 24} mo.`
+}

@@ -2,78 +2,121 @@
   <v-app v-if="appSession.isLoaded">
     <!-- Header -->
     <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="blue darken-2" dark>
-      <!-- App Menu: Home -->
-      <router-link to="/" style="text-decoration: none;">
-        <v-btn icon>
-          <v-icon>mdi-apps</v-icon>
-        </v-btn>
-      </router-link>
-      <!-- Logo -->
-      <span style="font-size: 20px;">Kiera <span style="color: black;">+</span> ChastiKey</span>
-      <v-spacer />
-      <!-- Content to the right -->
-      <!-- Account text -->
-      <div class="text-center">
-        <v-menu offset-y>
-          <template v-slot:activator="{ on }">
-            <!-- Show account name + dropdown when authenticated -->
-            <v-btn text dark v-on="on" v-show="appSession.isAuthenticated">
-              <v-icon size="24px">mdi-account-circle-outline</v-icon>
-              <span class="ml-2">{{ appSession.cached.username }}</span>
-            </v-btn>
-            <!-- Show login button when not -->
-            <router-link to="/login" style="text-decoration: none;" v-show="!appSession.isAuthenticated">
-              <v-btn text dark v-on="on">
-                <v-icon size="24px">mdi-account-circle-outline</v-icon>
-                <span class="ml-2">Login</span>
-              </v-btn>
-            </router-link>
-          </template>
-          <v-list v-if="appSession.isAuthenticated">
-            <v-list-item @click="logoutConfirmationModal = true">
+      <v-col cols="2">
+        <!-- Logo -->
+        <router-link to="/" style="text-decoration: none; color: #fff;">
+          <span style="font-size: 20px;">Kiera <span style="color: black;">+</span> ChastiKey</span>
+        </router-link></v-col
+      >
+
+      <v-col cols="8">
+        <v-autocomplete
+          v-model="search.model"
+          :loading="search.loading"
+          :items="search.items"
+          :search-input.sync="search.sync"
+          class="mx-4"
+          clearable
+          hide-details
+          hide-selected
+          item-text="name"
+          item-value="symbol"
+          label="Search"
+          solo-inverted
+          return-object
+        >
+          <template v-slot:no-data>
+            <v-list-item>
               <v-list-item-title>
-                <v-icon size="24px">mdi-logout-variant </v-icon> <span class="ml-2"> Logout </span>
+                Search for Lockees, Keyholders & Locks
               </v-list-item-title>
             </v-list-item>
-          </v-list>
-        </v-menu>
-      </div>
+          </template>
+          <template v-slot:selection="{ attr, on, item, selected }">
+            <v-icon left>mdi-person</v-icon>
+            <span v-text="item.type"></span>:
+            <strong><span style="padding-left: 5px;" v-text="item.name"></span></strong>
+          </template>
+          <template v-slot:item="{ item }">
+            <v-list-item-avatar color="indigo" class="headline font-weight-light white--text">
+              {{ item.name.charAt(0) }}
+            </v-list-item-avatar>
+            <v-list-item-content>
+              <v-list-item-title v-text="item.name"></v-list-item-title>
+              <v-list-item-subtitle v-text="item.type"></v-list-item-subtitle>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-icon>mdi-person</v-icon>
+            </v-list-item-action>
+          </template>
+        </v-autocomplete>
+      </v-col>
 
-      <!-- Logout dialog -->
-      <v-dialog
-        v-model="logoutConfirmationModal"
-        max-width="305"
-        v-if="appSession.isAuthenticated && appSession.isLoaded"
-      >
-        <v-card>
-          <v-card-title class="headline">Logout Confirmation?</v-card-title>
-          <v-card-text>
-            <v-row style="text-align: center;">
-              <v-col cols="6">
-                <v-btn class="white--text" block color="error" @click="logout">
-                  Yes
+      <!-- Content to the right -->
+      <!-- Account text -->
+      <v-col cols="2">
+        <div class="text-right">
+          <v-menu offset-y>
+            <template v-slot:activator="{ on }">
+              <!-- Show account name + dropdown when authenticated -->
+              <v-btn text dark v-on="on" v-show="appSession.isAuthenticated">
+                <v-icon size="24px">mdi-account-circle-outline</v-icon>
+                <span class="ml-2">{{ appSession.cached.username }}</span>
+              </v-btn>
+              <!-- Show login button when not -->
+              <router-link to="/login" style="text-decoration: none;" v-show="!appSession.isAuthenticated">
+                <v-btn text dark v-on="on">
+                  <v-icon size="24px">mdi-account-circle-outline</v-icon>
+                  <span class="ml-2">Login</span>
                 </v-btn>
-              </v-col>
-              <v-col cols="6">
-                <v-btn class="white--text" color="success" block @click="logoutConfirmationModal = false">
-                  No
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-      </v-dialog>
+              </router-link>
+            </template>
+            <v-list v-if="appSession.isAuthenticated">
+              <v-list-item @click="logoutConfirmationModal = true">
+                <v-list-item-title>
+                  <v-icon size="24px">mdi-logout-variant </v-icon> <span class="ml-2"> Logout </span>
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </div>
 
-      <!-- <v-btn icon>
+        <!-- Logout dialog -->
+        <v-dialog
+          v-model="logoutConfirmationModal"
+          max-width="305"
+          v-if="appSession.isAuthenticated && appSession.isLoaded"
+        >
+          <v-card>
+            <v-card-title class="headline">Logout Confirmation?</v-card-title>
+            <v-card-text>
+              <v-row style="text-align: center;">
+                <v-col cols="6">
+                  <v-btn class="white--text" block color="error" @click="logout">
+                    Yes
+                  </v-btn>
+                </v-col>
+                <v-col cols="6">
+                  <v-btn class="white--text" color="success" block @click="logoutConfirmationModal = false">
+                    No
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-card-text>
+          </v-card>
+        </v-dialog>
+
+        <!-- <v-btn icon>
         <v-icon>mdi-bell</v-icon>
       </v-btn> -->
+      </v-col>
     </v-app-bar>
 
     <!-- Main Content -->
     <v-content>
       <v-container
-        :class="$route.name === 'login' || $route.name === 'home' ? 'fill-height' : ''"
-        :fluid="$route.name === 'login' || $route.name === 'home' ? true : false"
+        :class="$route.name === 'login' || $route.name === 'home' || $route.name === 'search' ? 'fill-height' : ''"
+        :fluid="$route.name === 'login' || $route.name === 'home' || $route.name === 'search' ? true : false"
       >
         <router-view :appSession="appSession" :isAuthenticated="appSession.isAuthenticated"></router-view>
       </v-container>
@@ -141,11 +184,12 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
+import { Component, Prop, Watch } from 'vue-property-decorator'
 const { version } = require('../package.json')
 
 // API
 import { validateAuth } from '@/api/auth'
+import { fetchAutoCompleteItems } from '@/api/search'
 
 // Defaults
 import { $DefaultSession } from '@/defaults/session'
@@ -160,8 +204,27 @@ import { getSessionHeaders, setSessionHeaders, delSession } from './utils/sessio
 export default class App extends Vue {
   @Prop({ default: () => $DefaultSession })
   private appSession!: typeof $DefaultSession
+
   @Prop({ default: version })
   private appVersion!: string
+
+  @Prop({
+    default: () => {
+      return {
+        loading: false,
+        model: null as any,
+        sync: null as any,
+        items: [] as Array<{ type: string; name: string }>
+      }
+    }
+  })
+  private search!: {
+    loading: boolean
+    model: string
+    sync: string
+    items: Array<{ type: string; name: string }>
+  }
+
   private discordSelectionModal = false
   private logoutConfirmationModal = false
 
@@ -201,6 +264,29 @@ export default class App extends Vue {
     this.appSession.isAuthenticated = false
     this.appSession.cached = new KieraCachedSession({})
     this.$router.push({ name: 'logout', path: '/logout' })
+  }
+
+  @Watch('search.sync', { deep: true })
+  private async querySelections(v: string) {
+    if (!v) return // Likely null
+    if (v.length > 2) {
+      console.log('querySelections:', v)
+      this.search.loading = true
+      // Simulated ajax query
+      this.search.items = (await fetchAutoCompleteItems(v)) || ([] as any)
+
+      console.log('querySelections final =>', this.search.items)
+    }
+    this.search.loading = false
+  }
+
+  @Watch('search.model', { deep: true })
+  private async watchingModel(v: { type: string; name: string; isVerified?: boolean }) {
+    console.log('watchingModel:', v)
+    if (v.type === 'User') this.$router.push({ path: `/lockee/${v.name}` })
+    if (v.type === 'Lockee') this.$router.push({ path: `/lockee/${v.name}` })
+    if (v.type === 'Keyholder') this.$router.push({ path: `/keyholder/${v.name}` })
+    // Clear search
   }
 }
 </script>

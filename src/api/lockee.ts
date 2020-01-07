@@ -4,11 +4,12 @@ import { getSessionHeaders } from '@/utils/session'
 import { LockeeData, LockeeDataLock } from 'chastikey.js/app/objects'
 
 export namespace LockeeAPI {
-  export async function fetchRunningLocks() {
+  export async function fetchRunningLocks(username?: string) {
     try {
       const resp = await Axios(API.Kiera.Lockee, {
-        method: 'GET',
-        headers: getSessionHeaders()
+        method: 'POST',
+        headers: getSessionHeaders(),
+        data: { username }
       })
 
       return {

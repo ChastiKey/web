@@ -3,12 +3,14 @@ import VueRouter from 'vue-router'
 
 // Views
 import HomeView from '../views/Home.vue'
+import SearchView from '../views/Search.vue'
 import LockeeView from '../views/Lockee.vue'
 import KeyholderView from '../views/Keyholder.vue'
 import LoginView from '../views/Login.vue'
 import LogoutView from '../views/Logout.vue'
 import StatsLocksView from '../views/StatsLocks.vue'
 import DecisionManagerView from '../views/DecisionManager.vue'
+import UserView from '../views/User.vue'
 
 // Utils
 import { getSessionHeaders } from '@/utils/session'
@@ -25,11 +27,27 @@ const routes = [
     }
   },
   {
-    path: '/lockee',
+    path: '/search',
+    name: 'search',
+    component: SearchView,
+    meta: {
+      guest: true
+    }
+  },
+  {
+    path: '/user/:username',
+    name: 'user',
+    component: UserView,
+    meta: {
+      guest: true
+    }
+  },
+  {
+    path: '/lockee/:username',
     name: 'lockee',
     component: LockeeView,
     meta: {
-      requiresAuth: true
+      guest: true
     }
   },
   {
@@ -75,7 +93,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'hash',
+  mode: 'history',
   base: process.env.BASE_URL,
   routes
 })

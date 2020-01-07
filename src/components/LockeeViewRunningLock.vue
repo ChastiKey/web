@@ -67,12 +67,22 @@
             <template v-slot:activator="{ on }">
               <v-icon style="display: inline-block;" v-on="on" small>mdi-information-outline</v-icon>
             </template>
-            <span>The last ({{ lock.discardPile.length }}) cards discarded:</span>
+            <span
+              >The last ({{
+                lock.discardPile
+                  .split(',')
+                  .filter(c => !!c)
+                  .slice(0, 15).length
+              }}) cards discarded</span
+            >
           </v-tooltip>
         </span>
 
         <v-img
-          v-for="(card, i) in lock.discardPile"
+          v-for="(card, i) in lock.discardPile
+            .split(',')
+            .filter(c => !!c)
+            .slice(0, 15)"
           :key="i"
           :src="cardImgURL(card)"
           width="18px"

@@ -131,41 +131,41 @@ export default class StatsLocksView extends Vue {
     const res = await StatsAPI.fetchLocksStats()
 
     if (res) {
-      this.data.keyholderLocks = res.keyholderLocks
-      this.data.botLocks = res.botLocks
-      this.data.totalLocks = res.totalLocks
-      this.data.trust = res.trust
-      this.data.trusted = res.trusted
-      this.data.distributionByInterval.series = [{ name: 'Count', data: res.distributionByInterval }]
-      this.data.distributionByLockType.series = [res.fixedLocks, res.variableLocks]
+      this.data.keyholderLocks = res.stats.keyholderLocks
+      this.data.botLocks = res.stats.botLocks
+      this.data.totalLocks = res.stats.totalLocks
+      this.data.trust = res.stats.trust
+      this.data.trusted = res.stats.trusted
+      this.data.distributionByInterval.series = [{ name: 'Count', data: res.stats.distributionByInterval }]
+      this.data.distributionByLockType.series = [res.stats.fixedLocks, res.stats.variableLocks]
       this.data.distributionByCardsRemaining.series = [
-        res.distributionByCardsRemaining.resetCards,
-        res.distributionByCardsRemaining.greenCards,
-        res.distributionByCardsRemaining.yellowCards,
-        res.distributionByCardsRemaining.redCards,
-        res.distributionByCardsRemaining.doubleUpCards,
-        res.distributionByCardsRemaining.freezeCards
+        res.stats.distributionByCardsRemaining.resetCards,
+        res.stats.distributionByCardsRemaining.greenCards,
+        res.stats.distributionByCardsRemaining.yellowCards,
+        res.stats.distributionByCardsRemaining.redCards,
+        res.stats.distributionByCardsRemaining.doubleUpCards,
+        res.stats.distributionByCardsRemaining.freezeCards
       ]
       this.data.distributionByLockLength.series = [
         {
           name: '[Fixed] Number of Locks',
           type: 'bar',
-          data: res.distributionByLockedTimeFixed
+          data: res.stats.distributionByLockedTimeFixed
         },
         {
           name: '[Variable] Number of Locks',
           type: 'bar',
-          data: res.distributionByLockedTimeVariable
+          data: res.stats.distributionByLockedTimeVariable
         },
         {
           name: '[Fixed] Trusted Keyholder',
           type: 'line',
-          data: res.distributionByLockedTimeFixedTrusted
+          data: res.stats.distributionByLockedTimeFixedTrusted
         },
         {
           name: '[Variable] Trusted Keyholder',
           type: 'line',
-          data: res.distributionByLockedTimeVariableTrusted
+          data: res.stats.distributionByLockedTimeVariableTrusted
         }
       ]
     }
