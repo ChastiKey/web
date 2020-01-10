@@ -10,7 +10,13 @@
         <v-list-item color="rgba(0, 0, 0)">
           <v-list-item-content>
             <v-list-item-title class="title"
-              >{{ user.data.username }} <v-icon v-if="user.data.discord.id">mdi-check-circle</v-icon></v-list-item-title
+              >{{ user.data.username }}
+              <v-tooltip bottom v-if="user.discord.id">
+                <template v-slot:activator="{ on }">
+                  <v-icon v-on="on">mdi-check-circle</v-icon>
+                </template>
+                <span>Connected Discord account to ChastiKey</span>
+              </v-tooltip></v-list-item-title
             >
             <v-list-item-subtitle>{{ user.data.mainRole }}</v-list-item-subtitle>
           </v-list-item-content>
@@ -44,7 +50,7 @@
         <span class="stat">{{ user.data.totalLocksManaged }}</span>
       </v-col>
       <v-col cols="4" class="stats">
-        <span class="header">Locked Now</span>
+        <span class="header">Locked Lockees</span>
         <span class="stat">{{ user.data.noOfLocksManagingNow }}</span>
       </v-col>
       <v-col cols="4" class="stats">

@@ -51,11 +51,11 @@ const routes = [
     }
   },
   {
-    path: '/keyholder',
+    path: '/keyholder/:username',
     name: 'keyholder',
     component: KeyholderView,
     meta: {
-      requiresAuth: true
+      guest: true
     }
   },
   {

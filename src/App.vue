@@ -283,9 +283,8 @@ export default class App extends Vue {
   @Watch('search.model', { deep: true })
   private async watchingModel(v: { type: string; name: string; isVerified?: boolean }) {
     console.log('watchingModel:', v)
-    if (v.type === 'User') this.$router.push({ path: `/lockee/${v.name}` })
-    if (v.type === 'Lockee') this.$router.push({ path: `/lockee/${v.name}` })
-    if (v.type === 'Keyholder') this.$router.push({ path: `/keyholder/${v.name}` })
+    if (v.type === 'User') this.$router.push({ path: `/user/${v.name}` })
+    if (v.type === 'Lock') this.$router.push({ path: `/lock/${v.name}` })
     // Clear search
   }
 }
