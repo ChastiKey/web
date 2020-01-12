@@ -12,86 +12,185 @@
         </v-btn>
       </v-toolbar>
 
+      <v-row>
+        <v-col class="d-flex" cols="12" sm="4" offset-sm="8">
+          <v-select
+            :items="data.ranges"
+            v-on:change="changeDateTime"
+            label="View for Date & Time"
+            dense
+            solo
+          ></v-select>
+        </v-col>
+      </v-row>
+
       <!-- Stats & Charts -->
-      <div>
-        <v-row>
-          <v-col cols="12" sm="12" md="4" lg="4">
-            <!-- Stats -->
-            <v-card>
-              <v-sheet class="v-sheet--offset title text-center stats-title" color="cyan darken-2" elevation="6" dark>
-                Running Locks
-              </v-sheet>
-              <v-card-text class="headline text-center">
-                {{ data.totalLocks }}
-              </v-card-text>
-            </v-card>
-          </v-col>
-          <v-col cols="12" sm="12" md="4" lg="4">
-            <v-card>
-              <v-sheet class="v-sheet--offset title text-center stats-title" color="cyan darken-2" elevation="6" dark>
-                KH Trusted Locks
-              </v-sheet>
-              <v-card-text class="headline text-center"> {{ Math.round(data.trust * 10000) / 100 }}% </v-card-text>
-            </v-card>
-          </v-col>
-          <v-col cols="12" sm="12" md="4" lg="4">
-            <v-card>
-              <v-sheet class="v-sheet--offset title text-center stats-title" color="cyan darken-2" elevation="6" dark>
-                Keyholder vs Bot Locks
-              </v-sheet>
-              <v-card-text class="headline text-center">
-                <span>{{ data.keyholderLocks }}</span> •
-                <span>{{ data.botLocks }}</span>
-              </v-card-text>
-            </v-card>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12" sm="12" md="4" lg="4">
-            <v-card>
-              <apexchart
-                type="bar"
-                :options="data.distributionByInterval.chartOptions"
-                :series="data.distributionByInterval.series"
-                height="300px"
-              />
-            </v-card>
-          </v-col>
-          <v-col cols="12" sm="12" md="4" lg="4">
-            <v-card>
-              <apexchart
-                type="donut"
-                :options="data.distributionByLockType.chartOptions"
-                :series="data.distributionByLockType.series"
-                height="300px"
-              />
-            </v-card>
-          </v-col>
-          <v-col cols="12" sm="12" md="4" lg="4">
-            <v-card>
-              <apexchart
-                type="donut"
-                :options="data.distributionByCardsRemaining.chartOptions"
-                :series="data.distributionByCardsRemaining.series"
-                height="300px"
-              />
-            </v-card>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12">
-            <v-card>
-              <apexchart
-                type="bar"
-                :options="data.distributionByLockLength.chartOptions"
-                :series="data.distributionByLockLength.series"
-                height="450px"
-              />
-            </v-card>
-          </v-col>
-        </v-row>
-      </div>
+      <v-row>
+        <v-col cols="12" sm="12" md="4" lg="4">
+          <!-- Stats -->
+          <v-card>
+            <v-sheet class="v-sheet--offset title text-center stats-title" color="cyan darken-2" elevation="6" dark>
+              Running Locks
+            </v-sheet>
+            <v-card-text class="headline text-center">
+              {{ data.totalLocks }}
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col cols="12" sm="12" md="4" lg="4">
+          <v-card>
+            <v-sheet class="v-sheet--offset title text-center stats-title" color="cyan darken-2" elevation="6" dark>
+              Locks Frozen
+            </v-sheet>
+            <v-card-text class="headline text-center">
+              {{ data.frozenLocks }}
+            </v-card-text>
+          </v-card>
+        </v-col>
+
+        <v-col cols="12" sm="12" md="4" lg="4">
+          <v-card>
+            <v-sheet class="v-sheet--offset title text-center stats-title" color="cyan darken-2" elevation="6" dark>
+              Keyholder <small>vs</small> Bot <small>vs</small> Self
+            </v-sheet>
+            <v-card-text class="headline text-center">
+              <span>{{ data.keyholderLocks }}</span> • <span>{{ data.botLocks }}</span> •
+              <span>{{ data.selfLocks }}</span>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12" sm="12" md="4" lg="4">
+          <v-card>
+            <v-sheet class="v-sheet--offset title text-center stats-title" color="cyan darken-2" elevation="6" dark>
+              Keyholders Trusted Locks
+            </v-sheet>
+            <v-card-text class="headline text-center">
+              {{ Math.round(data.keyholderTrust * 100 * 100) / 100 }}%
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col cols="12" sm="12" md="4" lg="4">
+          <v-card>
+            <v-sheet class="v-sheet--offset title text-center stats-title" color="cyan darken-2" elevation="6" dark>
+              Keyholders w/Lockees
+            </v-sheet>
+            <v-card-text class="headline text-center">
+              {{ data.keyholdersCount }}
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col cols="12" sm="12" md="4" lg="4">
+          <v-card>
+            <v-sheet class="v-sheet--offset title text-center stats-title" color="cyan darken-2" elevation="6" dark>
+              Cumulative Keyholders Rating
+            </v-sheet>
+            <v-card-text class="headline text-center">
+              {{ Math.round(data.keyholderAvgRating * 100) / 100 }}
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12" sm="12" md="4" lg="4">
+          <v-card>
+            <apexchart
+              type="bar"
+              :options="data.distributionByInterval.chartOptions"
+              :series="data.distributionByInterval.series"
+              height="300px"
+            />
+          </v-card>
+        </v-col>
+        <v-col cols="12" sm="12" md="4" lg="4">
+          <v-card>
+            <apexchart
+              type="donut"
+              :options="data.distributionByLockType.chartOptions"
+              :series="data.distributionByLockType.series"
+              height="300px"
+            />
+          </v-card>
+        </v-col>
+        <v-col cols="12" sm="12" md="4" lg="4">
+          <v-card>
+            <apexchart
+              type="donut"
+              :options="data.distributionByCardsRemaining.chartOptions"
+              :series="data.distributionByCardsRemaining.series"
+              height="300px"
+            />
+          </v-card>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12">
+          <v-card>
+            <apexchart
+              type="bar"
+              :options="data.distributionByLockLength.chartOptions"
+              :series="data.distributionByLockLength.series"
+              height="450px"
+            />
+          </v-card>
+        </v-col>
+      </v-row>
     </v-col>
+
+    <v-col cols="12">
+      <v-card elevation="1">
+        <v-card-title>
+          <v-text-field v-model="khSearch" append-icon="mdi-magnify" label="Search" dense hide-details></v-text-field>
+        </v-card-title>
+        <v-data-table
+          :headers="tableHeadersVariable"
+          :items="data.keyholders"
+          :items-per-page="20"
+          :search="khSearch"
+          class="elevation-1"
+        >
+          <!-- KH Level -->
+          <template v-slot:item.level="{ item }">
+            <v-chip
+              class="ma-2"
+              :style="[{ color: getLevelColorText(item.level) }]"
+              :color="getLevelColor(item.level)"
+              label
+              small
+              >{{ getLevelName(item.level) }}</v-chip
+            >
+          </template>
+          <!-- Info Frozen % -->
+          <template v-slot:item.frozen="{ item }">
+            <v-chip class="ma-2" :color="getFrozenPercColor(item.frozen)" label small
+              >{{ Math.round(item.frozen) }}%</v-chip
+            >
+          </template>
+          <!-- Info Hidden % -->
+          <template v-slot:item.infoHidden="{ item }">
+            <v-chip class="ma-2" color="gray" label small>{{ Math.round(item.infoHidden) }}%</v-chip>
+          </template>
+          <!-- KH Rating % -->
+          <template v-slot:item.averageKeyholderRating="{ item }">
+            <v-chip v-if="item.averageKeyholderRating === 0" class="ma-2" color="gray" label small>N/A</v-chip>
+            <v-chip
+              v-else
+              class="ma-2"
+              style="color: #fff"
+              :color="getRatingColor(item.averageKeyholderRating)"
+              label
+              small
+              >{{ Math.round(item.averageKeyholderRating * 100) / 100 }}</v-chip
+            >
+          </template>
+          <!-- Trust % -->
+          <template v-slot:item.trust="{ item }">
+            <v-chip class="ma-2" color="gray" label small>{{ Math.round(item.trust) }}%</v-chip>
+          </template>
+        </v-data-table>
+      </v-card></v-col
+    >
   </v-row>
 </template>
 
@@ -119,6 +218,19 @@ export default class StatsLocksView extends Vue {
   private data!: typeof $StatsLocksView
   private isLoading = false
   private isFirstLoad = true
+  private khSearch = ''
+  private tableHeadersVariable = [
+    { text: 'Keyholder', value: 'keyholder' },
+    { text: 'Level', value: 'level' },
+    { text: 'Running Locks', value: 'runningLocks' },
+    { text: 'Unique Locks', value: 'uniqueLockeeCount' },
+    { text: 'Fixed', value: 'fixed' },
+    { text: 'Variable', value: 'variable' },
+    { text: 'Frozen', value: 'frozen' },
+    { text: 'Info Hidden', value: 'infoHidden' },
+    { text: 'Avg Rating', value: 'averageKeyholderRating' },
+    { text: 'Trust', value: 'trust' }
+  ]
 
   private async mounted() {
     if (this.data.keyholderLocks === 0) {
@@ -126,16 +238,23 @@ export default class StatsLocksView extends Vue {
     }
   }
 
-  private async refreshDataFromKiera() {
+  private async refreshDataFromKiera(dateTime?: string) {
     this.isLoading = true
-    const res = await StatsAPI.fetchLocksStats()
+    const res = await StatsAPI.fetchLocksStats(dateTime)
 
     if (res) {
+      // Set dates
+      this.data.ranges = res.ranges
+      this.data.keyholders = res.keyholders
       this.data.keyholderLocks = res.stats.keyholderLocks
+      this.data.keyholdersCount = res.stats.keyholdersCount
+      this.data.keyholderAvgRating = res.stats.keyholderAvgRating
+      this.data.selfLocks = res.stats.selfLocks
       this.data.botLocks = res.stats.botLocks
       this.data.totalLocks = res.stats.totalLocks
-      this.data.trust = res.stats.trust
-      this.data.trusted = res.stats.trusted
+      this.data.keyholderTrust = res.stats.keyholderTrust
+      this.data.botTrust = res.stats.botTrust
+      this.data.frozenLocks = res.stats.frozenLocks
       this.data.distributionByInterval.series = [{ name: 'Count', data: res.stats.distributionByInterval }]
       this.data.distributionByLockType.series = [res.stats.fixedLocks, res.stats.variableLocks]
       this.data.distributionByCardsRemaining.series = [
@@ -185,6 +304,51 @@ export default class StatsLocksView extends Vue {
     // ]
 
     this.isLoading = false
+  }
+
+  private getFrozenPercColor(perc: number) {
+    if (perc <= 25 && perc > 0) return 'light-blue lighten-5'
+    if (perc <= 50 && perc > 25) return 'light-blue lighten-4'
+    if (perc <= 75 && perc > 50) return 'light-blue lighten-3'
+    if (perc <= 100 && perc > 75) return 'light-blue lighten-2'
+    return 'gray'
+  }
+
+  private getLevelName(level: number) {
+    if (level === 1) return 'Novice' // #904fad
+    if (level === 2) return 'Keyholder' // #a672be
+    if (level === 3) return 'Established' // #bb95d0
+    if (level === 4) return 'Renowned' // #d1b8e1
+    return 'Pending'
+  }
+
+  private getLevelColor(level: number) {
+    if (level === 1) return '#904fad'
+    if (level === 2) return '#a672be'
+    if (level === 3) return '#bb95d0'
+    if (level === 4) return '#d1b8e1'
+    return 'gray'
+  }
+
+  private getLevelColorText(level: number) {
+    if (level === 1) return '#fff'
+    if (level === 2) return '#fff'
+    if (level === 3) return '#000000de'
+    if (level === 4) return '#000000de'
+    return '#000000de'
+  }
+
+  private getRatingColor(rating: number) {
+    if (rating < 3) return 'red'
+    if (rating >= 3 && rating < 4) return 'yellow'
+    if (rating >= 4 && rating < 4.5) return 'light-green darken-2'
+    if (rating >= 4 && rating < 4.75) return 'green darken-1'
+    return 'green darken-3'
+  }
+
+  private async changeDateTime(selectedDateTime: string) {
+    console.log('Changing Stats view to:', selectedDateTime)
+    await this.refreshDataFromKiera(selectedDateTime)
   }
 }
 </script>
