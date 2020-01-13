@@ -3,11 +3,11 @@
     <v-col cols="12">
       <!-- Toolbar -->
       <v-toolbar dense>
-        <v-toolbar-title>As Lockee</v-toolbar-title>
+        <v-toolbar-title>{{ data.username || data.lockee.username }} <small>As Lockee</small></v-toolbar-title>
 
         <v-spacer></v-spacer>
 
-        <v-btn icon :loading="isLoadingKiera" @click="refreshLocksFromKiera">
+        <v-btn icon :loading="isLoadingKiera" @click="fetch">
           <v-icon>mdi-refresh</v-icon>
         </v-btn>
       </v-toolbar>
@@ -206,7 +206,7 @@
 
             <v-card-actions>
               <div class="mx-auto text-center">
-                <v-btn color="green darken-1" text :loading="isLoadingKiera" @click="retryRefresh">
+                <v-btn color="green darken-1" text :loading="isLoadingKiera" @click="fetch">
                   Retry
                 </v-btn>
 
@@ -224,7 +224,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
+import { Component, Prop, Watch } from 'vue-property-decorator'
 
 // API
 import { LockeeAPI } from '@/api/lockee'
@@ -240,6 +240,7 @@ import { RunningLockCached } from '@/objects/lock'
 
 // Utils
 import { calculateHumanTimeDDHHMM } from '@/utils/time'
+import { $DefaultSession } from '../defaults/session'
 
 @Component({
   components: {
@@ -247,6 +248,9 @@ import { calculateHumanTimeDDHHMM } from '@/utils/time'
   }
 })
 export default class LockeeView extends Vue {
+  @Prop({ default: () => $DefaultSession })
+  private appSession!: typeof $DefaultSession
+
   @Prop({ default: () => $LockeeView })
   private data!: typeof $LockeeView
   private isLoadingKiera = false
@@ -263,18 +267,22 @@ export default class LockeeView extends Vue {
   ]
 
   private async mounted() {
-    await this.retryRefresh()
+    this.data.username = this.$route.params.username ? this.$route.params.username : ''
+    await this.fetch()
   }
 
-  private async retryRefresh() {
-    await this.refreshLocksFromKiera()
+  @Watch('$route', { deep: true })
+  private navChange() {
+    if (this.data.username !== this.$route.params.username) {
+      this.data.username = this.$route.params.username
+      this.fetch()
+    }
   }
 
-  private async refreshLocksFromKiera() {
+  private async fetch() {
     this.isLoadingKiera = true
-    const res = await LockeeAPI.fetchRunningLocks()
+    const res = await LockeeAPI.fetchRunningLocks(this.data.username || undefined)
 
-    console.log('res', res)
     if (res) {
       this.loadingError = false
       this.data.lockee = res.lockee

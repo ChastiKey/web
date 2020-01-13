@@ -1,10 +1,12 @@
 const Dev = {
   Kiera: {
     Auth: 'https://dev.tdm.io:8234/api/otl',
-    VerifySession: 'https://dev.tdm.io:8234/api/session/verify',
     Keyholder: 'https://dev.tdm.io:8234/api/ck/keyholder',
     Lockee: 'https://dev.tdm.io:8234/api/ck/lockee',
+    Search: 'https://dev.tdm.io:8234/api/ck/search',
     StatsLocks: 'https://dev.tdm.io:8234/api/ck/stats/locks',
+    VerifySession: 'https://dev.tdm.io:8234/api/session/verify',
+    User: 'https://dev.tdm.io:8234/api/ck/user',
     DecisionManager: 'https://dev.tdm.io:8234/api/decisions',
     DecisionManagerUpdateName: 'https://dev.tdm.io:8234/api/decision/name',
     DecisionManagerUpdateEnabled: 'https://dev.tdm.io:8234/api/decision/enabled',
@@ -18,34 +20,13 @@ const Dev = {
 
 const Prod = {
   Kiera: {
-    /**
-     * **Test Auth Status**
-     *
-     * Update Frequency: `Upon request`
-     *
-     * Request Type: `POST`
-     */
     Auth: 'https://kierabot.xyz/api/otl',
-    VerifySession: 'https://kierabot.xyz/api/session/verify',
-
-    /**
-     * **Fetches Keyholder View Data**
-     *
-     * Update Frequency: `Upon request/Cached Data (15 Mins)`
-     *
-     * Request Type: `GET`
-     */
     Keyholder: 'https://kierabot.xyz/api/ck/keyholder',
-
-    /**
-     * **Fetches Lockee View Data**
-     *
-     * Update Frequency: `Upon request/Cached Data (15 Mins)`
-     *
-     * Request Type: `GET`
-     */
     Lockee: 'https://kierabot.xyz/api/ck/lockee',
+    Search: 'https://kierabot.xyz/api/ck/search',
     StatsLocks: 'https://kierabot.xyz/api/ck/stats/locks',
+    VerifySession: 'https://kierabot.xyz/api/session/verify',
+    User: 'https://kierabot.xyz/api/ck/user',
     DecisionManager: 'https://kierabot.xyz/api/decisions',
     DecisionManagerUpdateName: 'https://kierabot.xyz/api/decision/name',
     DecisionManagerUpdateEnabled: 'https://kierabot.xyz/api/decision/enabled',

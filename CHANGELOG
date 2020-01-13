@@ -1,3 +1,14 @@
+0.9.0
+- Fixed: Home & Login view centering
+- Added: Search
+- Added: User Profile view
+- Added: User Running and Shared Locks view
+- Added: Modal on User profile page to view lock details on shared locks
+- Updated: Public homepage items, removed Search
+- Updated: Logo to navigate to home, removing dashboard icon
+- Updated: Statistics page to include Keyholders
+- Updated: Statistics page with dropdown to view past snapshots of stats data
+
 0.8.0
 - Updated to use Kiera v5 API
 

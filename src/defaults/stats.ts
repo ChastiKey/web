@@ -3,11 +3,18 @@ import { ApexOptions } from 'apexcharts'
 const colors = ['#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0', '#546E7A', '#26a69a', '#D10CE8']
 
 export const $StatsLocksView = {
+  ranges: [] as Array<string>,
+  keyholders: [] as Array<any>,
   keyholderLocks: 0,
+  keyholdersCount: 0,
+  keyholderAvgRating: 0,
   botLocks: 0,
+  selfLocks: 0,
   totalLocks: 0,
-  trust: 0.0,
+  keyholderTrust: 0.0,
+  botTrust: 0.0,
   trusted: 0,
+  frozenLocks: 0,
   // Lock interval
   distributionByInterval: {
     series: [] as Array<{ name: 'Count'; data: Array<number> }>,
