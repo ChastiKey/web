@@ -59,7 +59,7 @@
       </div>
 
       <!-- Discard Pile -->
-      <div style="margin-top: 5px; padding: 5px;" v-if="!lock.fixed">
+      <div style="margin-top: 5px; padding: 5px;" v-if="lock.fixed === 0">
         <span style="font-weight: 300; display: block; padding: 5px 0;"
           >Discarded
 

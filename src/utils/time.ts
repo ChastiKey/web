@@ -22,5 +22,31 @@ export function calculateHumanTimeYearsMonthsDays(seconds: number) {
   // Months
   if (monthsToDate < 12 && monthsToDate > 1) return `${monthsToDate} mo.`
   // Days
-  if (monthsToDate < 1) return `${seconds / 60 / 60 / 24} mo.`
+  if (seconds >= 86400 && seconds < 86400 * 30) return `${Math.round((seconds / 60 / 60 / 24) * 100) / 100} days`
+}
+
+export function calculateHumanTimeYearsMonthsDaysHours(seconds: number) {
+  const monthsToDate = Math.round((seconds / 2592000) * 100) / 100
+
+  // If its years
+  if (monthsToDate >= 12) return `${Math.round((monthsToDate / 12) * 100) / 100} yr.`
+  // Months
+  if (seconds >= 86400 * 30) return `${monthsToDate} mo.`
+  // Days
+  if (seconds >= 86400 && seconds < 86400 * 30) return `${Math.round((seconds / 60 / 60 / 24) * 100) / 100} days`
+  // Hours
+  if (seconds < 86400) return `${Math.round((seconds / 60 / 60) * 100) / 100} hrs`
+}
+
+export function calculateHumanTimeYearsMonthsDaysHoursFromMins(mins: number) {
+  const monthsToDate = Math.round((mins / 43800) * 100) / 100
+
+  // If its years
+  if (monthsToDate >= 12) return `${Math.round((monthsToDate / 12) * 100) / 100} yr.`
+  // Months
+  if (mins >= 43800) return `${monthsToDate} mo.`
+  // Days
+  if (mins >= 1440 && mins < 43800) return `${Math.round((mins / 60 / 24) * 100) / 100} days`
+  // Hours
+  if (mins < 1440) return `${Math.round((mins / 60) * 100) / 100} hrs`
 }

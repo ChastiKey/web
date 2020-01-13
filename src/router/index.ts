@@ -43,19 +43,19 @@ const routes = [
     }
   },
   {
-    path: '/lockee/:username',
+    path: '/lockee',
     name: 'lockee',
     component: LockeeView,
     meta: {
-      guest: true
+      requiresAuth: true
     }
   },
   {
-    path: '/keyholder/:username',
+    path: '/keyholder',
     name: 'keyholder',
     component: KeyholderView,
     meta: {
-      guest: true
+      requiresAuth: true
     }
   },
   {

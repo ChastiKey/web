@@ -5,10 +5,7 @@
         <v-card outlined tile width="600px" class="mx-auto text-center">
           <v-card-title> My Account </v-card-title>
           <v-card-text class="text--primary">
-            <router-link
-              :to="appSession.isAuthenticated ? `/lockee/${appSession.cached.username}` : `/login`"
-              style="text-decoration: none;"
-            >
+            <router-link :to="appSession.isAuthenticated ? `/lockee` : `/login`" style="text-decoration: none;">
               <v-card :class="['nome-nav-button', 'color-cyan', !isAuthenticated ? 'auth-req' : '']" outlined tile>
                 <v-icon large color="gray darken-2">mdi-account-lock</v-icon>
                 <br />
@@ -47,7 +44,7 @@
               <v-card class="darken-3 nome-nav-button color-dark-green" outlined tile>
                 <v-icon large color="gray darken-2">mdi-chart-areaspline</v-icon>
                 <br />
-                <span style="padding: 10px; display: block;">Locks</span>
+                <span style="padding: 10px; display: block;">Statistics</span>
               </v-card>
             </router-link>
 
@@ -55,17 +52,9 @@
             <v-card class="darken-3 nome-nav-button color-dark-green coming-soon" outlined tile>
               <v-icon large color="gray darken-2">mdi-key-change</v-icon>
               <br />
-              <span style="padding: 10px; display: block;">Keyholders</span>
+              <span style="padding: 10px; display: block;">Locks</span>
             </v-card>
             <!-- </router-link> -->
-
-            <router-link to="/search" style="text-decoration: none;">
-              <v-card class="darken-3 nome-nav-button color-dark-green coming-soon" outlined tile>
-                <v-icon large color="gray darken-2">mdi-account-search</v-icon>
-                <br />
-                <span style="padding: 10px; display: block;">Search</span>
-              </v-card>
-            </router-link>
           </v-card-text>
         </v-card>
       </v-row>
