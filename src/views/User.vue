@@ -232,7 +232,7 @@
           </div>
         </v-card-text>
         <v-card-actions>
-          <a href="https://discordapp.com/invite/tuyk2k3" target="_blank" style="text-decoration: none;">
+          <a href="https://discordapp.com/invite/7CNpSJe" target="_blank" style="text-decoration: none;">
             <v-btn text color="deep-purple accent-4">
               Message on Discord
             </v-btn>
