@@ -1,11 +1,14 @@
 <template>
   <v-app v-if="appSession.isLoaded">
     <!-- Header -->
-    <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="blue darken-2" dark>
+    <v-app-bar app color="blue darken-2" dark>
       <v-col cols="2">
         <!-- Logo -->
         <router-link to="/" style="text-decoration: none; color: #fff;">
-          <span style="font-size: 20px;">Kiera <span style="color: black;">+</span> ChastiKey</span>
+          <span v-if="$vuetify.breakpoint.smAndUp" style="font-size: 18px"
+            >Kiera <span style="color: black;">+</span> ChastiKey</span
+          >
+          <span v-else style="font-size: 14px">Kiera<span style="color: black;">+</span> ChastiKey</span>
         </router-link></v-col
       >
 
@@ -28,7 +31,7 @@
           <template v-slot:no-data>
             <v-list-item>
               <v-list-item-title>
-                Search for Lockees, Keyholders & Locks
+                Search for Lockees & Keyholders
               </v-list-item-title>
             </v-list-item>
           </template>
@@ -61,13 +64,13 @@
               <!-- Show account name + dropdown when authenticated -->
               <v-btn text dark v-on="on" v-show="appSession.isAuthenticated">
                 <v-icon size="24px">mdi-account-circle-outline</v-icon>
-                <span class="ml-2">{{ appSession.cached.username }}</span>
+                <span v-if="$vuetify.breakpoint.mdAndUp">{{ appSession.cached.username }}</span>
               </v-btn>
               <!-- Show login button when not -->
               <router-link to="/login" style="text-decoration: none;" v-show="!appSession.isAuthenticated">
                 <v-btn text dark v-on="on">
-                  <v-icon size="24px">mdi-account-circle-outline</v-icon>
-                  <span class="ml-2">Login</span>
+                  <v-icon size="20px">mdi-account-circle-outline</v-icon>
+                  <span v-if="$vuetify.breakpoint.mdAndUp" class="ml-2">Login</span>
                 </v-btn>
               </router-link>
             </template>
@@ -223,6 +226,7 @@ export default class App extends Vue {
     model: string
     sync: string
     items: Array<{ type: string; name: string }>
+    visible: boolean
   }
 
   private discordSelectionModal = false

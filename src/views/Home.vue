@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-content>
     <v-col cols="12">
       <v-row class="grey lighten-5">
         <v-card outlined tile width="600px" class="mx-auto text-center">
@@ -59,7 +59,7 @@
         </v-card>
       </v-row>
     </v-col>
-  </v-row>
+  </v-content>
 </template>
 
 <script lang="ts">

@@ -43,7 +43,7 @@ const routes = [
     }
   },
   {
-    path: '/lockee',
+    path: '/lockee/:username?',
     name: 'lockee',
     component: LockeeView,
     meta: {

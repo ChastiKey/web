@@ -245,6 +245,49 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <!-- User info not found error -->
+    <v-dialog v-model="loadingError" max-width="350">
+      <v-card>
+        <v-card-title class="headline">Could not find account!</v-card-title>
+
+        <v-card-text>
+          If the user recently changed their username or are a new user you'll need to wait up to 15 minutes.
+          <br /><br />
+          If the stats are set to private in the ChastiKey app that will also prevent anything from loading here.
+          <br /><br />
+          If this message persists, please contact support via one of the Discord servers:
+          <v-row style="text-align: center;">
+            <v-col cols="5">
+              <a href="https://discordapp.com/invite/tuyk2k3" target="_blank" style="text-decoration: none;">
+                <v-btn class="white--text" color="purple">
+                  Kiera
+                </v-btn>
+              </a></v-col
+            >
+            <v-col cols="7">
+              <a href="https://discordapp.com/invite/7CNpSJe" target="_blank" style="text-decoration: none;">
+                <v-btn class="white--text" color="teal">
+                  ChastiKey
+                </v-btn>
+              </a></v-col
+            >
+          </v-row>
+        </v-card-text>
+
+        <v-card-actions>
+          <div class="mx-auto text-center">
+            <v-btn color="green darken-1" text :loading="isLoadingKiera" @click="fetch">
+              Retry
+            </v-btn>
+
+            <v-btn color="green darken-1" text @click="loadingError = false">
+              Close
+            </v-btn>
+          </div>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-content>
 </template>
 
