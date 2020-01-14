@@ -1,8 +1,8 @@
-import { KeyholderLock, RunningLockCached } from '@/objects/lock'
-import { ChastiKeyKeyholder } from '@/objects/keyholder'
+import { KeyholderData, RunningLocksLock, KeyholderDataLock } from 'chastikey.js/app/objects'
 
 export const $KeyholderView = {
-  keyholder: new ChastiKeyKeyholder({}),
-  locks: [] as Array<KeyholderLock>,
-  runningLocks: [] as Array<RunningLockCached>
+  keyholder: new KeyholderData(),
+  locks: [] as Array<KeyholderDataLock>,
+  runningLocks: [] as Array<RunningLocksLock>,
+  focusedSharedLock: {} as KeyholderDataLock
 }

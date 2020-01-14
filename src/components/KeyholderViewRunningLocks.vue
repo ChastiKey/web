@@ -5,7 +5,7 @@
     </v-card-title>
     <v-data-table
       :headers="tableHeadersVariable"
-      :items="locks"
+      :items="runningLocks"
       :search="search"
       :items-per-page="50"
       :footer-props="{
@@ -18,7 +18,7 @@
         <v-icon color="green" v-if="item.discordID !== null">mdi-account-check </v-icon>
       </template>
 
-      <template v-slot:item.sharedLockName="{ item }">
+      <template v-slot:item.lockName="{ item }">
         <!-- Display lock type: Fixed -vs- Variable -->
         <v-chip class="ma-1" :color="!item.fixed ? 'deep-purple accent-4' : 'indigo darken-3'" outlined small>
           <span v-if="!item.fixed">V</span>
@@ -29,11 +29,17 @@
           <span v-if="!item.cumulative">NC</span>
           <span v-else>C</span>
         </v-chip>
-        {{ item.sharedLockName }}
+        {{ item.lockName }}
       </template>
 
-      <template v-slot:item.secondsLocked="{ item }">
-        {{ calcHRT(item.secondsLocked) }}
+      <template v-slot:item.timestampLocked="{ item }">
+        {{ calcHRT(Date.now() / 1000 - item.timestampLocked) }}
+      </template>
+
+      <template v-slot:item.timestampNextPick="{ item }">
+        <span v-if="item.timestampNextPick > Date.now() / 1000">{{
+          calcHRT(item.timestampNextPick - Date.now() / 1000)
+        }}</span>
       </template>
 
       <template v-slot:item.lockProps="{ item }">
@@ -56,37 +62,24 @@ import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
 
 // Objects
-import { RunningLockCached } from '@/objects/lock'
 import { VStepperHeader } from 'vuetify/lib'
 
 // Utils
 import { calculateHumanTimeDDHHMM } from '@/utils/time'
+import { RunningLocksLock } from 'chastikey.js/app/objects'
 
 @Component({})
 export default class KeyholderViewRunningLocks extends Vue {
-  @Prop({ default: [] as Array<RunningLockCached> })
-  private locks!: Array<RunningLockCached>
+  @Prop({ default: [] as Array<RunningLocksLock> })
+  private runningLocks!: Array<RunningLocksLock>
   private calcHRT = calculateHumanTimeDDHHMM
-
-  private mounted() {
-    console.log(this.locks)
-  }
 
   private tableHeadersVariable = [
     { text: 'Username', value: 'username' },
-    { text: 'Lock', value: 'sharedLockName' },
-    { text: 'Time Locked', value: 'secondsLocked' },
+    { text: 'Lock', value: 'lockName' },
+    { text: 'Time Locked', value: 'timestampLocked' },
+    { text: 'Next Pick', value: 'timestampNextPick' },
     { text: '# of Turns', value: 'noOfTurns' },
-    {
-      text: 'Lock Properties',
-      value: 'lockProps',
-      align: 'right',
-      sortable: false
-    }
-  ]
-  private tableHeadersFixed = [
-    { text: 'Username', value: 'username' },
-    { text: 'Time Locked', value: 'secondsLocked' },
     {
       text: 'Lock Properties',
       value: 'lockProps',
