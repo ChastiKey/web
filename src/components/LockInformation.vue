@@ -118,7 +118,7 @@
           ><br
         /></span>
         <span v-if="lock.simulationAverageMinutesLocked > 0"
-          >Average <kbd>{{ calcHRTYMDH(lock.simulationAverageMinutesLocked / 100) }}</kbd
+          >Average <kbd>{{ calcHRTYMDH(lock.simulationAverageMinutesLocked) }}</kbd
           ><br
         /></span>
         <span v-if="lock.simulationWorstCaseMinutesLocked > 0"

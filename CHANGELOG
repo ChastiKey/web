@@ -1,3 +1,6 @@
+0.10.1
+- Removed: Extra calculation on LockInformation average time.
+
 0.10.0
 - Fixed: Message on Discord now opens to ChastiKey Discord server.
 - Fixed: Keyholder screen's data
