@@ -97,153 +97,7 @@
 
     <!-- Shared Lock Modal -->
     <v-dialog v-model="sharedLockModal" max-width="600">
-      <v-card class="mx-auto pt-4">
-        <v-card-text>
-          <div>Shared Lock</div>
-          <div class="display-1 text--primary">
-            {{ user.focusedSharedLock.lockName ? user.focusedSharedLock.lockName : String(`~ Unnamed Lock ~`) }}
-          </div>
-          <div class="text--primary pt-2">
-            <!-- Lock Type -->
-            {{ user.focusedSharedLock.fixed === 1 ? 'Fixed Lock' : 'Variable Lock' }}<br />
-            <!-- Req App Ver -->
-            ChastiKey App Version <kbd>{{ user.focusedSharedLock.minVersionRequired }}</kbd> or higher required!<br /><br />
-            <!-- DM Required -->
-            <span v-if="user.focusedSharedLock.requireDM" class="deep-purple--text"
-              >Message Keyholder Before Loading<br
-            /></span>
-            <!-- Force Trust -->
-            <span v-if="user.focusedSharedLock.forceTrust" class="red--text">Keyholder Limitations Removed<br /></span>
-            <!-- [Variable] Keys Disabled -->
-            <span v-if="user.focusedSharedLock.keyDisabled === 1">Emergency Keys are Disabled!<br /></span>
-            <!-- [Variable] Draw Frequency -->
-            <span v-if="user.focusedSharedLock.fixed === 0 && user.focusedSharedLock.cumulative === 0"
-              >Chance Every
-              <u
-                ><kbd>{{ user.focusedSharedLock.regularity }}hrs</kbd></u
-              >
-              (Non-Cumulative)<br
-            /></span>
-            <span v-if="user.focusedSharedLock.fixed === 0 && user.focusedSharedLock.cumulative === 1"
-              >Chance Every <u>{{ user.focusedSharedLock.regularity }}hrs</u> (Cumulative)<br
-            /></span>
-            <!-- Info Hidden -->
-            <span v-if="user.focusedSharedLock.cardInfoHidden">Card Info Hidden<br /></span>
-            <span v-if="user.focusedSharedLock.timerHidden">Timer Hidden<br /></span>
-            <!-- [Variable] Card Spreads -->
-            <span v-if="user.focusedSharedLock.fixed === 0 && user.focusedSharedLock.cardInfoHidden === 0"
-              ><br />Cards in Deck<br />
-              <div class="pa-1">
-                <!-- Card: Green -->
-                <div class="card-ranges">
-                  <!-- Card Img: Green -->
-                  <v-img :src="cardImgURL('Green')" width="20px" />
-                  <!-- Card Range: Green -->
-                  <span class="counts"
-                    ><kbd>{{ user.focusedSharedLock.minGreens }}-{{ user.focusedSharedLock.maxGreens }}</kbd></span
-                  >
-                  <br />
-                </div>
-                <!-- Card: Red -->
-                <div class="card-ranges">
-                  <!-- Card Img: Red -->
-                  <v-img :src="cardImgURL('Red')" width="20px" />
-                  <!-- Card Range: Red -->
-                  <span class="counts"
-                    ><kbd>{{ user.focusedSharedLock.minReds }}-{{ user.focusedSharedLock.maxReds }}</kbd></span
-                  ><br />
-                </div>
-                <!-- Card: YellowRandom -->
-                <div class="card-ranges">
-                  <!-- Card Img: YellowRandom -->
-                  <v-img :src="cardImgURL('YellowRandom')" width="20px" />
-                  <!-- Card Range: YellowRandom -->
-                  <span class="counts"
-                    ><kbd>{{ user.focusedSharedLock.minYellows }}-{{ user.focusedSharedLock.maxYellows }}</kbd></span
-                  ><br />
-                </div>
-                <!-- Card: YellowAdd -->
-                <div class="card-ranges yellows">
-                  <!-- Card Img: YellowAdd -->
-                  <v-img :src="cardImgURL('YellowAdd1')" width="20px" />
-                  <v-img :src="cardImgURL('YellowAdd2')" width="20px" />
-                  <v-img :src="cardImgURL('YellowAdd3')" width="20px" />
-                  <!-- Card Range: YellowAdd -->
-                  <span class="counts"
-                    ><kbd
-                      >{{ user.focusedSharedLock.minYellowsAdd }}-{{ user.focusedSharedLock.maxYellowsAdd }}</kbd
-                    ></span
-                  ><br />
-                </div>
-                <!-- Card: YellowMinus -->
-                <div class="card-ranges yellows">
-                  <!-- Card Img: YellowMinus -->
-                  <v-img :src="cardImgURL('YellowMinus1')" width="20px" />
-                  <v-img :src="cardImgURL('YellowMinus2')" width="20px" />
-                  <!-- Card Range: YellowMinus -->
-                  <span class="counts"
-                    ><kbd
-                      >{{ user.focusedSharedLock.minYellowsMinus }}-{{ user.focusedSharedLock.maxYellowsMinus }}</kbd
-                    ></span
-                  ><br />
-                </div>
-                <!-- Card: Freeze -->
-                <div class="card-ranges">
-                  <!-- Card Img: Freeze -->
-                  <v-img :src="cardImgURL('Freeze')" width="20px" />
-                  <!-- Card Range: Freeze -->
-                  <span class="counts"
-                    ><kbd>{{ user.focusedSharedLock.minYellows }}-{{ user.focusedSharedLock.maxYellows }}</kbd> </span
-                  ><br />
-                </div>
-                <!-- Card: DoubleUp -->
-                <div class="card-ranges">
-                  <!-- Card Img: DoubleUp -->
-                  <v-img :src="cardImgURL('DoubleUp')" width="20px" />
-                  <!-- Card Range: DoubleUp -->
-                  <span class="counts"
-                    ><kbd>{{ user.focusedSharedLock.minYellows }}-{{ user.focusedSharedLock.maxYellows }}</kbd> </span
-                  ><br />
-                </div>
-                <!-- Card: Reset -->
-                <div class="card-ranges">
-                  <!-- Card Img: Reset -->
-                  <v-img :src="cardImgURL('Reset')" width="20px" />
-                  <!-- Card Range: Reset -->
-                  <span class="counts"
-                    ><kbd>{{ user.focusedSharedLock.minYellows }}-{{ user.focusedSharedLock.maxYellows }}</kbd> </span
-                  ><br />
-                </div>
-              </div>
-            </span>
-            <!-- Simulation Times -->
-            <span v-if="user.focusedSharedLock.simulationBestCaseMinutesLocked > 0"
-              >Best Case <kbd>{{ calcHRTYMDH(user.focusedSharedLock.simulationBestCaseMinutesLocked) }}</kbd
-              ><br
-            /></span>
-            <span v-if="user.focusedSharedLock.simulationAverageMinutesLocked > 0"
-              >Average <kbd>{{ calcHRTYMDH(user.focusedSharedLock.simulationAverageMinutesLocked / 100) }}</kbd
-              ><br
-            /></span>
-            <span v-if="user.focusedSharedLock.simulationWorstCaseMinutesLocked > 0"
-              >Worst Case <kbd>{{ calcHRTYMDH(user.focusedSharedLock.simulationWorstCaseMinutesLocked) }}</kbd
-              ><br
-            /></span>
-          </div>
-        </v-card-text>
-        <v-card-actions>
-          <a href="https://discordapp.com/invite/7CNpSJe" target="_blank" style="text-decoration: none;">
-            <v-btn text color="deep-purple accent-4">
-              Message on Discord
-            </v-btn>
-          </a>
-          <a :href="user.focusedSharedLock.sharedLockURL" target="_blank" style="text-decoration: none;">
-            <v-btn text color="blue">
-              View Lock
-            </v-btn>
-          </a>
-        </v-card-actions>
-      </v-card>
+      <LockInformation :lock="user.focusedSharedLock" />
     </v-dialog>
 
     <!-- User info not found error -->
@@ -299,6 +153,7 @@ import { Component, Prop, Watch } from 'vue-property-decorator'
 import { UserAPI } from '@/api/user'
 
 // Components
+import LockInformation from '@/components/LockInformation.vue'
 import LockeeViewRunningLock from '@/components/LockeeViewRunningLock.vue'
 
 // Defaults
@@ -313,6 +168,7 @@ import {
 
 @Component({
   components: {
+    LockInformation,
     LockeeViewRunningLock
   }
 })
@@ -411,27 +267,5 @@ export default class UserView extends Vue {
 
 .shared-lock-title {
   font-weight: 300 !important;
-}
-
-.card-ranges {
-  display: inline-block;
-  width: 55px;
-  max-width: 65px;
-  height: 45px;
-  text-align: center;
-  > .v-image {
-    display: inline-block;
-  }
-  &.yellows {
-    width: 100px;
-    > .v-image {
-      margin-left: 0 !important;
-      max-width: 20px !important;
-    }
-  }
-  .counts {
-    display: block;
-    width: 100%;
-  }
 }
 </style>

@@ -1,5 +1,8 @@
-0.9.1
+0.10.0
 - Fixed: Message on Discord now opens to ChastiKey Discord server.
+- Fixed: Keyholder screen's data
+- Added: Shared Locks now appear on Keyholder account screen
+- Updated: Lock information (shared locks) will now only have the URL button to the QR code if Require DM is false
 
 0.9.0
 - Fixed: Home & Login view centering

@@ -14,7 +14,7 @@
 
       <!-- Data from Kiera -->
       <v-container>
-        <v-row justify="center">
+        <v-row justify="center" dense>
           <v-col cols="12" sm="12" md="4" lg="4">
             <!-- Stats -->
             <v-card>
@@ -87,21 +87,84 @@
 
       <v-divider class="my-3"></v-divider>
 
-      <!-- Data from Kiera -->
+      <!-- Shared Locks -->
       <v-container>
-        <KeyholderViewRunningLocks v-if="data.locks.length > 0" :locks="data.runningLocks"></KeyholderViewRunningLocks>
+        <div class="title">
+          Your Available Locks
+          <v-progress-circular v-if="isLoading" indeterminate size="16" width="2" color="teal"></v-progress-circular>
+        </div>
 
-        <!-- Locks List -->
-        <!-- <v-expansion-panels v-if="!isLoading">
-          <KeyholderListLock v-for="lock in data.locks" :key="lock.name" :lock="lock" />
-        </v-expansion-panels> -->
+        <!-- Shared Lock Modal -->
+        <v-dialog v-model="sharedLockModal" max-width="600">
+          <LockInformation
+            :lock="data.focusedSharedLock"
+            :showMessageOnDiscordButton="false"
+            :showViewLockButton="false"
+            :forceShowViewLockButton="true"
+          />
+        </v-dialog>
 
-        <!-- No Locks to display message -->
-        <v-row align="center" justify="center" style="height: 300px;" v-if="!isLoading && data.locks.length === 0">
-          <span class="headline"><u>0</u> Active locks/lockees to show!</span>
+        <!-- Lock List -->
+        <v-row style="margin-top: 25px;" dense>
+          <v-col cols="12" sm="6" md="4" lg="4" xl="4" v-for="(lock, i) in data.locks" :key="i">
+            <v-card class="mx-auto" tile>
+              <v-list-item dense>
+                <v-row dense>
+                  <v-col cols="10">
+                    <v-list-item-content>
+                      <v-list-item-title class="subtitle-1"
+                        ><span class="shared-lock-title">Shared Lock:</span>
+                        {{ lock.lockName ? lock.lockName : String(`~ Unnamed Lock ~`) }}</v-list-item-title
+                      >
+                      <v-list-item-subtitle
+                        >{{ lock.fixed === 1 ? 'Fixed Lock' : 'Variable Lock' }}
+                      </v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-col>
+                  <v-col cols="2">
+                    <v-btn
+                      @click="
+                        focusLock(lock.lockName)
+                        sharedLockModal = true
+                      "
+                      text
+                      small
+                      color="primary"
+                      class="mt-3"
+                      >View</v-btn
+                    >
+                  </v-col>
+                </v-row>
+              </v-list-item>
+            </v-card>
+          </v-col>
         </v-row>
-        <v-row align="center" justify="center" v-if="!isLoading && data.locks.length === 0">
-          <router-link to="/">Return to home</router-link>
+      </v-container>
+
+      <v-divider class="my-3"></v-divider>
+
+      <!-- Keyholder's Active Running Locks w/Lockees -->
+      <v-container>
+        <div class="title">
+          Running Locks
+          <v-progress-circular v-if="isLoading" indeterminate size="16" width="2" color="teal"></v-progress-circular>
+        </div>
+
+        <v-row style="margin-top: 25px;">
+          <v-col cols="12">
+            <KeyholderViewRunningLocks
+              v-if="data.runningLocks.length > 0"
+              :runningLocks="data.runningLocks"
+            ></KeyholderViewRunningLocks>
+
+            <!-- No Locks to display message -->
+            <v-row align="center" justify="center" style="height: 300px;" v-if="!isLoading && data.locks.length === 0">
+              <span class="headline"><u>0</u> Active locks/lockees to show!</span>
+            </v-row>
+            <v-row align="center" justify="center" v-if="!isLoading && data.locks.length === 0">
+              <router-link to="/">Return to home</router-link>
+            </v-row>
+          </v-col>
         </v-row>
       </v-container>
     </v-col>
@@ -116,6 +179,7 @@ import { Component, Prop } from 'vue-property-decorator'
 import { KeyholderAPI } from '@/api/keyholder'
 
 // Components
+import LockInformation from '@/components/LockInformation.vue'
 import KeyholderListLock from '@/components/KeyholderListLock.vue'
 import KeyholderViewRunningLocks from '@/components/KeyholderViewRunningLocks.vue'
 
@@ -128,6 +192,7 @@ import { ChastiKeyKeyholder } from '../objects/keyholder'
 
 @Component({
   components: {
+    LockInformation,
     KeyholderListLock,
     KeyholderViewRunningLocks
   }
@@ -136,6 +201,7 @@ export default class KeyholderView extends Vue {
   @Prop({ default: () => $KeyholderView })
   private data!: typeof $KeyholderView
   private isLoading = false
+  private sharedLockModal = false
 
   private async mounted() {
     this.refreshLocksFromKiera()
@@ -144,21 +210,24 @@ export default class KeyholderView extends Vue {
   private async refreshLocksFromKiera() {
     this.isLoading = true
     const res = await KeyholderAPI.fetchRunningLocks()
+    console.log(res)
 
     if (res) {
       // Keyholder stats
-      this.data.keyholder = new ChastiKeyKeyholder(res.keyholder)
+      this.data.keyholder = res.keyholder
 
       // Sorted by Lock Data
-      this.data.locks = res.locks.map((l: KeyholderLock) => new KeyholderLock(l))
+      this.data.locks = res.locks
 
       // Reset All Locks
-      this.data.runningLocks = []
-      // Pull locks from their lock sub array
-      this.data.locks.forEach(l => l.running.forEach(rl => this.data.runningLocks.push(rl)))
+      this.data.runningLocks = res.runningLocks
     }
 
     this.isLoading = false
+  }
+
+  private focusLock(lockName: string) {
+    this.data.focusedSharedLock = this.data.locks.find((l: any) => l.lockName === lockName)
   }
 }
 </script>
@@ -167,5 +236,9 @@ export default class KeyholderView extends Vue {
 .stats-title {
   font-weight: 300;
   border-radius: 4px 4px 0 0;
+}
+
+.shared-lock-title {
+  font-weight: 300 !important;
 }
 </style>
