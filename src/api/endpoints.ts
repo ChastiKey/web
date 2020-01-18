@@ -20,21 +20,21 @@ const Dev = {
 
 const Prod = {
   Kiera: {
-    Auth: 'https://kierabot.xyz/api/otl',
-    Keyholder: 'https://kierabot.xyz/api/ck/keyholder',
-    Lockee: 'https://kierabot.xyz/api/ck/lockee',
-    Search: 'https://kierabot.xyz/api/ck/search',
-    StatsLocks: 'https://kierabot.xyz/api/ck/stats/locks',
-    VerifySession: 'https://kierabot.xyz/api/session/verify',
-    User: 'https://kierabot.xyz/api/ck/user',
-    DecisionManager: 'https://kierabot.xyz/api/decisions',
-    DecisionManagerUpdateName: 'https://kierabot.xyz/api/decision/name',
-    DecisionManagerUpdateEnabled: 'https://kierabot.xyz/api/decision/enabled',
-    DecisionManagerNewOutcome: 'https://kierabot.xyz/api/decision/outcome',
-    DecisionManagerDeleteOutcome: 'https://kierabot.xyz/api/decision/outcome',
-    DecisionManagerUpdateOutcome: 'https://kierabot.xyz/api/decision/outcome',
-    DecisionManagerNew: 'https://kierabot.xyz/api/decision',
-    DecisionManagerDelete: 'https://kierabot.xyz/api/decision'
+    Auth: 'https://bot.kierabot.xyz/api/otl',
+    Keyholder: 'https://bot.kierabot.xyz/api/ck/keyholder',
+    Lockee: 'https://bot.kierabot.xyz/api/ck/lockee',
+    Search: 'https://bot.kierabot.xyz/api/ck/search',
+    StatsLocks: 'https://bot.kierabot.xyz/api/ck/stats/locks',
+    VerifySession: 'https://bot.kierabot.xyz/api/session/verify',
+    User: 'https://bot.kierabot.xyz/api/ck/user',
+    DecisionManager: 'https://bot.kierabot.xyz/api/decisions',
+    DecisionManagerUpdateName: 'https://bot.kierabot.xyz/api/decision/name',
+    DecisionManagerUpdateEnabled: 'https://bot.kierabot.xyz/api/decision/enabled',
+    DecisionManagerNewOutcome: 'https://bot.kierabot.xyz/api/decision/outcome',
+    DecisionManagerDeleteOutcome: 'https://bot.kierabot.xyz/api/decision/outcome',
+    DecisionManagerUpdateOutcome: 'https://bot.kierabot.xyz/api/decision/outcome',
+    DecisionManagerNew: 'https://bot.kierabot.xyz/api/decision',
+    DecisionManagerDelete: 'https://bot.kierabot.xyz/api/decision'
   }
 }
 
