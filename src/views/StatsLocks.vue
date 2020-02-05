@@ -316,17 +316,19 @@ export default class StatsLocksView extends Vue {
 
   private getLevelName(level: number) {
     if (level === 1) return 'Novice' // #904fad
-    if (level === 2) return 'Keyholder' // #a672be
-    if (level === 3) return 'Established' // #bb95d0
+    if (level === 2) return 'Keyholder' // #a069ba
+    if (level === 3) return 'Established' // #b184c7
+    if (level === 3) return 'Distinguished' // #c19ed4
     if (level === 4) return 'Renowned' // #d1b8e1
     return 'Pending'
   }
 
   private getLevelColor(level: number) {
     if (level === 1) return '#904fad'
-    if (level === 2) return '#a672be'
-    if (level === 3) return '#bb95d0'
-    if (level === 4) return '#d1b8e1'
+    if (level === 2) return '#a069ba'
+    if (level === 3) return '#b184c7'
+    if (level === 4) return '#c19ed4'
+    if (level === 5) return '#d1b8e1'
     return 'gray'
   }
 
