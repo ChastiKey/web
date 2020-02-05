@@ -1,31 +1,49 @@
 export class Decision {
   public readonly _id: string
   public name: string = ''
+
+  /**
+   * Description of roll
+   * @type {string}
+   * @memberof TrackedDecision
+   */
+  public description: string = ''
+
+  /**
+   * Possible outcomes
+   * @type {Array<DecisionOption>}
+   * @memberof TrackedDecision
+   */
   public options: Array<DecisionOption> = []
+
   /**
    * Discord Snowflake
    * @type {string}
-   * @memberof Decision
+   * @memberof TrackedDecision
    */
   public authorID: string
+
   /**
    * Discord Server ID
    * @type {ObjectID}
-   * @memberof Decision
+   * @memberof TrackedDecision
    */
   public serverID: string
+
   /**
    * Limit the Decision roller to its serverID
    * @type {boolean}
-   * @memberof Decision
+   * @memberof TrackedDecision
    */
   public serverLimited: boolean = false
+
   /**
    * Enables or Disables the whole decision
    * @type {boolean}
-   * @memberof Decision
+   * @memberof TrackedDecision
    */
   public enabled: boolean = true
+
   /**
    * Number of times used
    * @type {number}
@@ -33,32 +51,41 @@ export class Decision {
    */
   public counter: number = 0
 
+  // * Used on Kiera + CK web portal only * //
+  public _isDescriptionChanged = false
+  public _originalDescription = ''
+
   constructor(init?: Partial<Decision>) {
     Object.assign(this, init || {})
     this.options = this.options.map(o => new DecisionOption(o))
+    // Assign _originalDescription
+    this._originalDescription = this.description
   }
 }
 
 export class DecisionOption {
   public readonly _id: string
+
   /**
    * Random decision outcome
    * @type {string}
-   * @memberof DecisionOption
+   * @memberof TrackedDecisionOption
    */
   public text: string
+
   /**
    * Enables or Disables this decision outcome
    * @type {boolean}
-   * @memberof DecisionOption
+   * @memberof TrackedDecisionOption
    */
   public enabled: boolean = true
+
   /**
    * The type and how to format it when displaying
-   * @type {('string' | 'image' | 'url')}
-   * @memberof DecisionOption
+   * @type {('string' | 'image' | 'url' | 'markdown')}
+   * @memberof TrackedDecisionOption
    */
-  public type: 'string' | 'image' | 'url' = 'string'
+  public type: 'string' | 'image' | 'url' | 'markdown'
 
   // * Used on Kiera + CK web portal only * //
   public _isChanged = false

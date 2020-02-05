@@ -148,6 +148,30 @@
                   </v-text-field>
                 </v-col>
               </v-row>
+              <v-row dense>
+                <v-col cols="12" md="6">
+                  <v-textarea
+                    v-model="decision.description"
+                    label="Subtitle or Description area"
+                    rows="1"
+                    auto-grow
+                    persistent-hint
+                  >
+                  </v-textarea>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="12" md="6" align="right" class="pa-0">
+                  <v-btn
+                    small
+                    color="green"
+                    class="white--text ml-2 mt-2"
+                    :disabled="decision._originalDescription === decision.description || isLoading"
+                    @click="decisionUpdateDescription(decision._id, decision.description)"
+                    >Save Description</v-btn
+                  >
+                </v-col>
+              </v-row>
               <v-row>
                 <v-col cols="12">
                   <span class="title">Settings</span>
@@ -259,15 +283,17 @@
         </v-dialog>
 
         <!-- Prompt: Add Outcome -->
-        <v-dialog v-model="data.decisionNewOutcomePrompt" max-width="320" persistent>
+        <v-dialog v-model="data.decisionNewOutcomePrompt" max-width="600" persistent>
           <v-card>
             <v-card-title class="headline">New Outcome</v-card-title>
 
             <v-card-text>
-              <v-text-field
+              <v-textarea
                 v-model="data.decisionNewOutcomeInput"
+                rows="1"
+                hint="The [Enter] key has been disabled on this input!"
                 :disabled="data.decisionNewOutcomeIsLoading"
-                @keyup.enter="decisionNewOutcome"
+                :auto-grow="data.decisionNewOutcomeType === 'markdown'"
               >
                 <template v-slot:prepend>
                   <v-menu transition="slide-y-transition" bottom>
@@ -278,7 +304,7 @@
                     </template>
                     <v-list>
                       <v-list-item
-                        v-for="(item, i) in ['string', 'image', 'url']"
+                        v-for="(item, i) in ['string', 'image', 'url', 'markdown']"
                         :key="i"
                         @click="data.decisionNewOutcomeType = item"
                       >
@@ -286,7 +312,7 @@
                       </v-list-item>
                     </v-list>
                   </v-menu>
-                </template></v-text-field
+                </template></v-textarea
               >
             </v-card-text>
 
@@ -491,6 +517,19 @@ export default class DecisionManagerView extends Vue {
 
     this.data.decisionDeletePrompt = false
     this.data.decisionDeleteIsLoading = false
+  }
+
+  private async decisionUpdateDescription(_id: string, text: string) {
+    this.isLoading = true
+    const res = await DecisionAPI.decisionUpdateDescription(_id, text)
+
+    if (res) {
+      this.findDecision(_id)._originalDescription = text
+    } else {
+      this.refreshFromKiera()
+    }
+
+    this.isLoading = false
   }
 }
 </script>

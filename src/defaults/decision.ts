@@ -17,7 +17,7 @@ export const $DecisionManagerView = {
   // New Outcome
   decisionNewOutcomePrompt: false,
   decisionNewOutcomeIsLoading: false,
-  decisionNewOutcomeType: 'string' as 'string' | 'image' | 'url',
+  decisionNewOutcomeType: 'string' as 'string' | 'image' | 'url' | 'markdown',
   decisionNewOutcomeId: '',
   decisionNewOutcomeInput: '',
   // New Decision

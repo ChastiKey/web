@@ -19,7 +19,7 @@
           </v-btn>
         </template>
         <v-list>
-          <v-list-item v-for="(item, i) in ['string', 'image', 'url']" :key="i" @click="option.type = item">
+          <v-list-item v-for="(item, i) in ['string', 'image', 'url', 'markdown']" :key="i" @click="option.type = item">
             <v-list-item-title>{{ item }}</v-list-item-title>
           </v-list-item>
         </v-list>
@@ -44,8 +44,15 @@
     </v-col>
     <!-- Text field with Outcome text in it -->
     <v-col class="pl-2" cols="12" sm="12" md="12" lg="8">
-      <v-text-field :disabled="isLoading" v-model="option.text" @keyup.enter="decisionUpdateOutcome" dense>
-      </v-text-field>
+      <v-textarea
+        :disabled="isLoading"
+        :auto-grow="option.type === 'markdown'"
+        v-model="option.text"
+        rows="1"
+        @keyup.enter="data.decisionNewOutcomeType !== 'markdown' ? decisionUpdateOutcome : null"
+        dense
+      >
+      </v-textarea>
     </v-col>
   </v-row>
 </template>
