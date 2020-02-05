@@ -1,3 +1,7 @@
+0.11.0
+- Added: Decision Subtitle/Description field.
+- Added: Markdown/Multiline Decision outcome support.
+
 0.10.2
 - Redirecting traffic to subdomain
 

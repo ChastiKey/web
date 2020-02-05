@@ -33,6 +33,21 @@ export namespace DecisionAPI {
     }
   }
 
+  export async function decisionUpdateDescription(_id: string, description: string) {
+    try {
+      const resp = (await Axios(API.Kiera.DecisionManagerUpdateDescription, {
+        method: 'PATCH',
+        headers: getSessionHeaders(),
+        data: { _id, description }
+      })) as AxiosResponse<{ status: string; success: boolean }>
+
+      return resp.data.success
+    } catch (error) {
+      console.error('DecisionAPI Error =>', error)
+      return false
+    }
+  }
+
   export async function updateDecisionEnabled(_id: string, enabled: boolean) {
     try {
       const resp = (await Axios(API.Kiera.DecisionManagerUpdateEnabled, {
@@ -48,7 +63,7 @@ export namespace DecisionAPI {
     }
   }
 
-  export async function decisionNewOutcome(_id: string, type: 'string' | 'image' | 'url', text: string) {
+  export async function decisionNewOutcome(_id: string, type: 'string' | 'image' | 'url' | 'markdown', text: string) {
     try {
       const resp = (await Axios(API.Kiera.DecisionManagerNewOutcome, {
         method: 'PUT',
