@@ -318,8 +318,8 @@ export default class StatsLocksView extends Vue {
     if (level === 1) return 'Novice' // #904fad
     if (level === 2) return 'Keyholder' // #a069ba
     if (level === 3) return 'Established' // #b184c7
-    if (level === 3) return 'Distinguished' // #c19ed4
-    if (level === 4) return 'Renowned' // #d1b8e1
+    if (level === 4) return 'Distinguished' // #c19ed4
+    if (level === 5) return 'Renowned' // #d1b8e1
     return 'Pending'
   }
 
