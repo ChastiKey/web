@@ -9,7 +9,8 @@ import KeyholderView from '../views/Keyholder.vue'
 import LoginView from '../views/Login.vue'
 import LogoutView from '../views/Logout.vue'
 import StatsLocksView from '../views/StatsLocks.vue'
-import DecisionManagerView from '../views/DecisionManager.vue'
+import DecisionRollsView from '../views/DecisionRolls.vue'
+import DecisionRollEditorView from '../views/DecisionRollEditor.vue'
 import UserView from '../views/User.vue'
 
 // Utils
@@ -85,7 +86,15 @@ const routes = [
   {
     path: '/decision/manager',
     name: 'decision-manager',
-    component: DecisionManagerView,
+    component: DecisionRollsView,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/decision/manager/:id',
+    name: 'decision-manager-editor',
+    component: DecisionRollEditorView,
     meta: {
       requiresAuth: true
     }

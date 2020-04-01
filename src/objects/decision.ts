@@ -31,11 +31,11 @@ export class Decision {
   public serverID: string
 
   /**
-   * Limit the Decision roller to its serverID
-   * @type {boolean}
+   * Permissions mode
+   * @type {('All' | 'None' | 'Whitelist')}
    * @memberof TrackedDecision
    */
-  public serverLimited: boolean = false
+  public usagePermission: 'All' | 'None' | 'Whitelist' = 'All'
 
   /**
    * Enables or Disables the whole decision
@@ -51,15 +51,28 @@ export class Decision {
    */
   public counter: number = 0
 
+  public serverWhitelist: Array<string> = []
+  public userWhitelist: Array<string> = []
+  public userBlacklist: Array<string> = []
+
+  public log?: Array<DecisionLogEntry>
+
+  public consumeMode: 'Basic' | 'Temporarily Consume' | 'Consume' = 'Basic'
+  public consumeReset: number = 0 // Seconds
+
   // * Used on Kiera + CK web portal only * //
   public _isDescriptionChanged = false
   public _originalDescription = ''
+  public _originalName = ''
+  public _originalConsumeReset = 0
 
   constructor(init?: Partial<Decision>) {
     Object.assign(this, init || {})
     this.options = this.options.map(o => new DecisionOption(o))
     // Assign _originalDescription
     this._originalDescription = this.description
+    this._originalName = this.name
+    this._originalConsumeReset = this.consumeReset
   }
 }
 
@@ -97,5 +110,18 @@ export class DecisionOption {
     // Assign _originalText
     this._originalText = init.text
     this._originalType = init.type || 'string'
+  }
+}
+
+export class DecisionLogEntry {
+  public _id: string
+  public callerID: string
+  public decisionID: string
+  public outcomeID: string
+  public serverID?: string
+  public channelID: string
+
+  constructor(init?: Partial<DecisionLogEntry>) {
+    Object.assign(this, init || {})
   }
 }

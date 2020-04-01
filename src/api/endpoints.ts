@@ -8,14 +8,18 @@ const Dev = {
     VerifySession: 'https://dev.tdm.io:8234/api/session/verify',
     User: 'https://dev.tdm.io:8234/api/ck/user',
     DecisionManager: 'https://dev.tdm.io:8234/api/decisions',
+    DecisionManagerEditor: 'https://dev.tdm.io:8234/api/decision',
     DecisionManagerUpdateName: 'https://dev.tdm.io:8234/api/decision/name',
     DecisionManagerUpdateDescription: 'https://dev.tdm.io:8234/api/decision/description',
+    DecisionManagerUpdateConsumeMode: 'https://dev.tdm.io:8234/api/decision/consumeMode',
+    DecisionManagerUpdateConsumeReset: 'https://dev.tdm.io:8234/api/decision/consumeReset',
     DecisionManagerUpdateEnabled: 'https://dev.tdm.io:8234/api/decision/enabled',
     DecisionManagerNewOutcome: 'https://dev.tdm.io:8234/api/decision/outcome',
     DecisionManagerDeleteOutcome: 'https://dev.tdm.io:8234/api/decision/outcome',
     DecisionManagerUpdateOutcome: 'https://dev.tdm.io:8234/api/decision/outcome',
     DecisionManagerNew: 'https://dev.tdm.io:8234/api/decision',
-    DecisionManagerDelete: 'https://dev.tdm.io:8234/api/decision'
+    DecisionManagerDelete: 'https://dev.tdm.io:8234/api/decision',
+    DecisionManagerResetConsumed: 'https://dev.tdm.io:8234/api/decision/consumedReset'
   }
 }
 
@@ -29,14 +33,18 @@ const Prod = {
     VerifySession: 'https://bot.kierabot.xyz/api/session/verify',
     User: 'https://bot.kierabot.xyz/api/ck/user',
     DecisionManager: 'https://bot.kierabot.xyz/api/decisions',
+    DecisionManagerEditor: 'https://bot.kierabot.xyz/api/decision',
     DecisionManagerUpdateName: 'https://bot.kierabot.xyz/api/decision/name',
     DecisionManagerUpdateDescription: 'https://bot.kierabot.xyz/api/decision/description',
+    DecisionManagerUpdateConsumeMode: 'https://bot.kierabot.xyz/api/decision/consumeMode',
+    DecisionManagerUpdateConsumeReset: 'https://bot.kierabot.xyz/api/decision/consumeReset',
     DecisionManagerUpdateEnabled: 'https://bot.kierabot.xyz/api/decision/enabled',
     DecisionManagerNewOutcome: 'https://bot.kierabot.xyz/api/decision/outcome',
     DecisionManagerDeleteOutcome: 'https://bot.kierabot.xyz/api/decision/outcome',
     DecisionManagerUpdateOutcome: 'https://bot.kierabot.xyz/api/decision/outcome',
     DecisionManagerNew: 'https://bot.kierabot.xyz/api/decision',
-    DecisionManagerDelete: 'https://bot.kierabot.xyz/api/decision'
+    DecisionManagerDelete: 'https://bot.kierabot.xyz/api/decision',
+    DecisionManagerResetConsumed: 'https://bot.kierabot.xyz/api/decision/consumedReset'
   }
 }
 

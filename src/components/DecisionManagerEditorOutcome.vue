@@ -47,10 +47,12 @@
       <v-textarea
         :disabled="isLoading"
         :auto-grow="option.type === 'markdown'"
+        label="Outcome text"
         v-model="option.text"
         rows="1"
         @keyup.enter="data.decisionNewOutcomeType !== 'markdown' ? decisionUpdateOutcome : null"
         dense
+        outlined
       >
       </v-textarea>
     </v-col>
@@ -68,7 +70,7 @@ import { DecisionAPI } from '@/api/decision'
 import { Decision, DecisionOption } from '@/objects/decision'
 
 @Component({})
-export default class DecisionManagerViewOutcome extends Vue {
+export default class DecisionManagerEditorOutcome extends Vue {
   @Prop({ default: () => new Decision() })
   private decision!: Decision
   @Prop({ default: () => new DecisionOption() })

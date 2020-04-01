@@ -1,13 +1,21 @@
 import { Decision } from '@/objects/decision'
 
-export const $DecisionManagerView = {
+export const $DecisionRollsView = {
   decisions: [] as Array<Decision>,
+  // New Decision
+  decisionNewPrompt: false,
+  decisionNewIsLoading: false,
+  decisionNewIdReceived: false,
+  decisionNewId: '',
+  decisionNewInput: ''
+}
+
+export const $DecisionRollEditor = {
+  decision: new Decision(),
   // Edit Name
-  decisionRenamePrompt: false,
   decisionRenameIsLoading: false,
-  decisionRenamePlaceholder: '',
-  decisionRenameId: '',
-  decisionRenameInput: '',
+  // Edit Description
+  decisionDescriptionIsLoading: false,
   // Delete
   decisionDeletePrompt: false,
   decisionDeleteIsLoading: false,
@@ -20,10 +28,6 @@ export const $DecisionManagerView = {
   decisionNewOutcomeType: 'string' as 'string' | 'image' | 'url' | 'markdown',
   decisionNewOutcomeId: '',
   decisionNewOutcomeInput: '',
-  // New Decision
-  decisionNewPrompt: false,
-  decisionNewIsLoading: false,
-  decisionNewIdReceived: false,
-  decisionNewId: '',
-  decisionNewInput: ''
+  // Consume Mode changes
+  decisionConsumeModeIsLoading: false
 }

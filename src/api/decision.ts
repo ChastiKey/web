@@ -4,7 +4,22 @@ import { getSessionHeaders } from '@/utils/session'
 import { Decision, DecisionOption } from '@/objects/decision'
 
 export namespace DecisionAPI {
-  export async function fetchMyDecisions() {
+  export async function fetchDecision(_id: string) {
+    try {
+      const resp = await Axios(API.Kiera.DecisionManagerEditor, {
+        method: 'POST',
+        headers: getSessionHeaders(),
+        data: { _id }
+      })
+
+      if (resp.status) return new Decision(resp.data.data)
+    } catch (error) {
+      console.error('DecisionAPI Error =>', error)
+      return new Decision()
+    }
+  }
+
+  export async function fetchDecisions() {
     try {
       const resp = await Axios(API.Kiera.DecisionManager, {
         method: 'GET',
@@ -39,6 +54,36 @@ export namespace DecisionAPI {
         method: 'PATCH',
         headers: getSessionHeaders(),
         data: { _id, description }
+      })) as AxiosResponse<{ status: string; success: boolean }>
+
+      return resp.data.success
+    } catch (error) {
+      console.error('DecisionAPI Error =>', error)
+      return false
+    }
+  }
+
+  export async function decisionUpdateConsumeMode(_id: string, consumeMode: string) {
+    try {
+      const resp = (await Axios(API.Kiera.DecisionManagerUpdateConsumeMode, {
+        method: 'PATCH',
+        headers: getSessionHeaders(),
+        data: { _id, consumeMode }
+      })) as AxiosResponse<{ status: string; success: boolean }>
+
+      return resp.data.success
+    } catch (error) {
+      console.error('DecisionAPI Error =>', error)
+      return false
+    }
+  }
+
+  export async function decisionUpdateConsumeReset(_id: string, consumeReset: number) {
+    try {
+      const resp = (await Axios(API.Kiera.DecisionManagerUpdateConsumeReset, {
+        method: 'PATCH',
+        headers: getSessionHeaders(),
+        data: { _id, consumeReset }
       })) as AxiosResponse<{ status: string; success: boolean }>
 
       return resp.data.success
@@ -135,6 +180,21 @@ export namespace DecisionAPI {
     } catch (error) {
       console.error('DecisionAPI Error =>', error)
       return null
+    }
+  }
+
+  export async function decisionResetConsumed(_id: string) {
+    try {
+      const resp = (await Axios(API.Kiera.DecisionManagerResetConsumed, {
+        method: 'PATCH',
+        headers: getSessionHeaders(),
+        data: { _id }
+      })) as AxiosResponse<{ status: string; success: boolean }>
+
+      return resp.data.success
+    } catch (error) {
+      console.error('DecisionAPI Error =>', error)
+      return false
     }
   }
 }
