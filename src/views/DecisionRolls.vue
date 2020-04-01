@@ -117,9 +117,9 @@
                   ><v-icon left>mdi-numeric-zero-box-multiple-outline</v-icon>
                   {{ `${decision.options.length} outcomes` || 'no outcomes' }}</v-chip
                 >
-                <v-chip small label>
+                <!-- <v-chip small label>
                   <v-icon left>mdi-fire</v-icon>{{ decision.counter > 0 ? `${decision.counter} times` : '' }}</v-chip
-                >
+                > -->
               </v-list-item-action>
             </v-list-item>
             <v-divider v-if="index + 1 < data.decisions.length" :key="decision._id"></v-divider>
