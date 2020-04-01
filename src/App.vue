@@ -132,7 +132,7 @@
           <v-card-text>
             <a href="https://github.com/ChastiKey/web" target="_blank" style="text-decoration: none;">
               <v-btn class="mx-4" icon>
-                <v-icon size="24px">mdi-github-circle</v-icon>
+                <v-icon size="24px">mdi-github</v-icon>
               </v-btn>
             </a>
 

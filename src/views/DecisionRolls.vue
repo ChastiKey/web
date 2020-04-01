@@ -118,8 +118,7 @@
                   {{ `${decision.options.length} outcomes` || 'no outcomes' }}</v-chip
                 >
                 <v-chip small label>
-                  <v-icon left>mdi-fire</v-icon
-                  >{{ decision.counter > 0 ? `${decision.counter} times` : 'not used yet' }}</v-chip
+                  <v-icon left>mdi-fire</v-icon>{{ decision.counter > 0 ? `${decision.counter} times` : '' }}</v-chip
                 >
               </v-list-item-action>
             </v-list-item>
