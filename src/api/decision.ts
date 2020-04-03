@@ -33,42 +33,22 @@ export namespace DecisionAPI {
     }
   }
 
-  export async function updateDecisionName(_id: string, name: string) {
+  export async function updateProps(decision: Decision) {
     try {
-      const resp = (await Axios(API.Kiera.DecisionManagerUpdateName, {
+      const resp = (await Axios(API.Kiera.DecisionManagerUpdateProps, {
         method: 'PATCH',
         headers: getSessionHeaders(),
-        data: { _id, name }
-      })) as AxiosResponse<{ status: string; success: boolean }>
-
-      return resp.data.success
-    } catch (error) {
-      console.error('DecisionAPI Error =>', error)
-      return false
-    }
-  }
-
-  export async function decisionUpdateDescription(_id: string, description: string) {
-    try {
-      const resp = (await Axios(API.Kiera.DecisionManagerUpdateDescription, {
-        method: 'PATCH',
-        headers: getSessionHeaders(),
-        data: { _id, description }
-      })) as AxiosResponse<{ status: string; success: boolean }>
-
-      return resp.data.success
-    } catch (error) {
-      console.error('DecisionAPI Error =>', error)
-      return false
-    }
-  }
-
-  export async function decisionUpdateConsumeMode(_id: string, consumeMode: string) {
-    try {
-      const resp = (await Axios(API.Kiera.DecisionManagerUpdateConsumeMode, {
-        method: 'PATCH',
-        headers: getSessionHeaders(),
-        data: { _id, consumeMode }
+        data: {
+          _id: decision._id,
+          name: decision.name,
+          description: decision.description,
+          enabled: decision.enabled,
+          serverWhitelist: decision.serverWhitelist,
+          userWhitelist: decision.userWhitelist,
+          userBlacklist: decision.userBlacklist,
+          consumeMode: decision.consumeMode,
+          consumeReset: decision.consumeReset
+        }
       })) as AxiosResponse<{ status: string; success: boolean }>
 
       return resp.data.success
@@ -84,21 +64,6 @@ export namespace DecisionAPI {
         method: 'PATCH',
         headers: getSessionHeaders(),
         data: { _id, consumeReset }
-      })) as AxiosResponse<{ status: string; success: boolean }>
-
-      return resp.data.success
-    } catch (error) {
-      console.error('DecisionAPI Error =>', error)
-      return false
-    }
-  }
-
-  export async function updateDecisionEnabled(_id: string, enabled: boolean) {
-    try {
-      const resp = (await Axios(API.Kiera.DecisionManagerUpdateEnabled, {
-        method: 'PATCH',
-        headers: getSessionHeaders(),
-        data: { _id, enabled }
       })) as AxiosResponse<{ status: string; success: boolean }>
 
       return resp.data.success

@@ -29,7 +29,7 @@
           <v-col cols="12">
             <span class="title">Settings</span>
           </v-col>
-          <v-col class="pt-2" cols="12" sm="6" md="6" lg="6">
+          <v-col class="pt-2" cols="12" sm="4" md="4" lg="4">
             <v-switch
               v-model="data.decision.enabled"
               label="Enabled"
@@ -37,36 +37,49 @@
               class="ma-0 pa-0 ml-2"
               hide-details
               @change="updateDecisionEnabled($event)"
-              :disabled="data.decisionEnabledIsLoading"
-              :loading="data.decisionEnabledIsLoading"
+              :disabled="data.decisionUpdatingPropsIsLoading"
+              :loading="data.decisionUpdatingPropsIsLoading"
             ></v-switch>
           </v-col>
-          <v-col class="pt-2 text-right" cols="12" sm="6" md="6" lg="6">
+          <v-col class="pt-2 text-right" cols="12" sm="8" md="8" lg="8">
             <v-btn
-              :disabled="data.decision.consumeMode === 'Basic'"
-              color="blue"
-              class="white--text ml-2 mt-2"
-              :loading="data.decisionConsumeModeIsLoading"
-              @click="decisionResetConsumed"
-              >Reset Consumed</v-btn
-            >
-            <v-btn
+              small
               color="teal"
               class="white--text ml-2 mt-2"
-              @click="
-                data.decisionNewOutcomeId = data.decision._id
-                data.decisionNewOutcomePrompt = true
-              "
-              >+ Add Outcome</v-btn
+              :loading="data.decisionUpdatingPropsIsLoading"
+              @click="updateProps"
+              >Update</v-btn
             >
             <v-btn
+              small
               color="error"
               class="white--text ml-2 mt-2"
               @click="
                 data.decisionDeletePrompt = true
                 data.decisionDeleteId = data.decision._id
               "
-              >Delete Decision</v-btn
+              :loading="data.decisionUpdatingPropsIsLoading"
+              >Delete</v-btn
+            >
+            <v-btn
+              small
+              :disabled="data.decision.consumeMode === 'Basic'"
+              color="indigo"
+              class="white--text ml-2 mt-2"
+              :loading="data.decisionConsumeModeIsLoading"
+              @click="decisionResetConsumed"
+              >Reset Consumed</v-btn
+            >
+            <v-btn
+              small
+              color="blue"
+              class="white--text ml-2 mt-2"
+              @click="
+                data.decisionNewOutcomeId = data.decision._id
+                data.decisionNewOutcomePrompt = true
+              "
+              :loading="data.decisionUpdatingPropsIsLoading"
+              >+ Add Outcome</v-btn
             >
           </v-col>
         </v-row>
@@ -83,41 +96,25 @@
         </v-row>
         <v-row dense>
           <v-col cols="12" md="6">
-            <v-text-field v-model="data.decision.name" label="Title / Question" @keyup.enter="decisionUpdateName">
-              <template v-slot:append>
-                <v-btn
-                  v-if="data.decision._originalName !== data.decision.name"
-                  small
-                  color="green"
-                  class="white--text ma-0"
-                  :disabled="data.decision._originalName === data.decision.name || data.decisionRenameIsLoading"
-                  :loading="data.decisionRenameIsLoading"
-                  @click="decisionUpdateName"
-                  >Save</v-btn
-                >
-              </template>
-            </v-text-field>
+            <v-text-field
+              v-model="data.decision.name"
+              label="Title / Question"
+              @keyup.enter="decisionUpdateName"
+              :loading="data.decisionUpdatingPropsIsLoading"
+              :disabled="data.decisionUpdatingPropsIsLoading"
+            ></v-text-field>
           </v-col>
         </v-row>
         <v-row dense>
           <v-col cols="12" md="6">
-            <v-textarea v-model="data.decision.description" label="Subtitle or Description area" rows="1" auto-grow>
-              <template v-slot:append>
-                <v-btn
-                  v-if="data.decision._originalDescription !== data.decision.description"
-                  small
-                  color="green"
-                  class="white--text ml-2 mt-2"
-                  :disabled="
-                    data.decision._originalDescription === data.decision.description ||
-                      data.decisionDescriptionIsLoading
-                  "
-                  :loading="data.decisionDescriptionIsLoading"
-                  @click="decisionUpdateDescription"
-                  >Save</v-btn
-                >
-              </template>
-            </v-textarea>
+            <v-textarea
+              v-model="data.decision.description"
+              label="Subtitle or Description area"
+              rows="1"
+              auto-grow
+              :loading="data.decisionUpdatingPropsIsLoading"
+              :disabled="data.decisionUpdatingPropsIsLoading"
+            ></v-textarea>
           </v-col>
           <v-col cols="12" md="2" align="right" class="pa-0"> </v-col>
         </v-row>
@@ -130,6 +127,8 @@
               label="Consume Mode"
               v-model="data.decision.consumeMode"
               :items="['Basic', 'Temporarily Consume', 'Consume']"
+              :loading="data.decisionUpdatingPropsIsLoading"
+              :disabled="data.decisionUpdatingPropsIsLoading"
               @change="decisionUpdateConsumeMode($event)"
             ></v-select>
             <p class="text--secondary caption">
@@ -141,23 +140,13 @@
         </v-row>
         <v-row>
           <v-col cols="12" sm="6" md="6" lg="6">
-            <v-text-field type="number" label="Consume Reset in seconds" v-model="data.decision.consumeReset">
-              <template v-slot:append>
-                <v-btn
-                  v-if="data.decision._originalConsumeReset !== data.decision.consumeReset"
-                  small
-                  color="green"
-                  class="white--text ml-2 mt-2"
-                  :disabled="
-                    data.decision._originalConsumeReset === data.decision.consumeReset ||
-                      data.decisionConsumeModeResetIsLoading
-                  "
-                  :loading="data.decisionConsumeModeResetIsLoading"
-                  @click="decisionUpdateConsumeReset"
-                  >Save</v-btn
-                >
-              </template></v-text-field
-            >
+            <v-text-field
+              type="number"
+              label="Consume Reset in seconds"
+              v-model="data.decision.consumeReset"
+              required
+              :rules="['Required to be at least set to 0']"
+            ></v-text-field>
             <p class="text--secondary caption">Applies only to Consume Mode = <b>Temporarily Consume</b></p>
           </v-col>
         </v-row>
@@ -174,6 +163,36 @@
               :option="option"
             >
             </DecisionManagerEditorOutcome>
+          </v-col>
+        </v-row>
+        <v-divider></v-divider>
+        <v-row>
+          <v-col>
+            <span class="title">Log</span>
+            <v-row>
+              <v-col col="12">
+                <v-simple-table dark>
+                  <template v-slot:default>
+                    <thead>
+                      <tr>
+                        <th class="text-left">Run</th>
+                        <th class="text-left">Server</th>
+                        <th class="text-left">Caller</th>
+                        <th class="text-left">Outcome</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="entry in data.decision.log" :key="entry._id">
+                        <td>{{ entry._id }}</td>
+                        <td>{{ entry.serverID }}</td>
+                        <td>@{{ entry.callerID }}</td>
+                        <td>{{ entry.outcomeContent }}</td>
+                      </tr>
+                    </tbody>
+                  </template>
+                </v-simple-table>
+              </v-col>
+            </v-row>
           </v-col>
         </v-row>
 
@@ -311,18 +330,20 @@ export default class DecisionRollEditorView extends Vue {
     this.isLoading = false
   }
 
-  private async decisionUpdateName() {
-    this.data.decisionRenameIsLoading = true
-    const res = await DecisionAPI.updateDecisionName(this.data.decision._id, this.data.decision.name)
+  private async updateProps() {
+    this.data.decisionUpdatingPropsIsLoading = true
+    const res = await DecisionAPI.updateProps(this.data.decision)
     if (res) this.data.decision._originalName = this.data.decision.name
-    this.data.decisionRenameIsLoading = false
+    this.data.decisionUpdatingPropsIsLoading = false
   }
 
   private async updateDecisionEnabled(state: boolean) {
-    this.data.decisionEnabledIsLoading = true
-    const res = await DecisionAPI.updateDecisionEnabled(this.data.decision._id, state)
+    this.data.decisionUpdatingPropsIsLoading = true
+    // Set state
+    this.data.decision.enabled = state
+    const res = await DecisionAPI.updateProps(this.data.decision)
     if (res) await this.refreshFromKiera()
-    this.data.decisionEnabledIsLoading = false
+    this.data.decisionUpdatingPropsIsLoading = false
   }
 
   private async decisionNewOutcome() {
@@ -351,22 +372,6 @@ export default class DecisionRollEditorView extends Vue {
 
     this.data.decisionDeletePrompt = false
     this.data.decisionDeleteIsLoading = false
-  }
-
-  private async decisionUpdateDescription() {
-    this.data.decisionDescriptionIsLoading = true
-    const res = await DecisionAPI.decisionUpdateDescription(this.data.decision._id, this.data.decision.description)
-
-    if (res) this.data.decision._originalDescription = this.data.decision.description
-    else this.refreshFromKiera()
-
-    this.data.decisionDescriptionIsLoading = false
-  }
-
-  private async decisionUpdateConsumeMode() {
-    this.data.decisionConsumeModeIsLoading = true
-    await DecisionAPI.decisionUpdateConsumeMode(this.data.decision._id, this.data.decision.consumeMode)
-    this.data.decisionConsumeModeIsLoading = false
   }
 
   private async decisionUpdateConsumeReset() {

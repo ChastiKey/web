@@ -12,16 +12,12 @@ export const $DecisionRollsView = {
 
 export const $DecisionRollEditor = {
   decision: new Decision(),
-  // Edit Name
-  decisionRenameIsLoading: false,
-  // Edit Description
-  decisionDescriptionIsLoading: false,
+  // Edit Props
+  decisionUpdatingPropsIsLoading: false,
   // Delete
   decisionDeletePrompt: false,
   decisionDeleteIsLoading: false,
   decisionDeleteId: '',
-  // Edit Enabled
-  decisionEnabledIsLoading: false,
   // New Outcome
   decisionNewOutcomePrompt: false,
   decisionNewOutcomeIsLoading: false,
