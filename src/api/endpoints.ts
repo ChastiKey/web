@@ -1,22 +1,22 @@
 const Dev = {
   Kiera: {
-    Auth: 'https://dev.tdm.io:8234/api/otl',
-    Keyholder: 'https://dev.tdm.io:8234/api/ck/keyholder',
-    Lockee: 'https://dev.tdm.io:8234/api/ck/lockee',
-    Search: 'https://dev.tdm.io:8234/api/ck/search',
-    StatsLocks: 'https://dev.tdm.io:8234/api/ck/stats/locks',
-    VerifySession: 'https://dev.tdm.io:8234/api/session/verify',
-    User: 'https://dev.tdm.io:8234/api/ck/user',
-    DecisionManager: 'https://dev.tdm.io:8234/api/decisions',
-    DecisionManagerEditor: 'https://dev.tdm.io:8234/api/decision',
-    DecisionManagerUpdateProps: 'https://dev.tdm.io:8234/api/decision/props',
-    DecisionManagerUpdateConsumeReset: 'https://dev.tdm.io:8234/api/decision/consumeReset',
-    DecisionManagerNewOutcome: 'https://dev.tdm.io:8234/api/decision/outcome',
-    DecisionManagerDeleteOutcome: 'https://dev.tdm.io:8234/api/decision/outcome',
-    DecisionManagerUpdateOutcome: 'https://dev.tdm.io:8234/api/decision/outcome',
-    DecisionManagerNew: 'https://dev.tdm.io:8234/api/decision',
-    DecisionManagerDelete: 'https://dev.tdm.io:8234/api/decision',
-    DecisionManagerResetConsumed: 'https://dev.tdm.io:8234/api/decision/consumedReset'
+    Auth: 'http://localhost:8234/api/otl',
+    Keyholder: 'http://localhost:8234/api/ck/keyholder',
+    Lockee: 'http://localhost:8234/api/ck/lockee',
+    Search: 'http://localhost:8234/api/ck/search',
+    StatsLocks: 'http://localhost:8234/api/ck/stats/locks',
+    VerifySession: 'http://localhost:8234/api/session/verify',
+    User: 'http://localhost:8234/api/ck/user',
+    DecisionManager: 'http://localhost:8234/api/decisions',
+    DecisionManagerEditor: 'http://localhost:8234/api/decision',
+    DecisionManagerUpdateProps: 'http://localhost:8234/api/decision/props',
+    DecisionManagerUpdateConsumeReset: 'http://localhost:8234/api/decision/consumeReset',
+    DecisionManagerNewOutcome: 'http://localhost:8234/api/decision/outcome',
+    DecisionManagerDeleteOutcome: 'http://localhost:8234/api/decision/outcome',
+    DecisionManagerUpdateOutcome: 'http://localhost:8234/api/decision/outcome',
+    DecisionManagerNew: 'http://localhost:8234/api/decision',
+    DecisionManagerDelete: 'http://localhost:8234/api/decision',
+    DecisionManagerResetConsumed: 'http://localhost:8234/api/decision/consumedReset'
   }
 }
 

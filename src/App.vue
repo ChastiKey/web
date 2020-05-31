@@ -5,10 +5,10 @@
       <v-col cols="2">
         <!-- Logo -->
         <router-link to="/" style="text-decoration: none; color: #fff;">
-          <span v-if="$vuetify.breakpoint.smAndUp" style="font-size: 18px"
+          <span v-if="$vuetify.breakpoint.smAndUp" style="font-size: 18px;"
             >Kiera <span style="color: black;">+</span> ChastiKey</span
           >
-          <span v-else style="font-size: 14px">Kiera<span style="color: black;">+</span> ChastiKey</span>
+          <span v-else style="font-size: 14px;">Kiera<span style="color: black;">+</span> ChastiKey</span>
         </router-link></v-col
       >
 
@@ -35,7 +35,7 @@
               </v-list-item-title>
             </v-list-item>
           </template>
-          <template v-slot:selection="{ attr, on, item, selected }">
+          <template v-slot:selection="{ attr, on, item }">
             <v-icon left>mdi-person</v-icon>
             <span v-text="item.type"></span>:
             <strong><span style="padding-left: 5px;" v-text="item.name"></span></strong>
