@@ -10,9 +10,9 @@ Cache/Account/Verification provider (Note: The code for Kiera the Bot is not pub
 ## Developing
 
 1. Clone the project from this repo `git clone git@github.com:ChastiKey/web.git`
-2. Install dependencies using Yarn (the lock is being maintained for only yarn) `yarn install`
-3. Run the project in hot reload dev mode (your changes will reload in realtime locally) `yarn serve`
-4. You may need to adjust your PC's DNS/Hosts file before # 3, change the endpoints.ts file, or run `yarn serve` in production mode as
+2. Install dependencies using NPM (the lock is being maintained for only npm) `npm install`
+3. Run the project in hot reload dev mode (your changes will reload in realtime locally) `npm serve`
+4. You may need to adjust your PC's DNS/Hosts file before # 3, change the endpoints.ts file, or run `npm serve` in production mode as
    there is a local dev URL used thats not public for those able to run a dev copy of kiera.
 
 ## Contributing Guidelines
