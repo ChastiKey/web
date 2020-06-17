@@ -27,7 +27,7 @@
       <template v-slot:actions>
         <v-chip small class="ma-2" color="primary" text-color="white">
           {{ calcHRT(lock.avgLockedTime) }}
-          <v-icon style="transform: unset!important;" right>mdi-lock-clock</v-icon>
+          <v-icon style="transform: unset !important;" right>mdi-lock-clock</v-icon>
         </v-chip>
 
         <v-chip small class="ma-2" color="green" text-color="white">

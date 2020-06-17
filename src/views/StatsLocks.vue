@@ -177,7 +177,7 @@
             <v-chip
               v-else
               class="ma-2"
-              style="color: #fff"
+              style="color: #fff;"
               :color="getRatingColor(item.averageKeyholderRating)"
               label
               small
