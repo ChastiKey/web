@@ -8,7 +8,7 @@
           <span v-else>Fixed</span>
         </v-chip>
         <!-- Lock Name -->
-        {{ lock.sharedLockName || '~No lock name~' }}
+        {{ lock.lockName || '~No lock name~' }}
       </div>
 
       <!-- Time Locked -->

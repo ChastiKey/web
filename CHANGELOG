@@ -1,3 +1,6 @@
+0.13.0
+- Fixed: Lock name not showing properly.
+
 0.12.0
 - Fixed: GitHub footer icon
 - Updated: Version of ChastiKey.js used
