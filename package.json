@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "apexcharts": "^3.19.2",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "chastikey.js": "^2.4.0",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
