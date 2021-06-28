@@ -1,5 +1,6 @@
 0.15.0
 - Fixed: Stats Avg Keyholder Rating only showing properly when viewing default on-load data.
+- Fixed: Keyholder Lock view not showing certain card counts correctly.
 - Updated: Dependancies updated.
 - Updated: Styling, Added Emoji to Stats page.
 - Updated: Dropdown to now select a date instead of a list of Date & Times.
