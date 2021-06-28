@@ -158,6 +158,10 @@
           :search="khSearch"
           class="elevation-1"
         >
+          <!-- KH Name -->
+          <template v-slot:[`item.keyholder`]="{ item }">
+            <router-link :to="{ path: `/user/${item.keyholder}` }">{{ item.keyholder }}</router-link>
+          </template>
           <!-- KH Level -->
           <template v-slot:[`item.level`]="{ item }">
             <v-chip
@@ -234,7 +238,7 @@ export default class StatsLocksView extends Vue {
     { text: 'Running Locks', value: 'runningLocks' },
     { text: 'Unique Locks', value: 'uniqueLockeeCount' },
     { text: 'Fixed', value: 'fixed' },
-    { text: 'Variable', value: 'vriable' },
+    { text: 'Variable', value: 'variable' },
     { text: 'Frozen', value: 'frozen' },
     { text: 'Info Hidden', value: 'infoHidden' },
     { text: 'Avg Rating', value: 'averageKeyholderRating' },
