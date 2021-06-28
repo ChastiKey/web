@@ -19,8 +19,8 @@
         <!-- [Variable] Draw Frequency -->
         <span v-if="lock.fixed === 0 && lock.cumulative === 0"
           >Chance Every
-          <u
-            ><kbd>{{ lock.regularity }}hrs</kbd></u
+          <u>
+            <kbd>{{ lock.regularity }}hrs</kbd></u
           >
           (Non-Cumulative)<br
         /></span>
@@ -31,100 +31,124 @@
         <span v-if="lock.cardInfoHidden">Card Info Hidden<br /></span>
         <span v-if="lock.timerHidden">Timer Hidden<br /></span>
         <!-- [Variable] Card Spreads -->
-        <span v-if="lock.fixed === 0 && lock.cardInfoHidden === 0"
-          ><br />Cards in Deck<br />
-          <div class="pa-1">
+        <v-row v-if="lock.fixed === 0 && lock.cardInfoHidden === 0" class="pl-2 pr-2 mt-4" dense>
+          <v-col>
+            <v-row><b>Cards in Deck</b></v-row>
             <!-- Card: Green -->
-            <div class="card-ranges">
+            <v-col cols="1" class="card-ranges">
               <!-- Card Img: Green -->
               <v-img :src="cardImgURL('Green')" width="20px" />
               <!-- Card Range: Green -->
-              <span class="counts"
-                ><kbd>{{ lock.minGreens }}-{{ lock.maxGreens }}</kbd></span
-              >
+              <span class="counts">
+                <kbd>{{ lock.minGreens }}-{{ lock.maxGreens }}</kbd>
+              </span>
               <br />
-            </div>
+            </v-col>
             <!-- Card: Red -->
-            <div class="card-ranges">
+            <v-col cols="1" class="card-ranges">
               <!-- Card Img: Red -->
               <v-img :src="cardImgURL('Red')" width="20px" />
               <!-- Card Range: Red -->
-              <span class="counts"
-                ><kbd>{{ lock.minReds }}-{{ lock.maxReds }}</kbd></span
-              ><br />
-            </div>
+              <span class="counts">
+                <kbd>{{ lock.minReds }}-{{ lock.maxReds }}</kbd>
+              </span>
+              <br />
+            </v-col>
+            <!-- Card: Sticky -->
+            <v-col cols="1" class="card-ranges">
+              <!-- Card Img: Sticky -->
+              <v-img :src="cardImgURL('Sticky')" width="20px" />
+              <!-- Card Range: Sticky -->
+              <span class="counts">
+                <kbd>{{ lock.minStickies }}-{{ lock.maxStickies }}</kbd>
+              </span>
+              <br />
+            </v-col>
             <!-- Card: YellowRandom -->
-            <div class="card-ranges">
+            <v-col cols="1" class="card-ranges">
               <!-- Card Img: YellowRandom -->
               <v-img :src="cardImgURL('YellowRandom')" width="20px" />
               <!-- Card Range: YellowRandom -->
-              <span class="counts"
-                ><kbd>{{ lock.minYellows }}-{{ lock.maxYellows }}</kbd></span
-              ><br />
-            </div>
+              <span class="counts">
+                <kbd>{{ lock.minYellows }}-{{ lock.maxYellows }}</kbd>
+              </span>
+              <br />
+            </v-col>
             <!-- Card: YellowAdd -->
-            <div class="card-ranges yellows">
+            <v-col cols="3" class="card-ranges yellows">
               <!-- Card Img: YellowAdd -->
               <v-img :src="cardImgURL('YellowAdd1')" width="20px" />
               <v-img :src="cardImgURL('YellowAdd2')" width="20px" />
               <v-img :src="cardImgURL('YellowAdd3')" width="20px" />
               <!-- Card Range: YellowAdd -->
-              <span class="counts"
-                ><kbd>{{ lock.minYellowsAdd }}-{{ lock.maxYellowsAdd }}</kbd></span
-              ><br />
-            </div>
+              <span class="counts">
+                <kbd>{{ lock.minYellowsAdd }}-{{ lock.maxYellowsAdd }}</kbd>
+              </span>
+              <br />
+            </v-col>
             <!-- Card: YellowMinus -->
-            <div class="card-ranges yellows">
+            <v-col cols="3" class="card-ranges yellows">
               <!-- Card Img: YellowMinus -->
               <v-img :src="cardImgURL('YellowMinus1')" width="20px" />
               <v-img :src="cardImgURL('YellowMinus2')" width="20px" />
               <!-- Card Range: YellowMinus -->
-              <span class="counts"
-                ><kbd>{{ lock.minYellowsMinus }}-{{ lock.maxYellowsMinus }}</kbd></span
-              ><br />
-            </div>
+              <span class="counts">
+                <kbd>{{ lock.minYellowsMinus }}-{{ lock.maxYellowsMinus }}</kbd>
+              </span>
+              <br />
+            </v-col>
             <!-- Card: Freeze -->
-            <div class="card-ranges">
+            <v-col cols="1" class="card-ranges">
               <!-- Card Img: Freeze -->
               <v-img :src="cardImgURL('Freeze')" width="20px" />
               <!-- Card Range: Freeze -->
-              <span class="counts"
-                ><kbd>{{ lock.minYellows }}-{{ lock.maxYellows }}</kbd> </span
-              ><br />
-            </div>
+              <span class="counts">
+                <kbd>{{ lock.minYellows }}-{{ lock.maxYellows }}</kbd>
+              </span>
+              <br />
+            </v-col>
             <!-- Card: DoubleUp -->
-            <div class="card-ranges">
+            <v-col cols="1" class="card-ranges">
               <!-- Card Img: DoubleUp -->
               <v-img :src="cardImgURL('DoubleUp')" width="20px" />
               <!-- Card Range: DoubleUp -->
-              <span class="counts"
-                ><kbd>{{ lock.minYellows }}-{{ lock.maxYellows }}</kbd> </span
-              ><br />
-            </div>
+              <span class="counts">
+                <kbd>{{ lock.minYellows }}-{{ lock.maxYellows }}</kbd>
+              </span>
+              <br />
+            </v-col>
             <!-- Card: Reset -->
-            <div class="card-ranges">
+            <v-col cols="1" class="card-ranges">
               <!-- Card Img: Reset -->
               <v-img :src="cardImgURL('Reset')" width="20px" />
               <!-- Card Range: Reset -->
-              <span class="counts"
-                ><kbd>{{ lock.minYellows }}-{{ lock.maxYellows }}</kbd> </span
-              ><br />
-            </div>
-          </div>
-        </span>
+              <span class="counts">
+                <kbd>{{ lock.minYellows }}-{{ lock.maxYellows }}</kbd>
+              </span>
+              <br />
+            </v-col>
+          </v-col>
+        </v-row>
         <!-- Simulation Times -->
-        <span v-if="lock.simulationBestCaseMinutesLocked > 0"
-          >Best Case <kbd>{{ calcHRTYMDH(lock.simulationBestCaseMinutesLocked) }}</kbd
-          ><br
-        /></span>
-        <span v-if="lock.simulationAverageMinutesLocked > 0"
-          >Average <kbd>{{ calcHRTYMDH(lock.simulationAverageMinutesLocked) }}</kbd
-          ><br
-        /></span>
-        <span v-if="lock.simulationWorstCaseMinutesLocked > 0"
-          >Worst Case <kbd>{{ calcHRTYMDH(lock.simulationWorstCaseMinutesLocked) }}</kbd
-          ><br
-        /></span>
+        <v-row class="pl-2 pr-2" dense>
+          <v-col>
+            <v-row><b>Simulations</b></v-row>
+            <v-row>
+              <v-col cols="4" class="mb-1 text-center" v-if="lock.simulationBestCaseMinutesLocked > 0">
+                Best Case<br />
+                <kbd class="ml-2">{{ calcHRTYMDH(lock.simulationBestCaseMinutesLocked) }}</kbd>
+              </v-col>
+              <v-col cols="4" class="mb-1 text-center" v-if="lock.simulationAverageMinutesLocked > 0">
+                Average <br />
+                <kbd>{{ calcHRTYMDH(lock.simulationAverageMinutesLocked) }}</kbd>
+              </v-col>
+              <v-col cols="4" class="text-center" v-if="lock.simulationWorstCaseMinutesLocked > 0"
+                >Worst Case <br />
+                <kbd>{{ calcHRTYMDH(lock.simulationWorstCaseMinutesLocked) }}</kbd>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
       </div>
     </v-card-text>
     <v-card-actions>
@@ -186,15 +210,14 @@ export default class LockInformation extends Vue {
 <style lang="less" scoped>
 .card-ranges {
   display: inline-block;
-  width: 55px;
-  max-width: 65px;
-  height: 45px;
+  min-width: 55px;
   text-align: center;
+  padding: 2px 0 !important;
   > .v-image {
     display: inline-block;
   }
   &.yellows {
-    width: 100px;
+    width: 70px;
     > .v-image {
       margin-left: 0 !important;
       max-width: 20px !important;

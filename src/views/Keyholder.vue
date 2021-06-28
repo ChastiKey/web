@@ -89,10 +89,21 @@
 
       <!-- Shared Locks -->
       <v-container>
-        <div class="title">
-          Your Available Locks
-          <v-progress-circular v-if="isLoading" indeterminate size="16" width="2" color="teal"></v-progress-circular>
-        </div>
+        <v-row dense>
+          <v-col>
+            <div class="title">
+              Your Available Locks
+              <v-progress-circular
+                v-if="isLoading"
+                indeterminate
+                size="16"
+                width="2"
+                color="teal"
+              ></v-progress-circular>
+            </div>
+          </v-col>
+          <v-col></v-col>
+        </v-row>
 
         <!-- Shared Lock Modal -->
         <v-dialog v-model="sharedLockModal" max-width="600">
@@ -105,7 +116,7 @@
         </v-dialog>
 
         <!-- Lock List -->
-        <v-row style="margin-top: 25px;" dense>
+        <v-row dense>
           <v-col cols="12" sm="6" md="4" lg="4" xl="4" v-for="(lock, i) in data.locks" :key="i">
             <v-card class="mx-auto" tile>
               <v-list-item dense>

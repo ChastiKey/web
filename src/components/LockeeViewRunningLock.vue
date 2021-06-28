@@ -40,8 +40,8 @@
         <v-chip :color="lock.cardInfoHidden ? 'error' : 'purple'" class="ma-1" label small>
           <v-icon v-if="lock.cardInfoHidden" left>mdi-eye-off</v-icon>
           <v-icon v-else left>eye-outline</v-icon>
-          <span v-if="lock.cardInfoHidden">Info Hidden</span>
-          <span v-else class="white--text">Info Visible</span>
+          <span v-if="lock.cardInfoHidden"><v-icon left>mdi-eye-off-outline</v-icon> Info Hidden</span>
+          <span v-else class="white--text"><v-icon left>mdi-eye</v-icon> Info Visible</span>
         </v-chip>
         <!-- Regularity -->
         <v-chip color="gray" class="ma-1" label small v-if="!lock.fixed">

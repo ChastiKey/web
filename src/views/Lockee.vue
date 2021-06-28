@@ -150,24 +150,27 @@
                 ></v-text-field>
               </v-card-title>
               <v-data-table :headers="tableHeaders" :items="data.allLocks" :search="allLocksSearch">
-                <template v-slot:item.timestampLocked="{ item }">
-                  {{ new Date(item.timestampLocked * 1000).toLocaleString() }}
+                <template v-slot:[`item.lockID`]="{ item }">
+                  <v-chip label x-small> {{ item.lockID }} </v-chip>
                 </template>
-                <template v-slot:item.timestampUnlocked="{ item }">
+                <template v-slot:[`item.timestampLocked`]="{ item }">
+                  {{ moment(item.timestampLocked * 1000).format('YYYY-MM-DD, hh:mm:ss A') }}
+                </template>
+                <template v-slot:[`item.timestampUnlocked`]="{ item }">
                   <span v-if="item.timestampUnlocked !== 0"
-                    >{{ new Date(item.timestampUnlocked * 1000).toLocaleString() }}
+                    >{{ moment(item.timestampUnlocked * 1000).format('YYYY-MM-DD, hh:mm:ss A') }}
                   </span>
-                  <v-chip v-else class="ma-2" color="gray" label small>
-                    Locked
+                  <v-chip v-else class="ma-2" color="teal darken-2 white--text" label small>
+                    🔒 Locked
                   </v-chip>
                 </template>
-                <template v-slot:item.timeLocked="{ item }">
+                <template v-slot:[`item.timeLocked`]="{ item }">
                   {{ calcHRT(item.totalTimeLocked) }}
                 </template>
-                <template v-slot:item.combination="{ item }">
+                <template v-slot:[`item.combination`]="{ item }">
                   <span v-if="item.timestampUnlocked !== 0">{{ item.combination }}</span>
-                  <v-chip v-else color="gray" label small>
-                    Locked
+                  <v-chip v-else color="teal darken-2 white--text" label small>
+                    🔒 Locked
                   </v-chip>
                 </template>
               </v-data-table>
@@ -225,6 +228,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop, Watch } from 'vue-property-decorator'
+import moment from 'moment'
 
 // API
 import { LockeeAPI } from '@/api/lockee'
@@ -256,6 +260,7 @@ export default class LockeeView extends Vue {
   private isLoadingKiera = false
   private loadingError = false
   private calcHRT = calculateHumanTimeDDHHMM
+  private moment = moment
   private allLocksSearch = ''
   private tableHeaders = [
     { text: 'Lock ID', value: 'lockID' },

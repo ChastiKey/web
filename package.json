@@ -11,7 +11,7 @@
   "dependencies": {
     "apexcharts": "^3.19.2",
     "axios": "^0.21.1",
-    "chastikey.js": "^2.4.0",
+    "chastikey.js": "github:ChastiKey/chastikey.js",
     "core-js": "^3.6.5",
     "moment": "^2.29.1",
     "vue": "^2.6.11",
