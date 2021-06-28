@@ -117,12 +117,7 @@
 
     <!-- Main Content -->
     <v-content>
-      <v-container
-        :class="$route.name === 'login' || $route.name === 'home' || $route.name === 'search' ? 'fill-height' : ''"
-        :fluid="$route.name === 'login' || $route.name === 'home' || $route.name === 'search' ? true : false"
-      >
-        <router-view :appSession="appSession" :isAuthenticated="appSession.isAuthenticated"></router-view>
-      </v-container>
+      <router-view :appSession="appSession" :isAuthenticated="appSession.isAuthenticated"></router-view>
     </v-content>
 
     <!-- Footer -->
