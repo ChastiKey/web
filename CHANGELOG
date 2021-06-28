@@ -1,3 +1,10 @@
+0.15.0
+- Fixed: Stats Avg Keyholder Rating only showing properly when viewing default on-load data.
+- Updated: Styling, Added Emoji to Stats page.
+- Updated: Dropdown to now select a date instead of a list of Date & Times.
+- Updated: Locks Frozen Stat block header color to fit the 'Lock Frozen' theme.
+- Added: Sticky Card to stats.
+
 0.14.0
 - Updated: Dependancies audit fix.
 - Added: Sticky Card + Additional new images for future use.

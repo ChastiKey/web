@@ -2,10 +2,27 @@
   <v-row>
     <v-col cols="12">
       <!-- Toolbar -->
-      <v-toolbar dense>
-        <v-toolbar-title>Running Locks Statistics</v-toolbar-title>
+      <v-toolbar elevation="3" dense>
+        <v-toolbar-title>🔐 Running Locks Statistics</v-toolbar-title>
 
         <v-spacer></v-spacer>
+
+        Viewing Data for
+        <v-dialog v-if="!isLoading" v-model="data.datePicker" width="290px">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              label="View Data for"
+              v-bind="attrs"
+              v-on="on"
+              class="ml-2"
+              elevation="0"
+              color="green darken-2 white--text"
+            >
+              <v-icon left> mdi-calendar </v-icon>{{ data.targetDate }}</v-btn
+            >
+          </template>
+          <v-date-picker :events="datePickerDates" v-model="data.targetDate" @input="changeDate"></v-date-picker>
+        </v-dialog>
 
         <v-btn icon :loading="isLoading" @click="refreshDataFromKiera">
           <v-icon>mdi-refresh</v-icon>
@@ -13,88 +30,79 @@
       </v-toolbar>
 
       <v-row>
-        <v-col class="d-flex" cols="12" sm="4" offset-sm="8">
-          <v-select
-            :items="data.ranges"
-            v-on:change="changeDateTime"
-            label="View for Date & Time"
-            dense
-            solo
-          ></v-select>
-        </v-col>
+        <v-col class="d-flex" cols="12" sm="4" offset-sm="8"> </v-col>
       </v-row>
 
       <!-- Stats & Charts -->
       <v-row>
         <v-col cols="12" sm="12" md="4" lg="4">
           <!-- Stats -->
-          <v-card>
-            <v-sheet class="v-sheet--offset title text-center stats-title" color="cyan darken-2" elevation="6" dark>
+          <v-card elevation="1">
+            <v-sheet class="v-sheet--offset title text-center stats-title" color="cyan darken-2" elevation="2" dark>
               Running Locks
             </v-sheet>
-            <v-card-text class="headline text-center">
-              {{ data.totalLocks }}
-            </v-card-text>
+            <v-card-text class="headline text-center"> 🔒 {{ data.totalLocks }} </v-card-text>
           </v-card>
         </v-col>
         <v-col cols="12" sm="12" md="4" lg="4">
-          <v-card>
-            <v-sheet class="v-sheet--offset title text-center stats-title" color="cyan darken-2" elevation="6" dark>
+          <v-card elevation="1">
+            <v-sheet
+              class="v-sheet--offset title text-center stats-title"
+              color="light-blue darken-2"
+              elevation="2"
+              dark
+            >
               Locks Frozen
             </v-sheet>
-            <v-card-text class="headline text-center">
-              {{ data.frozenLocks }}
-            </v-card-text>
+            <v-card-text class="headline text-center"> ❄️ {{ data.frozenLocks }} </v-card-text>
           </v-card>
         </v-col>
 
         <v-col cols="12" sm="12" md="4" lg="4">
-          <v-card>
-            <v-sheet class="v-sheet--offset title text-center stats-title" color="cyan darken-2" elevation="6" dark>
+          <v-card elevation="1">
+            <v-sheet class="v-sheet--offset title text-center stats-title" color="cyan darken-2" elevation="2" dark>
               Keyholder <small>vs</small> Bot <small>vs</small> Self
             </v-sheet>
             <v-card-text class="headline text-center">
-              <span>{{ data.keyholderLocks }}</span> • <span>{{ data.botLocks }}</span> •
-              <span>{{ data.selfLocks }}</span>
+              <span>🔑 {{ data.keyholderLocks }}</span> • <span>🤖 {{ data.botLocks }}</span> •
+              <span>🔐 {{ data.selfLocks }}</span>
             </v-card-text>
           </v-card>
         </v-col>
       </v-row>
       <v-row>
         <v-col cols="12" sm="12" md="4" lg="4">
-          <v-card>
-            <v-sheet class="v-sheet--offset title text-center stats-title" color="cyan darken-2" elevation="6" dark>
+          <v-card elevation="1">
+            <v-sheet class="v-sheet--offset title text-center stats-title" color="cyan darken-2" elevation="2" dark>
               Keyholders Trusted Locks
             </v-sheet>
             <v-card-text class="headline text-center">
-              {{ Math.round(data.keyholderTrust * 100 * 100) / 100 }}%
+              🤝 {{ Math.round(data.keyholderTrust * 100 * 100) / 100 }}%
             </v-card-text>
           </v-card>
         </v-col>
         <v-col cols="12" sm="12" md="4" lg="4">
-          <v-card>
-            <v-sheet class="v-sheet--offset title text-center stats-title" color="cyan darken-2" elevation="6" dark>
+          <v-card elevation="1">
+            <v-sheet class="v-sheet--offset title text-center stats-title" color="cyan darken-2" elevation="2" dark>
               Keyholders w/Lockees
             </v-sheet>
-            <v-card-text class="headline text-center">
-              {{ data.keyholdersCount }}
-            </v-card-text>
+            <v-card-text class="headline text-center"> 🔑 {{ data.keyholdersCount }} </v-card-text>
           </v-card>
         </v-col>
         <v-col cols="12" sm="12" md="4" lg="4">
-          <v-card>
-            <v-sheet class="v-sheet--offset title text-center stats-title" color="cyan darken-2" elevation="6" dark>
+          <v-card elevation="1">
+            <v-sheet class="v-sheet--offset title text-center stats-title" color="cyan darken-2" elevation="2" dark>
               Cumulative Keyholders Rating
             </v-sheet>
             <v-card-text class="headline text-center">
-              {{ Math.round(data.keyholderAvgRating * 100) / 100 }}
+              🌟 {{ Math.round(data.keyholderAvgRating * 100) / 100 }}
             </v-card-text>
           </v-card>
         </v-col>
       </v-row>
       <v-row>
         <v-col cols="12" sm="12" md="4" lg="4">
-          <v-card>
+          <v-card elevation="1">
             <apexchart
               type="bar"
               :options="data.distributionByInterval.chartOptions"
@@ -104,7 +112,7 @@
           </v-card>
         </v-col>
         <v-col cols="12" sm="12" md="4" lg="4">
-          <v-card>
+          <v-card elevation="1">
             <apexchart
               type="donut"
               :options="data.distributionByLockType.chartOptions"
@@ -114,7 +122,7 @@
           </v-card>
         </v-col>
         <v-col cols="12" sm="12" md="4" lg="4">
-          <v-card>
+          <v-card elevation="1">
             <apexchart
               type="donut"
               :options="data.distributionByCardsRemaining.chartOptions"
@@ -126,7 +134,7 @@
       </v-row>
       <v-row>
         <v-col cols="12">
-          <v-card>
+          <v-card elevation="1">
             <apexchart
               type="bar"
               :options="data.distributionByLockLength.chartOptions"
@@ -196,7 +204,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
+import moment from 'moment'
+import { Component, Prop, Watch } from 'vue-property-decorator'
 
 // API
 import { StatsAPI } from '@/api/'
@@ -225,12 +234,25 @@ export default class StatsLocksView extends Vue {
     { text: 'Running Locks', value: 'runningLocks' },
     { text: 'Unique Locks', value: 'uniqueLockeeCount' },
     { text: 'Fixed', value: 'fixed' },
-    { text: 'Variable', value: 'variable' },
+    { text: 'Variable', value: 'vriable' },
     { text: 'Frozen', value: 'frozen' },
     { text: 'Info Hidden', value: 'infoHidden' },
     { text: 'Avg Rating', value: 'averageKeyholderRating' },
     { text: 'Trust', value: 'trust' }
   ]
+
+  private get datePickerDates() {
+    const dates = [
+      ...new Set(
+        this.data.ranges.map(d => {
+          return moment.utc(d).format('YYYY-MM-DD')
+        })
+      )
+    ]
+
+    console.log(dates)
+    return dates
+  }
 
   private async mounted() {
     if (this.data.keyholderLocks === 0) {
@@ -238,12 +260,13 @@ export default class StatsLocksView extends Vue {
     }
   }
 
-  private async refreshDataFromKiera(dateTime?: string) {
+  private async refreshDataFromKiera(date?: string) {
     this.isLoading = true
-    const res = await StatsAPI.fetchLocksStats(dateTime)
+    const res = await StatsAPI.fetchLocksStats(date)
 
     if (res) {
       // Set dates
+      this.data.targetDate = moment.utc(res.date).format('YYYY-MM-DD')
       this.data.ranges = res.ranges
       this.data.keyholders = res.keyholders
       this.data.keyholderLocks = res.stats.keyholderLocks
@@ -348,9 +371,12 @@ export default class StatsLocksView extends Vue {
     return 'green darken-3'
   }
 
-  private async changeDateTime(selectedDateTime: string) {
-    console.log('Changing Stats view to:', selectedDateTime)
-    await this.refreshDataFromKiera(selectedDateTime)
+  private async changeDate(selectedDate: string) {
+    this.data.datePicker = false
+    console.log('Asking server for new data', selectedDate)
+    if (!this.isLoading) {
+      await this.refreshDataFromKiera(moment(selectedDate).format('YYYY-MM-DD'))
+    }
   }
 }
 </script>

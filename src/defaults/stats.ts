@@ -1,8 +1,10 @@
 import { ApexOptions } from 'apexcharts'
 
-const colors = ['#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0', '#546E7A', '#26a69a', '#D10CE8']
+const colors = ['#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0', '#546E7A', '#EC8800', '#26a69a', '#D10CE8']
 
 export const $StatsLocksView = {
+  datePicker: false,
+  targetDate: '',
   ranges: [] as Array<string>,
   keyholders: [] as Array<any>,
   keyholderLocks: 0,
@@ -78,7 +80,7 @@ export const $StatsLocksView = {
   distributionByCardsRemaining: {
     series: [] as Array<number>,
     chartOptions: {
-      labels: ['Reset', 'Green', 'Yellow', 'Red', 'Double Up', 'Freeze'],
+      labels: ['Reset', 'Green', 'Yellow', 'Red', 'Double Up', 'Freeze', 'Sticky'],
       title: {
         text: 'Cards Remaining (Card info shown)',
         offsetY: 0,

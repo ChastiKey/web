@@ -233,6 +233,7 @@ export default class App extends Vue {
   private logoutConfirmationModal = false
 
   private async mounted() {
+    // this.$vuetify.theme.dark = true
     const cachedSession = getSessionHeaders()
     console.log('cachedSession:', cachedSession)
     // If session creds are cached
