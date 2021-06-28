@@ -1,7 +1,7 @@
 <template>
   <v-row align="center" justify="center">
     <v-col cols="12">
-      <v-row class="grey lighten-5">
+      <v-row>
         <v-card outlined tile width="600px" class="mx-auto text-center">
           <v-card-title> Search </v-card-title>
           <v-card-text class="text--primary">

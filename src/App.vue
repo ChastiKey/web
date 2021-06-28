@@ -117,7 +117,14 @@
 
     <!-- Main Content -->
     <v-content>
-      <router-view :appSession="appSession" :isAuthenticated="appSession.isAuthenticated"></router-view>
+      <v-container
+        :class="
+          $route.name === 'login' || $route.name === 'home' || $route.name === 'search' ? 'fill-height pa-0' : 'pa-0'
+        "
+        :fluid="$route.name === 'login' || $route.name === 'home' || $route.name === 'search' ? true : false"
+      >
+        <router-view :appSession="appSession" :isAuthenticated="appSession.isAuthenticated"></router-view>
+      </v-container>
     </v-content>
 
     <!-- Footer -->

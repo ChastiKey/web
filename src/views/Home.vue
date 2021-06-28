@@ -1,7 +1,7 @@
 <template>
   <v-content>
     <v-col cols="12">
-      <v-row class="grey lighten-5">
+      <v-row>
         <v-card outlined tile width="600px" class="mx-auto text-center">
           <v-card-title> My Account </v-card-title>
           <v-card-text class="text--primary">
@@ -36,7 +36,7 @@
         </v-card>
       </v-row>
 
-      <v-row class="grey lighten-5">
+      <v-row>
         <v-card outlined tile width="600px" class="mx-auto ma-4 text-center">
           <v-card-title> Public </v-card-title>
           <v-card-text class="text--primary">
