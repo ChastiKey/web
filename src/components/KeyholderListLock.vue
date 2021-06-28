@@ -55,16 +55,16 @@
           :search="search"
         >
           <!-- Start of DataTable customizations -->
-          <template v-slot:item.username="{ item }">
+          <template v-slot:[`item.username`]="{ item }">
             {{ item.username }}
             <v-icon color="green" v-if="item.discordID !== null">mdi-account-check </v-icon>
           </template>
 
-          <template v-slot:item.secondsLocked="{ item }">
+          <template v-slot:[`item.secondsLocked`]="{ item }">
             {{ calcHRT(item.secondsLocked) }}
           </template>
 
-          <template v-slot:item.lockProps="{ item }">
+          <template v-slot:[`item.lockProps`]="{ item }">
             <v-img v-if="item.cardInfoHidden" src="@/assets/chastikey/InfoHidden.png" width="28px" class="lockProps" />
             <v-img
               v-if="item.lockFrozenByKeyholder"

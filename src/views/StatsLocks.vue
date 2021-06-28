@@ -159,7 +159,7 @@
           class="elevation-1"
         >
           <!-- KH Level -->
-          <template v-slot:item.level="{ item }">
+          <template v-slot:[`item.level`]="{ item }">
             <v-chip
               class="ma-2"
               :style="[{ color: getLevelColorText(item.level) }]"
@@ -170,17 +170,17 @@
             >
           </template>
           <!-- Info Frozen % -->
-          <template v-slot:item.frozen="{ item }">
+          <template v-slot:[`item.frozen`]="{ item }">
             <v-chip class="ma-2" :color="getFrozenPercColor(item.frozen)" label small
               >{{ Math.round(item.frozen) }}%</v-chip
             >
           </template>
           <!-- Info Hidden % -->
-          <template v-slot:item.infoHidden="{ item }">
+          <template v-slot:[`item.infoHidden`]="{ item }">
             <v-chip class="ma-2" color="gray" label small>{{ Math.round(item.infoHidden) }}%</v-chip>
           </template>
           <!-- KH Rating % -->
-          <template v-slot:item.averageKeyholderRating="{ item }">
+          <template v-slot:[`item.averageKeyholderRating`]="{ item }">
             <v-chip v-if="item.averageKeyholderRating === 0" class="ma-2" color="gray" label small>N/A</v-chip>
             <v-chip
               v-else
@@ -193,7 +193,7 @@
             >
           </template>
           <!-- Trust % -->
-          <template v-slot:item.trust="{ item }">
+          <template v-slot:[`item.trust`]="{ item }">
             <v-chip class="ma-2" color="gray" label small>{{ Math.round(item.trust) }}%</v-chip>
           </template>
         </v-data-table>

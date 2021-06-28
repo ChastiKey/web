@@ -13,12 +13,12 @@
       }"
     >
       <!-- Start of DataTable customizations -->
-      <template v-slot:item.username="{ item }">
+      <template v-slot:[`item.username`]="{ item }">
         {{ item.username }}
         <v-icon color="green" v-if="item.discordID !== null">mdi-account-check </v-icon>
       </template>
 
-      <template v-slot:item.lockName="{ item }">
+      <template v-slot:[`item.lockName`]="{ item }">
         <!-- Display lock type: Fixed -vs- Variable -->
         <v-chip class="ma-1" :color="!item.fixed ? 'deep-purple accent-4' : 'indigo darken-3'" outlined small>
           <span v-if="!item.fixed">V</span>
@@ -32,17 +32,17 @@
         {{ item.lockName }}
       </template>
 
-      <template v-slot:item.timestampLocked="{ item }">
+      <template v-slot:[`item.timestampLocked`]="{ item }">
         {{ calcHRT(Date.now() / 1000 - item.timestampLocked) }}
       </template>
 
-      <template v-slot:item.timestampNextPick="{ item }">
+      <template v-slot:[`item.timestampNextPick`]="{ item }">
         <span v-if="item.timestampNextPick > Date.now() / 1000">{{
           calcHRT(item.timestampNextPick - Date.now() / 1000)
         }}</span>
       </template>
 
-      <template v-slot:item.lockProps="{ item }">
+      <template v-slot:[`item.lockProps`]="{ item }">
         <v-img v-if="item.cardInfoHidden" src="@/assets/chastikey/InfoHidden.png" width="28px" class="lockProps" />
         <v-img
           v-if="item.lockFrozenByKeyholder"
