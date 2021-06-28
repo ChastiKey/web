@@ -290,7 +290,8 @@ export default class StatsLocksView extends Vue {
         res.stats.distributionByCardsRemaining.yellowCards,
         res.stats.distributionByCardsRemaining.redCards,
         res.stats.distributionByCardsRemaining.doubleUpCards,
-        res.stats.distributionByCardsRemaining.freezeCards
+        res.stats.distributionByCardsRemaining.freezeCards,
+        res.stats.distributionByCardsRemaining.stickyCards
       ]
       this.data.distributionByLockLength.series = [
         {

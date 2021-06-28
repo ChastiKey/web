@@ -66,6 +66,7 @@ export class RunningLockCached {
   public greenCards!: number
   public redCards!: number
   public resetCards!: number
+  public stickyCards!: number
   public yellowCards!: number
 
   constructor(init?: Partial<RunningLockCached>) {
