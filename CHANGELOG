@@ -6,7 +6,11 @@
 - Updated: Locks Frozen Stat block header color to fit the 'Lock Frozen' theme.
 - Updated: Lockee Locks list styling and date time formatting.
 - Updated: Keyholder Available Locks modals.
+- Updated: Frequency values to format properly between mins/hr/hrs/ etc.
+- Updated: Layout of Lock modal.
 - Added: Sticky Card to stats.
+- Added: Frequency values to Keyholder Locks list on dashboard.
+- Added: Links to Running Keyholder locks table for navigating to user's public page.
 
 0.14.0
 - Updated: Dependancies audit fix.

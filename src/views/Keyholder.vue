@@ -89,8 +89,8 @@
 
       <!-- Shared Locks -->
       <v-container>
-        <v-row dense>
-          <v-col>
+        <v-row dense class="pb-3">
+          <v-col cols="8">
             <div class="title">
               Your Available Locks
               <v-progress-circular
@@ -102,7 +102,9 @@
               ></v-progress-circular>
             </div>
           </v-col>
-          <v-col></v-col>
+          <v-col cols="4">
+            <v-text-field label="Search Locks" v-model="search" single-line hide-details dense></v-text-field>
+          </v-col>
         </v-row>
 
         <!-- Shared Lock Modal -->
@@ -117,7 +119,7 @@
 
         <!-- Lock List -->
         <v-row dense>
-          <v-col cols="12" sm="6" md="4" lg="4" xl="4" v-for="(lock, i) in data.locks" :key="i">
+          <v-col cols="12" sm="6" md="6" lg="4" xl="4" v-for="(lock, i) in yourLocksList" :key="i">
             <v-card class="mx-auto" tile>
               <v-list-item dense>
                 <v-row dense>
@@ -127,8 +129,21 @@
                         ><span class="shared-lock-title">Shared Lock:</span>
                         {{ lock.lockName ? lock.lockName : String(`~ Unnamed Lock ~`) }}</v-list-item-title
                       >
-                      <v-list-item-subtitle
-                        >{{ lock.fixed === 1 ? 'Fixed Lock' : 'Variable Lock' }}
+                      <v-list-item-subtitle>
+                        <v-icon v-if="lock.fixed === 0">mdi-cards-outline</v-icon>
+                        <v-icon v-if="lock.fixed === 1">mdi-lock-clock</v-icon>
+                        {{ lock.fixed === 1 ? 'Fixed Lock' : 'Variable Lock' }}
+                        <br v-if="lock.fixed === 0" />
+                        <span v-if="lock.fixed === 0">
+                          <kbd>{{ formatFrequency(lock.regularity) }}</kbd>
+                          <span v-if="lock.cumulative === 0"> Non-Cumulative</span>
+                          <span v-if="lock.cumulative === 1"> Cumulative</span>
+                        </span>
+                        <br v-if="lock.lockees.length" />
+                        <span v-if="lock.lockees.length">
+                          <v-chip x-small label color="indigo white--text">{{ lock.lockees.length }}</v-chip> Active
+                          Lock<span v-if="lock.lockees.length > 1">s</span>
+                        </span>
                       </v-list-item-subtitle>
                     </v-list-item-content>
                   </v-col>
@@ -169,10 +184,15 @@
             ></KeyholderViewRunningLocks>
 
             <!-- No Locks to display message -->
-            <v-row align="center" justify="center" style="height: 300px;" v-if="!isLoading && data.locks.length === 0">
+            <v-row
+              align="center"
+              justify="center"
+              style="height: 300px;"
+              v-if="!isLoading && yourLocksList.length === 0"
+            >
               <span class="headline"><u>0</u> Active locks/lockees to show!</span>
             </v-row>
-            <v-row align="center" justify="center" v-if="!isLoading && data.locks.length === 0">
+            <v-row align="center" justify="center" v-if="!isLoading && yourLocksList.length === 0">
               <router-link to="/">Return to home</router-link>
             </v-row>
           </v-col>
@@ -197,9 +217,8 @@ import KeyholderViewRunningLocks from '@/components/KeyholderViewRunningLocks.vu
 // Defaults
 import { $KeyholderView } from '@/defaults/keyholder'
 
-// Objects
-import { KeyholderLock } from '@/objects/lock'
-import { ChastiKeyKeyholder } from '../objects/keyholder'
+// Utils
+import { formatFrequency } from '@/utils/time'
 
 @Component({
   components: {
@@ -213,8 +232,25 @@ export default class KeyholderView extends Vue {
   private data!: typeof $KeyholderView
   private isLoading = false
   private sharedLockModal = false
+  private search = ''
 
-  private async mounted() {
+  private formatFrequency = formatFrequency
+
+  private get yourLocksList() {
+    return this.search.replaceAll(/\s+/g, '') !== ''
+      ? this.data.locks
+          .filter(l => {
+            return new RegExp(`${this.search}`, 'gi').test(l.lockName as any)
+          })
+          .sort((a, b) => {
+            return b.lockees.length - a.lockees.length
+          })
+      : this.data.locks.sort((a, b) => {
+          return b.lockees.length - a.lockees.length
+        })
+  }
+
+  private mounted() {
     this.refreshLocksFromKiera()
   }
 

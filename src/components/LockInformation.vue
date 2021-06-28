@@ -17,16 +17,16 @@
         <!-- [Variable] Keys Disabled -->
         <span v-if="lock.keyDisabled === 1">Emergency Keys are Disabled!<br /></span>
         <!-- [Variable] Draw Frequency -->
-        <span v-if="lock.fixed === 0 && lock.cumulative === 0"
-          >Chance Every
-          <u>
-            <kbd>{{ lock.regularity }}hrs</kbd></u
-          >
-          (Non-Cumulative)<br
-        /></span>
-        <span v-if="lock.fixed === 0 && lock.cumulative === 1"
-          >Chance Every <u>{{ lock.regularity }}hrs</u> (Cumulative)<br
-        /></span>
+        <span v-if="lock.fixed === 0 && lock.cumulative === 0">
+          Chance Every
+          <kbd>{{ formatFrequency(lock.regularity) }}</kbd> (Non-Cumulative)
+          <br />
+        </span>
+        <span v-if="lock.fixed === 0 && lock.cumulative === 1">
+          Chance Every <kbd>{{ formatFrequency(lock.regularity) }}</kbd> (Cumulative)
+          <br />
+        </span>
+
         <!-- Info Hidden -->
         <span v-if="lock.cardInfoHidden">Card Info Hidden<br /></span>
         <span v-if="lock.timerHidden">Timer Hidden<br /></span>
@@ -103,7 +103,7 @@
               <v-img :src="cardImgURL('Freeze')" width="20px" />
               <!-- Card Range: Freeze -->
               <span class="counts">
-                <kbd>{{ lock.minYellows }}-{{ lock.maxYellows }}</kbd>
+                <kbd>{{ lock.minFreezes }}-{{ lock.maxFreezes }}</kbd>
               </span>
               <br />
             </v-col>
@@ -113,7 +113,7 @@
               <v-img :src="cardImgURL('DoubleUp')" width="20px" />
               <!-- Card Range: DoubleUp -->
               <span class="counts">
-                <kbd>{{ lock.minYellows }}-{{ lock.maxYellows }}</kbd>
+                <kbd>{{ lock.minDoubleUps }}-{{ lock.maxDoubleUps }}</kbd>
               </span>
               <br />
             </v-col>
@@ -123,7 +123,7 @@
               <v-img :src="cardImgURL('Reset')" width="20px" />
               <!-- Card Range: Reset -->
               <span class="counts">
-                <kbd>{{ lock.minYellows }}-{{ lock.maxYellows }}</kbd>
+                <kbd>{{ lock.minResets }}-{{ lock.maxResets }}</kbd>
               </span>
               <br />
             </v-col>
@@ -184,7 +184,7 @@ import { Component, Prop, Watch } from 'vue-property-decorator'
 import { KeyholderDataLock, KeyholderData } from 'chastikey.js/app/objects'
 
 // Utils
-import { calculateHumanTimeYearsMonthsDaysHoursFromMins } from '../utils/time'
+import { calculateHumanTimeYearsMonthsDaysHoursFromMins, formatFrequency } from '../utils/time'
 
 @Component({})
 export default class LockInformation extends Vue {
@@ -200,6 +200,7 @@ export default class LockInformation extends Vue {
   private forceShowViewLockButton!: boolean
 
   private calcHRTYMDH = calculateHumanTimeYearsMonthsDaysHoursFromMins
+  private formatFrequency = formatFrequency
 
   private cardImgURL(card: string) {
     return require(`@/assets/chastikey/${card}.png`)

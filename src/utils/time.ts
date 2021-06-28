@@ -46,7 +46,13 @@ export function calculateHumanTimeYearsMonthsDaysHoursFromMins(mins: number) {
   // Months
   if (mins >= 43800) return `${monthsToDate} mo.`
   // Days
-  if (mins >= 1440 && mins < 43800) return `${Math.round((mins / 60 / 24) * 100) / 100} days`
+  if (mins >= 1440 && mins < 43800) return `${Math.round((mins / 60 / 24) * 100) / 100} day(s)`
   // Hours
-  if (mins < 1440) return `${Math.round((mins / 60) * 100) / 100} hrs`
+  if (mins < 1440) return `${Math.round((mins / 60) * 100) / 100} hr(s)`
+}
+
+export function formatFrequency(frequency: number) {
+  if (frequency < 1) return `${frequency * 60}mins`
+  if (frequency === 1) return `${1}hr`
+  if (frequency > 1) return `${frequency}hrs`
 }

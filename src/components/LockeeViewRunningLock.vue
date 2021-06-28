@@ -46,11 +46,7 @@
         <!-- Regularity -->
         <v-chip color="gray" class="ma-1" label small v-if="!lock.fixed">
           <v-icon left>mdi-clock-outline</v-icon>
-          <span>{{ lock.regularity }}</span>
-          <span v-if="lock.regularity < 1">mins</span>
-          <span v-if="lock.regularity === 1">hr</span>
-          <span v-if="lock.regularity < 24 && lock.regularity > 1">hrs</span>
-          <span v-if="lock.regularity > 24">days</span>
+          <span>{{ formatFrequency(lock.regularity) }}</span>
         </v-chip>
         <!-- Multiple greens required -->
         <v-chip color="success" class="ma-1" label small v-if="lock.multipleGreensRequired">
@@ -60,21 +56,21 @@
 
       <!-- Discard Pile -->
       <div style="margin-top: 5px; padding: 5px;" v-if="lock.fixed === 0">
-        <span style="font-weight: 300; display: block; padding: 5px 0;"
-          >Discarded
+        <span style="font-weight: 300; display: block; padding: 5px 0;">
+          Discarded
 
           <v-tooltip color="rgba(68, 68, 68, 1)" bottom>
             <template v-slot:activator="{ on }">
               <v-icon style="display: inline-block;" v-on="on" small>mdi-information-outline</v-icon>
             </template>
-            <span
-              >The last ({{
+            <span>
+              The last ({{
                 lock.discardPile
                   .split(',')
                   .filter(c => !!c)
                   .slice(0, 15).length
-              }}) cards discarded</span
-            >
+              }}) cards discarded
+            </span>
           </v-tooltip>
         </span>
 
@@ -101,15 +97,16 @@ import { Component, Prop } from 'vue-property-decorator'
 import { RunningLockCached } from '@/objects/lock'
 
 // Utils
-import { calculateHumanTimeDDHHMM } from '@/utils/time'
+import { calculateHumanTimeDDHHMM, formatFrequency } from '@/utils/time'
 
 @Component({})
 export default class LockeeViewRunningLock extends Vue {
   @Prop({ default: () => new RunningLockCached() })
   private lock!: typeof RunningLockCached
-
   private isLoading = false
+
   private calcHRT = calculateHumanTimeDDHHMM
+  private formatFrequency = formatFrequency
 
   private cardImgURL(card: string) {
     return require(`@/assets/chastikey/${card}.png`)

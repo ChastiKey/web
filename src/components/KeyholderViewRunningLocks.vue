@@ -14,8 +14,10 @@
     >
       <!-- Start of DataTable customizations -->
       <template v-slot:[`item.username`]="{ item }">
-        {{ item.username }}
-        <v-icon color="green" v-if="item.discordID !== null">mdi-account-check </v-icon>
+        <router-link :to="{ path: `/user/${item.username}` }">
+          <v-icon color="green" v-if="item.discordID !== null">mdi-account-check </v-icon>
+          {{ item.username }}
+        </router-link>
       </template>
 
       <template v-slot:[`item.lockName`]="{ item }">
@@ -72,6 +74,8 @@ import { RunningLocksLock } from 'chastikey.js/app/objects'
 export default class KeyholderViewRunningLocks extends Vue {
   @Prop({ default: [] as Array<RunningLocksLock> })
   private runningLocks!: Array<RunningLocksLock>
+  private search = ''
+
   private calcHRT = calculateHumanTimeDDHHMM
 
   private tableHeadersVariable = [
@@ -87,7 +91,6 @@ export default class KeyholderViewRunningLocks extends Vue {
       sortable: false
     }
   ]
-  private search = ''
 }
 </script>
 
