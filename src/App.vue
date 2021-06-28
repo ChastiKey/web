@@ -35,7 +35,7 @@
               </v-list-item-title>
             </v-list-item>
           </template>
-          <template v-slot:selection="{ attr, on, item }">
+          <template v-slot:selection="{ item }">
             <v-icon left>mdi-person</v-icon>
             <span v-text="item.type"></span>:
             <strong><span style="padding-left: 5px;" v-text="item.name"></span></strong>
